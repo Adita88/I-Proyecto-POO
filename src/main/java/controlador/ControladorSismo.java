@@ -17,6 +17,7 @@ public class ControladorSismo {
     public static void main(String[] args) {
         System.out.println("Prueba GITHub ");
         System.out.println("Prueba GITHub 2");
+        System.out.println("Prueba GITHub 3");
     }
     
 }
