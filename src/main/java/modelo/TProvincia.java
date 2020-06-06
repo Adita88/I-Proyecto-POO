@@ -11,6 +11,12 @@ package modelo;
  */
 public enum TProvincia {
     
-    San_José, Alajuela, Cartago, Heredia, Guanacaste, Puntarenas, Limón,
+    San_José,
+    Alajuela,
+    Cartago,
+    Heredia,
+    Guanacaste,
+    Puntarenas,
+    Limón,
     No_Aplica;
 }

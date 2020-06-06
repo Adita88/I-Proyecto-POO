@@ -11,7 +11,11 @@ package modelo;
  */
 public enum TFalla {
     
-    Subduccion_Placas, Choque_Placas, Tectónico_Subducción, 
-    Deformación_Interna, Fallamiento_Local, Tectónico_Falla_Local;
+    Subduccion_Placas,
+    Choque_Placas,
+    Tectónico_Subducción,
+    Deformación_Interna,
+    Fallamiento_Local,
+    Tectónico_Falla_Local;
     
 }
