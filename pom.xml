@@ -12,9 +12,7 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>org.apache</groupId>
-            <artifactId>poi.ss.usermodel</artifactId>
-            <version>3.16</version>
+            
         </dependency>
     </dependencies>
 </project>
