@@ -5,15 +5,17 @@
  */
 package controlador;
 
+
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Iterator;
+import java.io.InputStream;
+import java.util.ArrayList;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-
 
 /**
  *
@@ -24,6 +26,8 @@ public class ControladorArchivo {
     private String nombreArchivo = "tablaSismos.xlsx";
     private String rutaArchivo = "C:\\Users\\Usuario\\Desktop\\primerProyectoPOO\\" + nombreArchivo;
     private String hoja = "Hoja1";
+    
+    //private ListIterator<> lista = new ListIterator<>();
 
     public ControladorArchivo() {
     }
@@ -51,40 +55,41 @@ public class ControladorArchivo {
     public String getHoja() {
         return hoja;
     }
-       
     
-    //private modelo.Archivo archivo;
-    
-    public boolean cargarArchivo(){
-        
-        try (FileInputStream file = new FileInputStream(new File(rutaArchivo))) {
-        //leer archivo
-            XSSFWorkbook workbook = new XSSFWorkbook(file);
-        //obtener la hoja que se va a leer
-            XSSFSheet sheet = workbook.getSheetAt(0);
-        //Obtener filas
-            Iterator<Row> rowIterator = sheet.iterator();
-            
-            Row row;
-            //Recorrer cada fila hasta llegar al final
-            while (rowIterator.hasNext()) {
-                row = rowIterator.next();
-                //Celdas por fila
-                Iterator<Cell> cellIterator = row.cellIterator();
-                Cell cell;
-                //Se recorre cada celda
-                while (cellIterator.hasNext()) {
-                    //Celda en especifico e imprimir
-                    cell = cellIterator.next();
-                    System.out.print(cell.getStringCellValue()+" | ");
+    public static ArrayList CargarExcel() {
+        ArrayList<String> arrayDatos = new ArrayList<>();
+        ArrayList<String> arrayFilas = new ArrayList<>();
+        try {
+            InputStream archivo = new FileInputStream(new File("C:\\Users\\Usuario\\Desktop\\primerProyectoPOO\\tablaSismos.xlsx"));
+            XSSFWorkbook wb = new XSSFWorkbook(archivo);
+            XSSFSheet sheet = wb.getSheetAt(0);
+
+            XSSFCell celda;
+            XSSFRow fila;
+            String datos = new String();
+
+            System.out.println("Apunto de entrar a loops");
+
+            System.out.println("" + sheet.getLastRowNum());
+
+            for (int i = 0; i < sheet.getLastRowNum() + 1; i++) {
+                fila = sheet.getRow(i);
+                for (int j = 0; j < fila.getLastCellNum(); j++) {
+                    celda = fila.getCell(j);
+                    System.out.println("Valor: " + celda.toString());
+                    arrayDatos.add(fila.getCell(j) + "|");
                 }
-                System.out.println();
+                arrayFilas.add(arrayDatos + "\n");
+                arrayDatos = new ArrayList<>();
             }
-    
+            System.out.println("Finalizado");
+            
+
         } catch (Exception e) {
-            e.getMessage();
+            // TODO: handle exception
+            System.out.println(e.getMessage());
         }
-       return true;
+        return arrayFilas;
     }
     
     public boolean guardar(modelo.Archivo unArchivo){

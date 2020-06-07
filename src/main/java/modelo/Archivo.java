@@ -50,12 +50,12 @@ public class Archivo {
         return hoja;
     }
 
-    @Override
-    public String toString() {
-        return "{" + "nombreArchivo=" + nombreArchivo 
-                + ", rutaArchivo=" + rutaArchivo 
-                + ", hoja=" + hoja + '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "{" + "nombreArchivo=" + nombreArchivo 
+//                + ", rutaArchivo=" + rutaArchivo 
+//                + ", hoja=" + hoja + '}';
+//    }
     
     
     
