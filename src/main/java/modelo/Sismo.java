@@ -124,5 +124,15 @@ public class Sismo {
     public void setProvincia(TProvincia provincia) {
         this.provincia = provincia;
     }
-            
+
+    @Override
+    public String toString() {
+        return "\nSismo{" + "momentoExacto: " + momentoExacto + ", profundidad: " + profundidad +
+                ", origenFalla: " + origenFalla + ", detalleFalla: " + detalleFalla +
+                ", magnitud: " + magnitud + ", latitud: " + latitud + ", longitud: " + longitud +
+                ", descripcionDetallada: " + descripcionDetallada + ", lugar: " + lugar +
+                ", provincia: " + provincia + '}';
+    }
+      
+    
 }
