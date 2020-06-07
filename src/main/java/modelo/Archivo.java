@@ -9,12 +9,55 @@ package modelo;
 /**
  *
  * @author Usuario
+ * 
  */
 public class Archivo {
     
-    private String nombreArchivo;
-    private String rutaArchivo;
-    private String hoja;
+    public String nombreArchivo = "tablaSismos.xlsx";
+    public String rutaArchivo = "C:\\Users\\Usuario\\Desktop\\primerProyectoPOO\\" + nombreArchivo;
+    public String hoja = "Hoja1";
+
+    public Archivo() {
+    }
+
+    public Archivo(String nombreArchivo, String rutaArchivo, String hoja) {
+        this.nombreArchivo = nombreArchivo;
+        this.rutaArchivo = rutaArchivo;
+        this.hoja = hoja;
+    }
+
+    public void setNombreArchivo(String nombreArchivo) {
+        this.nombreArchivo = nombreArchivo;
+    }
+
+    public void setRutaArchivo(String rutaArchivo) {
+        this.rutaArchivo = rutaArchivo;
+    }
+
+    public void setHoja(String hoja) {
+        this.hoja = hoja;
+    }
+
+    public String getNombreArchivo() {
+        return nombreArchivo;
+    }
+
+    public String getRutaArchivo() {
+        return rutaArchivo;
+    }
+
+    public String getHoja() {
+        return hoja;
+    }
+
+    @Override
+    public String toString() {
+        return "{" + "nombreArchivo=" + nombreArchivo 
+                + ", rutaArchivo=" + rutaArchivo 
+                + ", hoja=" + hoja + '}';
+    }
+    
+    
     
     
     
