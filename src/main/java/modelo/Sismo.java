@@ -5,7 +5,7 @@
  */
 package modelo;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 /**
  *
@@ -16,11 +16,10 @@ public class Sismo {
     /**
      * Variables de la clase Sismo
      */
-    private ZonedDateTime fecha;
-    private ZonedDateTime momentoExacto;
+    private Date momentoExacto;
     private double profundidad;
     private TFalla origenFalla;
-    private String detalle;
+    private String detalleFalla;
     private double magnitud;
     private double latitud;
     private double longitud;
@@ -31,12 +30,12 @@ public class Sismo {
     public Sismo() {
     }
 
-    public Sismo(ZonedDateTime fecha, ZonedDateTime momentoExacto, double profundidad, TFalla origenFalla, String detalle, double magnitud, double latitud, double longitud, String descripcionDetallada, TLugar lugar, TProvincia provincia) {
-        this.fecha = fecha;
+    public Sismo(Date momentoExacto, double profundidad, TFalla origenFalla, String detalleFalla, double magnitud, double latitud, double longitud, String descripcionDetallada, TLugar lugar, TProvincia provincia) {
+
         this.momentoExacto = momentoExacto;
         this.profundidad = profundidad;
         this.origenFalla = origenFalla;
-        this.detalle = detalle;
+        this.detalleFalla = detalleFalla;
         this.magnitud = magnitud;
         this.latitud = latitud;
         this.longitud = longitud;
@@ -45,19 +44,12 @@ public class Sismo {
         this.provincia = provincia;
     }
 
-    public ZonedDateTime getFecha() {
-        return fecha;
-    }
 
-    public void setFecha(ZonedDateTime fecha) {
-        this.fecha = fecha;
-    }
-
-    public ZonedDateTime getMomentoExacto() {
+    public Date getMomentoExacto() {
         return momentoExacto;
     }
 
-    public void setMomentoExacto(ZonedDateTime momentoExacto) {
+    public void setMomentoExacto(Date momentoExacto) {
         this.momentoExacto = momentoExacto;
     }
 
@@ -77,12 +69,12 @@ public class Sismo {
         this.origenFalla = origenFalla;
     }
 
-    public String getDetalle() {
-        return detalle;
+    public String getDetalleFalla() {
+        return detalleFalla;
     }
 
-    public void setDetalle(String detalle) {
-        this.detalle = detalle;
+    public void setDetalleFalla(String detalleFalla) {
+        this.detalleFalla = detalleFalla;
     }
 
     public double getMagnitud() {

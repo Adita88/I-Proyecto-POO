@@ -21,10 +21,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  */
 public class ControladorArchivo {
     
-    
-     private String nombreArchivo = "tablaSismos.xlsx";
-     private String rutaArchivo = "C:\\Users\\Usuario\\Desktop\\primerProyectoPOO\\" + nombreArchivo;
-     private String hoja = "Hoja1";
+    private String nombreArchivo = "tablaSismos.xlsx";
+    private String rutaArchivo = "C:\\Users\\Usuario\\Desktop\\primerProyectoPOO\\" + nombreArchivo;
+    private String hoja = "Hoja1";
 
     public ControladorArchivo() {
     }
@@ -85,9 +84,8 @@ public class ControladorArchivo {
         } catch (Exception e) {
             e.getMessage();
         }
-        return false;
-       
-        }
+       return true;
+    }
     
     public boolean guardar(modelo.Archivo unArchivo){
             return true ;  // el estudiante se ha agregado con éxito

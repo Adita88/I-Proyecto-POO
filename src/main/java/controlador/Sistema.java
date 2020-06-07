@@ -5,6 +5,8 @@
  */
 package controlador;
 
+import java.util.Date;
+
 /**
  *
  * @author Usuario
@@ -17,10 +19,20 @@ public class Sistema {
     ControladorSismos cSismos; 
     
     public static void main(String[] args) {
-        // TODO code application logic here
+        //Sistema elSistema= new Sistema();
+        System.out.println("LA HORA: " + new Date());
+        /*for(int i=0;i<10;i++){
+            int r= ((int) Math.random())%20;
+            elSistema.getcSismos().addSismo(new Sismo(new Date(), i+r, TFalla.Choque_Placas, "s" , i, i +"VAMOS POR RONDA ", TLugar.Marítimo, TProvincia.No_Aplica) );
+            
+        }*/
     }
 
     public Sistema() {
+        this.cArchivos = new ControladorArchivo();
+        this.cGraficos = new ControladorGraficos();
+        this.cMapas = new ControladorMapas();
+        this.cSismos = new ControladorSismos();
     }
 
     public Sistema(ControladorArchivo cArchivos, ControladorGraficos cGraficos, ControladorMapas cMapas, ControladorSismos cSismos) {
@@ -61,7 +73,4 @@ public class Sistema {
     public void setcSismos(ControladorSismos cSismos) {
         this.cSismos = cSismos;
     }
-    
-    
-    
 }
