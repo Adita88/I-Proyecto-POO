@@ -5,9 +5,11 @@
  */
 package visual;
 
+import javax.swing.ImageIcon;
+
 /**
  *
- * @author Usuario
+ * @author David B
  */
 public class Interfaz extends javax.swing.JFrame {
 
@@ -16,8 +18,6 @@ public class Interfaz extends javax.swing.JFrame {
      */
     public Interfaz() {
         initComponents();
-        this.setLocationRelativeTo(null);
-        
     }
 
     /**
@@ -29,23 +29,312 @@ public class Interfaz extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setUndecorated(true);
+        Paneles = new javax.swing.JLayeredPane();
+        Inicio = new javax.swing.JPanel();
+        botonNuevoSismo_Inicio = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        NuevoSismo = new javax.swing.JPanel();
+        RegistroSismos = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jPanel13 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        jPanel14 = new javax.swing.JPanel();
+        jPanel15 = new javax.swing.JPanel();
+        jPanel17 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema de Sismos");
+        setMaximumSize(new java.awt.Dimension(750, 380));
+        setMinimumSize(new java.awt.Dimension(750, 380));
+        setName("Base"); // NOI18N
+        setPreferredSize(new java.awt.Dimension(750, 380));
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Paneles.setMaximumSize(new java.awt.Dimension(750, 380));
+        Paneles.setMinimumSize(new java.awt.Dimension(750, 380));
+        Paneles.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Inicio.setBackground(new java.awt.Color(153, 255, 153));
+        Inicio.setMaximumSize(new java.awt.Dimension(750, 380));
+        Inicio.setMinimumSize(new java.awt.Dimension(750, 380));
+        Inicio.setPreferredSize(new java.awt.Dimension(750, 380));
+        Inicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        botonNuevoSismo_Inicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonNuevoSismo_InicioActionPerformed(evt);
+            }
+        });
+        Inicio.add(botonNuevoSismo_Inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, 260, 130));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/menuPrincipal.jpg"))); // NOI18N
+        Inicio.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 380));
+
+        Paneles.add(Inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        NuevoSismo.setBackground(new java.awt.Color(255, 102, 102));
+        NuevoSismo.setMaximumSize(new java.awt.Dimension(750, 380));
+        NuevoSismo.setMinimumSize(new java.awt.Dimension(750, 380));
+        NuevoSismo.setPreferredSize(new java.awt.Dimension(750, 380));
+
+        javax.swing.GroupLayout NuevoSismoLayout = new javax.swing.GroupLayout(NuevoSismo);
+        NuevoSismo.setLayout(NuevoSismoLayout);
+        NuevoSismoLayout.setHorizontalGroup(
+            NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+        NuevoSismoLayout.setVerticalGroup(
+            NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
         );
+
+        Paneles.add(NuevoSismo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        RegistroSismos.setMaximumSize(new java.awt.Dimension(750, 380));
+        RegistroSismos.setMinimumSize(new java.awt.Dimension(750, 380));
+        RegistroSismos.setPreferredSize(new java.awt.Dimension(750, 380));
+
+        javax.swing.GroupLayout RegistroSismosLayout = new javax.swing.GroupLayout(RegistroSismos);
+        RegistroSismos.setLayout(RegistroSismosLayout);
+        RegistroSismosLayout.setHorizontalGroup(
+            RegistroSismosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
+        RegistroSismosLayout.setVerticalGroup(
+            RegistroSismosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
+        );
+
+        Paneles.add(RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel6.setMaximumSize(new java.awt.Dimension(750, 380));
+        jPanel6.setMinimumSize(new java.awt.Dimension(750, 380));
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
+        );
+
+        Paneles.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel7.setMaximumSize(new java.awt.Dimension(750, 380));
+        jPanel7.setMinimumSize(new java.awt.Dimension(750, 380));
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
+        );
+
+        Paneles.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel8.setMaximumSize(new java.awt.Dimension(750, 380));
+        jPanel8.setMinimumSize(new java.awt.Dimension(750, 380));
+        jPanel8.setPreferredSize(new java.awt.Dimension(750, 380));
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
+        );
+
+        Paneles.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel9.setMaximumSize(new java.awt.Dimension(750, 380));
+        jPanel9.setMinimumSize(new java.awt.Dimension(750, 380));
+        jPanel9.setPreferredSize(new java.awt.Dimension(750, 380));
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
+        );
+
+        Paneles.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel10.setMaximumSize(new java.awt.Dimension(750, 380));
+        jPanel10.setMinimumSize(new java.awt.Dimension(750, 380));
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
+        );
+
+        Paneles.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel13.setMaximumSize(new java.awt.Dimension(750, 380));
+        jPanel13.setMinimumSize(new java.awt.Dimension(750, 380));
+
+        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
+        jPanel13.setLayout(jPanel13Layout);
+        jPanel13Layout.setHorizontalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
+        jPanel13Layout.setVerticalGroup(
+            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
+        );
+
+        Paneles.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel3.setMaximumSize(new java.awt.Dimension(750, 380));
+        jPanel3.setMinimumSize(new java.awt.Dimension(750, 380));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
+        );
+
+        Paneles.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel12.setMaximumSize(new java.awt.Dimension(750, 380));
+        jPanel12.setMinimumSize(new java.awt.Dimension(750, 380));
+        jPanel12.setPreferredSize(new java.awt.Dimension(750, 380));
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
+        );
+
+        Paneles.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel14.setMaximumSize(new java.awt.Dimension(750, 380));
+        jPanel14.setMinimumSize(new java.awt.Dimension(750, 380));
+        jPanel14.setPreferredSize(new java.awt.Dimension(750, 380));
+
+        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
+        jPanel14.setLayout(jPanel14Layout);
+        jPanel14Layout.setHorizontalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
+        jPanel14Layout.setVerticalGroup(
+            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
+        );
+
+        Paneles.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel15.setMaximumSize(new java.awt.Dimension(750, 380));
+        jPanel15.setMinimumSize(new java.awt.Dimension(750, 380));
+        jPanel15.setPreferredSize(new java.awt.Dimension(750, 380));
+
+        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
+        jPanel15.setLayout(jPanel15Layout);
+        jPanel15Layout.setHorizontalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
+        jPanel15Layout.setVerticalGroup(
+            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
+        );
+
+        Paneles.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel17.setMaximumSize(new java.awt.Dimension(750, 380));
+        jPanel17.setMinimumSize(new java.awt.Dimension(750, 380));
+        jPanel17.setPreferredSize(new java.awt.Dimension(750, 380));
+
+        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
+        jPanel17.setLayout(jPanel17Layout);
+        jPanel17Layout.setHorizontalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
+        jPanel17Layout.setVerticalGroup(
+            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
+        );
+
+        Paneles.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jPanel11.setMaximumSize(new java.awt.Dimension(750, 380));
+        jPanel11.setMinimumSize(new java.awt.Dimension(750, 380));
+        jPanel11.setPreferredSize(new java.awt.Dimension(750, 380));
+
+        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
+        jPanel11.setLayout(jPanel11Layout);
+        jPanel11Layout.setHorizontalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 750, Short.MAX_VALUE)
+        );
+        jPanel11Layout.setVerticalGroup(
+            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 380, Short.MAX_VALUE)
+        );
+
+        Paneles.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        getContentPane().add(Paneles, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void botonNuevoSismo_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoSismo_InicioActionPerformed
+        /*Paneles.removeAll();
+        Paneles.add(NuevoSismo);
+        Paneles.repaint();
+        Paneles.revalidate();*/
+        Inicio.setVisible(false);
+        NuevoSismo.setVisible(true);
+    }//GEN-LAST:event_botonNuevoSismo_InicioActionPerformed
+    
+    protected ImageIcon createImageIcon(String path,String description) {
+        java.net.URL imgURL = getClass().getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL, description);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+    }
+}
     /**
      * @param args the command line arguments
      */
@@ -79,8 +368,28 @@ public class Interfaz extends javax.swing.JFrame {
                 new Interfaz().setVisible(true);
             }
         });
+
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Inicio;
+    private javax.swing.JPanel NuevoSismo;
+    private javax.swing.JLayeredPane Paneles;
+    private javax.swing.JPanel RegistroSismos;
+    private javax.swing.JButton botonNuevoSismo_Inicio;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel13;
+    private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     // End of variables declaration//GEN-END:variables
 }
