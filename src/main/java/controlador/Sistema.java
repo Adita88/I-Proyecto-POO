@@ -6,6 +6,7 @@
 package controlador;
 
 import java.util.Date;
+import modelo.*;
 
 /**
  *
@@ -19,13 +20,24 @@ public class Sistema {
     ControladorSismos cSismos; 
     
     public static void main(String[] args) {
-        //Sistema elSistema= new Sistema();
-        System.out.println("LA HORA: " + new Date());
-        /*for(int i=0;i<10;i++){
-            int r= ((int) Math.random())%20;
-            elSistema.getcSismos().addSismo(new Sismo(new Date(), i+r, TFalla.Choque_Placas, "s" , i, i +"VAMOS POR RONDA ", TLugar.Marítimo, TProvincia.No_Aplica) );
-            
-        }*/
+        Sistema elSistema= new Sistema();
+        for(int i=0;i<3;i++){
+            int r= (int) (Math.random()* ((20 - 0) + 1) + 0);
+            Date fecha = new Date(2000+r, 1+i, 1+r+i, r+4, r+40, r+20+i);
+            Date fecha2 = new Date(1990+r+i, 1+i+r, 1+r+i+3, r+4, r+40, r+20+i);
+            elSistema.getcSismos().addSismo(new Sismo(fecha, 0, TFalla.Choque_Placas, "Cocos y Caribe", r+i*r, i,
+                                                      i, "Todo bien", TLugar.Marítimo, TProvincia.No_Aplica));
+            elSistema.getcSismos().addSismo(new Sismo(new Date(), 0, TFalla.Subduccion_Placas, "Playa", r*r,i,
+                                                      i, "Todo mal", TLugar.Terrestre, TProvincia.Guanacaste));
+            elSistema.getcSismos().addSismo(new Sismo(fecha2, 0, TFalla.Tectónico_Subducción, "City", i*r,i,
+                                                      i, "Todo normal", TLugar.Terrestre, TProvincia.San_Jose));
+        }
+        
+        System.out.println(elSistema.getcSismos().getSismos());
+        System.out.println("\n\n\nGET SISMOS FECHA:\n"+elSistema.getcSismos().getSismosOrdenadosFecha());
+        System.out.println("\n\n\nGET SISMOS MAGNITUD:\n"+elSistema.getcSismos().getSismosOrdenadosMagnitud((elSistema.getcSismos().getSismos()),true));
+        System.out.println("\n\n\n\nGET SISMOS FECHA:\n"+elSistema.getcSismos().getSismos());
+        
     }
 
     public Sistema() {
