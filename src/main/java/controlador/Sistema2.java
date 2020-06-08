@@ -5,9 +5,6 @@
  */
 package controlador;
 
-import java.util.ArrayList;
-import modelo.*;
-
 /**
  *
  * @author Usuario
@@ -43,9 +40,6 @@ public class Sistema2 {
         System.out.print(ControladorArchivo.CargarExcel());
         String nombreArchivo = "tablaSismos.xlsx";
         String [] data = {"29/02/2020", "09:56:02", "2.6", "4", "2.6 km ESE de Bijagua de Upala", "Fallamiento Local", "Bijagua de Upala", "10.7227"," -85.0358", "ver"};
-        //data = new ArrayList<>();
-        //data.add("29-feb.-2020, 09:56:02, 2.6, 4, 2.6 km ESE de Bijagua de Upala, Fallamiento Local, Bijagua de Upala, 10.7227, -85.0358, ver");
-        //data = {"29-feb.-2020", "09:56:02", "2.6", "4", "2.6 km ESE de Bijagua de Upala", "Fallamiento Local", "Bijagua de Upala", "10.7227"," -85.0358", "ver"}
         ControladorArchivo.modificarExcel(nombreArchivo, data);
         System.out.print(ControladorArchivo.CargarExcel());
         System.out.print("\n");
