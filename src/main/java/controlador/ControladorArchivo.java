@@ -9,6 +9,7 @@ package controlador;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -77,7 +78,7 @@ public class ControladorArchivo {
                 for (int j = 0; j < fila.getLastCellNum(); j++) {
                     celda = fila.getCell(j);
                     //System.out.println("Valor: " + celda.toString());
-                    arrayDatos.add(fila.getCell(j) + "|");
+                    arrayDatos.add(fila.getCell(j) + "     ");
                 }
                 arrayFilas.add(arrayDatos + "\n");
                 arrayDatos = new ArrayList<>();
@@ -90,6 +91,39 @@ public class ControladorArchivo {
             System.out.println(e.getMessage());
         }
         return arrayFilas;
+    }
+    
+    public static void modificarExcel(String nombreArchivo, String[] data) {
+        try {
+            InputStream archivo = new FileInputStream(new File(nombreArchivo));
+            XSSFWorkbook libroViejo = new XSSFWorkbook(archivo);
+
+            XSSFSheet hoja1 = libroViejo.getSheetAt(0);
+
+            XSSFRow filaVieja;
+
+            filaVieja = hoja1.createRow(hoja1.getLastRowNum() + 1);
+            for (int i = 0; i < data.length; i++) {// Tantos loops como info en el arreglo
+                XSSFCell cell = filaVieja.createCell(i);
+                cell.setCellValue(data[i]);
+            }
+
+            FileOutputStream fos = null;
+            File file;
+
+            file = new File(nombreArchivo);
+            fos = new FileOutputStream(file);
+
+            libroViejo.write(fos);
+            libroViejo.close();
+            fos.close();
+
+            System.out.println("Finalizado");
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+        }
     }
     
     public boolean guardar(modelo.Archivo unArchivo){
