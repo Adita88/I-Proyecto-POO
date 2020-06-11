@@ -29,6 +29,7 @@ public class Sismo {
 
     public Sismo() {
     }
+    
 
     public Sismo(Date momentoExacto, double profundidad, TFalla origenFalla, String detalleFalla, double magnitud, double latitud, double longitud, String descripcionDetallada, TLugar lugar, TProvincia provincia) {
 

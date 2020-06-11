@@ -38,6 +38,7 @@ public class Sistema {
         System.out.println("\n\n\nGET SISMOS MAGNITUD:\n"+elSistema.getcSismos().getSismosOrdenadosMagnitud((elSistema.getcSismos().getSismos()),true));
         System.out.println("\n\n\n\nGET SISMOS FECHA:\n"+elSistema.getcSismos().getSismos());
         
+                
     }
 
     public Sistema() {
