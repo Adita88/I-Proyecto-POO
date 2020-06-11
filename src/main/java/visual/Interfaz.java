@@ -224,7 +224,6 @@ public class Interfaz extends javax.swing.JFrame {
 
         ConfirmarSalida.setTitle("Confirmación de Salida");
         ConfirmarSalida.setAlwaysOnTop(true);
-        ConfirmarSalida.setMaximumSize(new java.awt.Dimension(306, 157));
         ConfirmarSalida.setMinimumSize(new java.awt.Dimension(306, 157));
         ConfirmarSalida.setSize(new java.awt.Dimension(306, 157));
         ConfirmarSalida.setType(java.awt.Window.Type.POPUP);
@@ -277,7 +276,6 @@ public class Interfaz extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Sismos");
         setBackground(new java.awt.Color(61, 90, 128));
-        setMaximumSize(new java.awt.Dimension(750, 380));
         setMinimumSize(new java.awt.Dimension(750, 380));
         setName("Base"); // NOI18N
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -296,6 +294,7 @@ public class Interfaz extends javax.swing.JFrame {
         botonNuevoSismo_Inicio.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         botonNuevoSismo_Inicio.setForeground(new java.awt.Color(29, 53, 87));
         botonNuevoSismo_Inicio.setText("Nuevo Simos");
+        botonNuevoSismo_Inicio.setActionCommand("Nuevo Sismos");
         botonNuevoSismo_Inicio.setBorderPainted(false);
         botonNuevoSismo_Inicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonNuevoSismo_Inicio.addActionListener(new java.awt.event.ActionListener() {
@@ -624,9 +623,9 @@ public class Interfaz extends javax.swing.JFrame {
                             .addComponent(textMagnitud_NuevoSismo)
                             .addComponent(inputMagnitud_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)))
                     .addGroup(NuevoSismoLayout.createSequentialGroup()
-                        .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textUbicacion_NuevoSismo)
-                            .addComponent(botonUbicacion_NuevoSismo))
+                        .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonUbicacion_NuevoSismo)
+                            .addComponent(textUbicacion_NuevoSismo))
                         .addGap(27, 27, 27)
                         .addComponent(scrollPaneDescripcionDetallada_NuevoSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)

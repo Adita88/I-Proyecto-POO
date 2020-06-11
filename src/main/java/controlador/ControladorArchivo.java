@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -82,44 +83,14 @@ public class ControladorArchivo {
             XSSFRow fila;
             String datos = new String();
 
-            //System.out.println("Apunto de entrar a loops");
-
-            //System.out.println("" + sheet.getLastRowNum());
-
             for (int i = 0; i < sheet.getLastRowNum() + 1; i++) {
                 fila = sheet.getRow(i);
                 for (int j = 0; j < fila.getLastCellNum(); j++) {
-                    celda = fila.getCell(j);
-                    //System.out.println("Valor: " + celda.toString());
                     arrayDatos.add(fila.getCell(j));
-                    switch(celda.getCellType()){
-                        case Cell.CELL_TYPE_NUMERIC:
-                            if( DateUtil.isCellDateFormatted(celda) ){
-                                System.out.println(celda.getDateCellValue());
-                            }else{
-                                System.out.println(celda.getNumericCellValue());
-                            }
-                            break;
-                        case Cell.CELL_TYPE_STRING:
-                            System.out.println(celda.getStringCellValue());
-                            break;
-                        case Cell.CELL_TYPE_BOOLEAN:
-                            System.out.println(celda.getBooleanCellValue());
-                            break;
-                    }
-                        
-                    }
-                    //System.out.println(fila.getCell(j));
                 }
-                //System.out.println(arrayDatos);
                 arrayFilas.add(arrayDatos + "\n");
-                //arrayDatos.get(0);
-                //System.out.println(arrayDatos);
-                //System.out.println(arrayFilas);
                 arrayDatos = new ArrayList<>();
-            
-            //System.out.println("Finalizado");
-            
+            }
 
         } catch (Exception e) {
             // TODO: handle exception
@@ -218,6 +189,19 @@ public class ControladorArchivo {
             System.out.println(e.getMessage());
         }
     }
+    
+//    public static ArrayList eliminarPrimerFila(){
+//        List<Object[]> list = HQL.list();
+//        ArrayList lista;
+//        lista = CargarExcel();
+//        lista.remove(lista.get(0)); 
+//        
+//        for(Object obj: lista){
+//            System.out.println(obj[0]);
+//            Date fecha = obj[0];
+//        }
+//        return lista;
+//    }
     
     public static ArrayList listaSismos(){
         ArrayList lista;

@@ -4,15 +4,18 @@
  * and open the template in the editor.
  */
 package visual;
+import controlador.ControladorArchivo;
 import controlador.ControladorGraficos;
 import static controlador.ControladorGraficos.graficoProvincia;
 import static controlador.ControladorGraficos.graficoTOrigen;
 import static controlador.ControladorGraficos.listaSismos;
+import controlador.pruebaControlador;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Date;
 import modelo.Sismo;
+import modelo.pruebaArchivo;
 
 /**
  *
@@ -40,17 +43,59 @@ public class Interfaz2 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnImportar = new javax.swing.JButton();
+        btnExportar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        datosExcel = new javax.swing.JTable();
+        btnGrafico = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        btnImportar.setText("jButton1");
+
+        btnExportar.setText("jButton2");
+
+        datosExcel.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10"
+            }
+        ));
+        jScrollPane1.setViewportView(datosExcel);
+
+        btnGrafico.setText("jButton1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 389, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnImportar)
+                        .addGap(114, 114, 114)
+                        .addComponent(btnExportar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnGrafico)
+                        .addGap(49, 49, 49))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 253, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnImportar)
+                    .addComponent(btnExportar)
+                    .addComponent(btnGrafico))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -84,16 +129,26 @@ public class Interfaz2 extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Interfaz2().setVisible(true);
-            }
-        });
+
+        System.out.println(ControladorArchivo.listaSismos());
+        //System.out.println(ControladorArchivo.CargarExcel());
+//        System.out.println(ControladorArchivo.eliminarPrimerFila());
+        //System.out.println(ControladorGraficos.listaSismos());
+        
+        
+//        pruebaArchivo ModeloEx = new pruebaArchivo();
+//        Interfaz2 VistaEx = new Interfaz2();
+//        pruebaControlador pruCont = new pruebaControlador(VistaEx, ModeloEx);
     }
     
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnExportar;
+    public javax.swing.JButton btnGrafico;
+    public javax.swing.JButton btnImportar;
+    public javax.swing.JTable datosExcel;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 
     

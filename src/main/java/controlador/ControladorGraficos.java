@@ -9,9 +9,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import modelo.*;
 
-import java.awt.Color;
-import java.awt.Graphics;
-
 /**
  *
  * @author Usuario
@@ -352,7 +349,8 @@ public class ControladorGraficos {
     public static void generarGraficoTabFecha(Date fecha, Date fecha2){
         modelo.Grafico.graficoTabFecha(fecha, fecha2);
     }
-    
+
+   
 
  
 }
