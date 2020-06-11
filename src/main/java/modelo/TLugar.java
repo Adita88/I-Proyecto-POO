@@ -12,5 +12,10 @@ package modelo;
 public enum TLugar {
     
     Marítimo, Terrestre;
+
+    @Override
+    public String toString() {
+        return this.name();
+    }
     
 }

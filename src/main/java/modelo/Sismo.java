@@ -31,6 +31,19 @@ public class Sismo {
     }
     
 
+    public Sismo(Date momentoExacto, double profundidad, TFalla origenFalla, String detalleFalla, double magnitud, String descripcionDetallada, TLugar lugar, TProvincia provincia) {
+        this.momentoExacto = momentoExacto;
+        this.profundidad = profundidad;
+        this.origenFalla = origenFalla;
+        this.detalleFalla = detalleFalla;
+        this.magnitud = magnitud;
+        this.descripcionDetallada = descripcionDetallada;
+        this.lugar = lugar;
+        this.provincia = provincia;
+    }
+
+    
+    
     public Sismo(Date momentoExacto, double profundidad, TFalla origenFalla, String detalleFalla, double magnitud, double latitud, double longitud, String descripcionDetallada, TLugar lugar, TProvincia provincia) {
 
         this.momentoExacto = momentoExacto;

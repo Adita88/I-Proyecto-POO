@@ -5,7 +5,22 @@
  */
 package visual;
 
+import java.awt.*;
+import javax.swing.JPanel;
+import modelo.*;
+import controlador.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFormattedTextField;
+import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -18,8 +33,116 @@ public class Interfaz extends javax.swing.JFrame {
      */
     public Interfaz() {
         initComponents();
+        setLocationRelativeTo(null);
+        ConfirmarSalida.setLocationRelativeTo(null);
+        asignarValoresListasNuevoSismo();
+        ocultarPanelesExceptoEste(Inicio);
+        
     }
+    
+    private void asignarValoresListasNuevoSismo(){
+        inputOrigenFallaLista_NuevoSismo.removeAllItems();
+        inputLugarLista_NuevoSismo1.removeAllItems();
+        inputProvinciaLista_NuevoSismo.removeAllItems();
+        for(TFalla i : TFalla.values()){
+            inputOrigenFallaLista_NuevoSismo.addItem(i.toString());
+        }
+        for(TLugar i : TLugar.values()){
+            inputLugarLista_NuevoSismo1.addItem(i.toString());
+        }
+        for(TProvincia i : TProvincia.values()){
+            inputProvinciaLista_NuevoSismo.addItem(i.toString());
+        } 
+    }
+    
+    private void ocultarPanelesExceptoEste(JPanel panel, boolean ... limpiarPanel){
+        boolean flagLimpiarPanel = (limpiarPanel.length >= 1) ? limpiarPanel[0] : false;
+        
+        for(Component componente : Paneles.getComponents()) 
+            if(componente instanceof JPanel)
+                componente.setVisible(false);
+        
+        if(flagLimpiarPanel) limpiarVentana(panel);
+        
+        panel.setVisible(true);
+    }
+    
+    private void limpiarVentana(JPanel panel){
+        for(Component componente : panel.getComponents()){   
+            if(componente instanceof JTextField){
+                JTextField comp = (JTextField) componente;
+                comp.setText("");
+            }
+            else if (componente instanceof JComboBox){
+                JComboBox comp = (JComboBox) componente;
+                comp.setSelectedIndex(0);
+            }
+        }
+    }
+    
+    private int cerrarPrograma(){
+        ConfirmarSalida.setVisible(true);
+        Paneles.setVisible(false);
+        return 0;
+    }
+    
 
+    class FormatoDia extends MaskFormatter{
+
+        public FormatoDia() throws ParseException{
+            super ("##/##/##");
+        }
+
+        private SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yy");
+
+        @Override
+        public Object stringToValue(String text) throws ParseException{
+            return formato.parseObject(text);
+        }
+
+        @Override
+        public String valueToString(Object value) throws ParseException{
+            if (value instanceof Date)
+                return formato.format((Date)value);
+            return formato.format(new Date());
+        }
+    }
+    
+    class FormatoHora extends MaskFormatter{
+
+        public FormatoHora() throws ParseException{
+            super ("##:##:##");
+        }
+        
+        private SimpleDateFormat formato = new SimpleDateFormat("kk:mm:ss");
+
+        @Override
+        public Object stringToValue(String text) throws ParseException{
+            return formato.parseObject(text);
+        }
+
+        @Override
+        public String valueToString(Object value) throws ParseException{
+            if (value instanceof Date)
+                return formato.format((Date)value);
+            return formato.format(new Date());
+        }
+    }
+    
+    private JFormattedTextField getFormatedTextHora(){
+        try{return new javax.swing.JFormattedTextField(new FormatoHora());
+        }catch(ParseException error){
+            return new javax.swing.JFormattedTextField();
+        }
+    }
+    
+    private JFormattedTextField getFormatedTextDia(){
+        try{return new javax.swing.JFormattedTextField(new FormatoDia());
+        }catch(ParseException error){
+            return new javax.swing.JFormattedTextField();
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,11 +152,62 @@ public class Interfaz extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        ConfirmarSalida = new javax.swing.JDialog();
+        botonAceptar_ConfirmarSalida = new javax.swing.JButton();
+        botonCancelar_ConfirmarSalida = new javax.swing.JButton();
+        textConfirmarSalida_ConfirmarSalida = new javax.swing.JLabel();
         Paneles = new javax.swing.JLayeredPane();
         Inicio = new javax.swing.JPanel();
         botonNuevoSismo_Inicio = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        botonRegistroSismos_Inicio = new javax.swing.JButton();
+        textTitulo_Inicio = new javax.swing.JLabel();
+        botonSalir_Inicio = new javax.swing.JButton();
+        detalle_Inicio = new javax.swing.JTextArea();
         NuevoSismo = new javax.swing.JPanel();
+        textTitulo_NuevoSismo = new javax.swing.JLabel();
+        textMomentoExacto_NuevoSismo = new javax.swing.JLabel();
+        botonEscogerFecha_NuevoSismo = new javax.swing.JButton();
+        textProfundidad_NuevoSismo = new javax.swing.JLabel();
+        textDetalle_Inicio = new javax.swing.JTextField();
+        validacionProfundidad_NuevoSismo = new javax.swing.JLabel();
+        textOrigenFalla_NuevoSismo = new javax.swing.JLabel();
+        inputOrigenFallaLista_NuevoSismo = new javax.swing.JComboBox<>();
+        textDetalleFalla_NuevoSismo = new javax.swing.JLabel();
+        inputDetalleFalla_NuevoSismo = new javax.swing.JTextField();
+        textMagnitud_NuevoSismo = new javax.swing.JLabel();
+        inputMagnitud_NuevoSismo = new javax.swing.JTextField();
+        validacionMagnitud_NuevoSismo = new javax.swing.JLabel();
+        textLugar_NuevoSismo = new javax.swing.JLabel();
+        inputLugarLista_NuevoSismo1 = new javax.swing.JComboBox<>();
+        textProvincia_NuevoSismo = new javax.swing.JLabel();
+        inputProvinciaLista_NuevoSismo = new javax.swing.JComboBox<>();
+        textUbicacion_NuevoSismo = new javax.swing.JLabel();
+        botonUbicacion_NuevoSismo = new javax.swing.JButton();
+        textDescripcion_NuevoSismo = new javax.swing.JLabel();
+        scrollPaneDescripcionDetallada_NuevoSismo = new javax.swing.JScrollPane();
+        inputDescripcionDetallada_NuevoSismo = new javax.swing.JTextArea();
+        botonAceptar_NuevoSismo = new javax.swing.JButton();
+        botonRegresar_NuevoSismo = new javax.swing.JButton();
+        botonSalir_NuevoSismo = new javax.swing.JButton();
+        NuevoSismo_Fecha = new javax.swing.JPanel();
+        textTitulo_NuevoSismo_Fecha = new javax.swing.JLabel();
+        textMomentoExacto_NuevoSismo_Fecha = new javax.swing.JLabel();
+        botonEscogerFecha_NuevoSismo_Fecha = new javax.swing.JButton();
+        textDia_NuevoSismo_Fecha = new javax.swing.JLabel();
+        inputDiaFormated_NuevoSismo_Fecha = getFormatedTextDia();
+        textHora_NuevoSismo_Fecha = new javax.swing.JLabel();
+        inputHoraFormated_NuevoSismo_Fecha = getFormatedTextHora();
+        botonAceptar_NuevoSismo_Fecha = new javax.swing.JButton();
+        botonSalir_NuevoSismo_Fecha = new javax.swing.JButton();
+        NuevoSismo_UbicacionMapa = new javax.swing.JPanel();
+        textTitulo_NuevoSismo_Ubicacion = new javax.swing.JLabel();
+        textLatitud_NuevoSismo_Ubicacion = new javax.swing.JLabel();
+        inputLatitudFormated_NuevoSismo_Ubicacion = new javax.swing.JFormattedTextField();
+        textLongitud_NuevoSismo_Ubicacion = new javax.swing.JLabel();
+        inputLongitudFormated_NuevoSismo_Ubicacion = new javax.swing.JFormattedTextField();
+        botonAceptar_NuevoSismo_Ubicacion = new javax.swing.JButton();
+        botonSalir_NuevoSismo_Ubicacion = new javax.swing.JButton();
+        mapa_NuevoSismo_Ubicacion = new javax.swing.JPanel();
         RegistroSismos = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -48,53 +222,645 @@ public class Interfaz extends javax.swing.JFrame {
         jPanel17 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
 
+        ConfirmarSalida.setTitle("Confirmación de Salida");
+        ConfirmarSalida.setAlwaysOnTop(true);
+        ConfirmarSalida.setMaximumSize(new java.awt.Dimension(306, 157));
+        ConfirmarSalida.setMinimumSize(new java.awt.Dimension(306, 157));
+        ConfirmarSalida.setSize(new java.awt.Dimension(306, 157));
+        ConfirmarSalida.setType(java.awt.Window.Type.POPUP);
+
+        botonAceptar_ConfirmarSalida.setText("Aceptar");
+        botonAceptar_ConfirmarSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptar_ConfirmarSalidaActionPerformed(evt);
+            }
+        });
+
+        botonCancelar_ConfirmarSalida.setText("Cancelar");
+        botonCancelar_ConfirmarSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCancelar_ConfirmarSalidaActionPerformed(evt);
+            }
+        });
+
+        textConfirmarSalida_ConfirmarSalida.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        textConfirmarSalida_ConfirmarSalida.setText("Desea terminar el programa?");
+
+        javax.swing.GroupLayout ConfirmarSalidaLayout = new javax.swing.GroupLayout(ConfirmarSalida.getContentPane());
+        ConfirmarSalida.getContentPane().setLayout(ConfirmarSalidaLayout);
+        ConfirmarSalidaLayout.setHorizontalGroup(
+            ConfirmarSalidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ConfirmarSalidaLayout.createSequentialGroup()
+                .addGroup(ConfirmarSalidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ConfirmarSalidaLayout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(botonAceptar_ConfirmarSalida, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(botonCancelar_ConfirmarSalida))
+                    .addGroup(ConfirmarSalidaLayout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(textConfirmarSalida_ConfirmarSalida)))
+                .addContainerGap(40, Short.MAX_VALUE))
+        );
+        ConfirmarSalidaLayout.setVerticalGroup(
+            ConfirmarSalidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ConfirmarSalidaLayout.createSequentialGroup()
+                .addContainerGap(43, Short.MAX_VALUE)
+                .addComponent(textConfirmarSalida_ConfirmarSalida)
+                .addGap(18, 18, 18)
+                .addGroup(ConfirmarSalidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonAceptar_ConfirmarSalida)
+                    .addComponent(botonCancelar_ConfirmarSalida))
+                .addGap(51, 51, 51))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Sismos");
+        setBackground(new java.awt.Color(61, 90, 128));
         setMaximumSize(new java.awt.Dimension(750, 380));
         setMinimumSize(new java.awt.Dimension(750, 380));
         setName("Base"); // NOI18N
-        setPreferredSize(new java.awt.Dimension(750, 380));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        Paneles.setBackground(new java.awt.Color(61, 90, 128));
         Paneles.setMaximumSize(new java.awt.Dimension(750, 380));
         Paneles.setMinimumSize(new java.awt.Dimension(750, 380));
         Paneles.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Inicio.setBackground(new java.awt.Color(153, 255, 153));
+        Inicio.setBackground(new java.awt.Color(29, 53, 87));
         Inicio.setMaximumSize(new java.awt.Dimension(750, 380));
         Inicio.setMinimumSize(new java.awt.Dimension(750, 380));
         Inicio.setPreferredSize(new java.awt.Dimension(750, 380));
-        Inicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        botonNuevoSismo_Inicio.setBackground(new java.awt.Color(168, 218, 220));
+        botonNuevoSismo_Inicio.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        botonNuevoSismo_Inicio.setForeground(new java.awt.Color(29, 53, 87));
+        botonNuevoSismo_Inicio.setText("Nuevo Simos");
+        botonNuevoSismo_Inicio.setBorderPainted(false);
+        botonNuevoSismo_Inicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonNuevoSismo_Inicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonNuevoSismo_InicioActionPerformed(evt);
             }
         });
-        Inicio.add(botonNuevoSismo_Inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, 260, 130));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/visual/menuPrincipal.jpg"))); // NOI18N
-        Inicio.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 380));
+        botonRegistroSismos_Inicio.setBackground(new java.awt.Color(168, 218, 220));
+        botonRegistroSismos_Inicio.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        botonRegistroSismos_Inicio.setForeground(new java.awt.Color(29, 53, 87));
+        botonRegistroSismos_Inicio.setText("Registro de Sismos");
+        botonRegistroSismos_Inicio.setBorderPainted(false);
+        botonRegistroSismos_Inicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonRegistroSismos_Inicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegistroSismos_InicioActionPerformed(evt);
+            }
+        });
+
+        textTitulo_Inicio.setBackground(new java.awt.Color(238, 108, 77));
+        textTitulo_Inicio.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        textTitulo_Inicio.setForeground(new java.awt.Color(241, 250, 238));
+        textTitulo_Inicio.setText("Inicio  ");
+
+        botonSalir_Inicio.setBackground(new java.awt.Color(255, 0, 0));
+        botonSalir_Inicio.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        botonSalir_Inicio.setForeground(new java.awt.Color(255, 255, 255));
+        botonSalir_Inicio.setText("Salir");
+        botonSalir_Inicio.setBorderPainted(false);
+        botonSalir_Inicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonSalir_Inicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalir_InicioActionPerformed(evt);
+            }
+        });
+
+        detalle_Inicio.setEditable(false);
+        detalle_Inicio.setBackground(new java.awt.Color(29, 53, 87));
+        detalle_Inicio.setColumns(20);
+        detalle_Inicio.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        detalle_Inicio.setForeground(new java.awt.Color(241, 250, 238));
+        detalle_Inicio.setRows(5);
+        detalle_Inicio.setText("En este sistema se pueden registrar\nnuevos sismos y ver el registro que\nse mantiene de estos.");
+        detalle_Inicio.setAutoscrolls(false);
+        detalle_Inicio.setBorder(null);
+        detalle_Inicio.setCaretColor(new java.awt.Color(61, 90, 128));
+        detalle_Inicio.setFocusable(false);
+
+        javax.swing.GroupLayout InicioLayout = new javax.swing.GroupLayout(Inicio);
+        Inicio.setLayout(InicioLayout);
+        InicioLayout.setHorizontalGroup(
+            InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(InicioLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textTitulo_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(detalle_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonNuevoSismo_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonRegistroSismos_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(InicioLayout.createSequentialGroup()
+                .addGap(650, 650, 650)
+                .addComponent(botonSalir_Inicio))
+        );
+        InicioLayout.setVerticalGroup(
+            InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(InicioLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(InicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(InicioLayout.createSequentialGroup()
+                        .addComponent(textTitulo_Inicio)
+                        .addGap(16, 16, 16)
+                        .addComponent(detalle_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(InicioLayout.createSequentialGroup()
+                        .addComponent(botonNuevoSismo_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(botonRegistroSismos_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(20, 20, 20)
+                .addComponent(botonSalir_Inicio))
+        );
 
         Paneles.add(Inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        NuevoSismo.setBackground(new java.awt.Color(255, 102, 102));
+        NuevoSismo.setBackground(new java.awt.Color(230, 57, 70));
         NuevoSismo.setMaximumSize(new java.awt.Dimension(750, 380));
         NuevoSismo.setMinimumSize(new java.awt.Dimension(750, 380));
         NuevoSismo.setPreferredSize(new java.awt.Dimension(750, 380));
+
+        textTitulo_NuevoSismo.setBackground(new java.awt.Color(29, 53, 87));
+        textTitulo_NuevoSismo.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        textTitulo_NuevoSismo.setForeground(new java.awt.Color(241, 250, 238));
+        textTitulo_NuevoSismo.setText(" Nuevo Sismo  ");
+        textTitulo_NuevoSismo.setOpaque(true);
+
+        textMomentoExacto_NuevoSismo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textMomentoExacto_NuevoSismo.setForeground(new java.awt.Color(241, 250, 238));
+        textMomentoExacto_NuevoSismo.setText("Momento Exacto:");
+
+        botonEscogerFecha_NuevoSismo.setBackground(new java.awt.Color(241, 250, 238));
+        botonEscogerFecha_NuevoSismo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        botonEscogerFecha_NuevoSismo.setForeground(new java.awt.Color(29, 53, 87));
+        botonEscogerFecha_NuevoSismo.setText("Escoger fecha");
+        botonEscogerFecha_NuevoSismo.setBorderPainted(false);
+        botonEscogerFecha_NuevoSismo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonEscogerFecha_NuevoSismo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEscogerFecha_NuevoSismoActionPerformed(evt);
+            }
+        });
+
+        textProfundidad_NuevoSismo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textProfundidad_NuevoSismo.setForeground(new java.awt.Color(241, 250, 238));
+        textProfundidad_NuevoSismo.setText("Profundidad:");
+
+        textDetalle_Inicio.setMaximumSize(new java.awt.Dimension(107, 23));
+        textDetalle_Inicio.setMinimumSize(new java.awt.Dimension(107, 23));
+        textDetalle_Inicio.setName(""); // NOI18N
+        textDetalle_Inicio.setPreferredSize(new java.awt.Dimension(107, 23));
+        textDetalle_Inicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textDetalle_InicioActionPerformed(evt);
+            }
+        });
+
+        validacionProfundidad_NuevoSismo.setForeground(new java.awt.Color(255, 255, 0));
+
+        textOrigenFalla_NuevoSismo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textOrigenFalla_NuevoSismo.setForeground(new java.awt.Color(241, 250, 238));
+        textOrigenFalla_NuevoSismo.setText("Origen de falla:");
+
+        inputOrigenFallaLista_NuevoSismo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        inputOrigenFallaLista_NuevoSismo.setMaximumSize(new java.awt.Dimension(107, 23));
+        inputOrigenFallaLista_NuevoSismo.setMinimumSize(new java.awt.Dimension(107, 23));
+        inputOrigenFallaLista_NuevoSismo.setName(""); // NOI18N
+        inputOrigenFallaLista_NuevoSismo.setPreferredSize(new java.awt.Dimension(107, 23));
+
+        textDetalleFalla_NuevoSismo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textDetalleFalla_NuevoSismo.setForeground(new java.awt.Color(241, 250, 238));
+        textDetalleFalla_NuevoSismo.setText("Detalle de Falla:");
+
+        inputDetalleFalla_NuevoSismo.setMaximumSize(new java.awt.Dimension(107, 23));
+        inputDetalleFalla_NuevoSismo.setMinimumSize(new java.awt.Dimension(107, 23));
+        inputDetalleFalla_NuevoSismo.setPreferredSize(new java.awt.Dimension(107, 23));
+        inputDetalleFalla_NuevoSismo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputDetalleFalla_NuevoSismoActionPerformed(evt);
+            }
+        });
+
+        textMagnitud_NuevoSismo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textMagnitud_NuevoSismo.setForeground(new java.awt.Color(241, 250, 238));
+        textMagnitud_NuevoSismo.setText("Magnitud:");
+
+        inputMagnitud_NuevoSismo.setMaximumSize(new java.awt.Dimension(107, 23));
+        inputMagnitud_NuevoSismo.setMinimumSize(new java.awt.Dimension(107, 23));
+        inputMagnitud_NuevoSismo.setPreferredSize(new java.awt.Dimension(107, 23));
+        inputMagnitud_NuevoSismo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputMagnitud_NuevoSismoActionPerformed(evt);
+            }
+        });
+
+        validacionMagnitud_NuevoSismo.setForeground(new java.awt.Color(255, 255, 0));
+
+        textLugar_NuevoSismo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textLugar_NuevoSismo.setForeground(new java.awt.Color(241, 250, 238));
+        textLugar_NuevoSismo.setText("Lugar:");
+
+        inputLugarLista_NuevoSismo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        inputLugarLista_NuevoSismo1.setMaximumSize(new java.awt.Dimension(107, 23));
+        inputLugarLista_NuevoSismo1.setMinimumSize(new java.awt.Dimension(107, 23));
+        inputLugarLista_NuevoSismo1.setName(""); // NOI18N
+        inputLugarLista_NuevoSismo1.setPreferredSize(new java.awt.Dimension(107, 23));
+
+        textProvincia_NuevoSismo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textProvincia_NuevoSismo.setForeground(new java.awt.Color(241, 250, 238));
+        textProvincia_NuevoSismo.setText("Provincia:");
+
+        inputProvinciaLista_NuevoSismo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        inputProvinciaLista_NuevoSismo.setMaximumSize(new java.awt.Dimension(107, 23));
+        inputProvinciaLista_NuevoSismo.setMinimumSize(new java.awt.Dimension(107, 23));
+        inputProvinciaLista_NuevoSismo.setName(""); // NOI18N
+        inputProvinciaLista_NuevoSismo.setPreferredSize(new java.awt.Dimension(107, 23));
+        inputProvinciaLista_NuevoSismo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputProvinciaLista_NuevoSismoActionPerformed(evt);
+            }
+        });
+
+        textUbicacion_NuevoSismo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textUbicacion_NuevoSismo.setForeground(new java.awt.Color(241, 250, 238));
+        textUbicacion_NuevoSismo.setText("Ubicación Exacta:");
+
+        botonUbicacion_NuevoSismo.setBackground(new java.awt.Color(241, 250, 238));
+        botonUbicacion_NuevoSismo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        botonUbicacion_NuevoSismo.setForeground(new java.awt.Color(29, 53, 87));
+        botonUbicacion_NuevoSismo.setText("Ubicación");
+        botonUbicacion_NuevoSismo.setBorderPainted(false);
+        botonUbicacion_NuevoSismo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonUbicacion_NuevoSismo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonUbicacion_NuevoSismoActionPerformed(evt);
+            }
+        });
+
+        textDescripcion_NuevoSismo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textDescripcion_NuevoSismo.setForeground(new java.awt.Color(241, 250, 238));
+        textDescripcion_NuevoSismo.setText("Descripción:");
+
+        scrollPaneDescripcionDetallada_NuevoSismo.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        inputDescripcionDetallada_NuevoSismo.setColumns(20);
+        inputDescripcionDetallada_NuevoSismo.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        inputDescripcionDetallada_NuevoSismo.setRows(5);
+        scrollPaneDescripcionDetallada_NuevoSismo.setViewportView(inputDescripcionDetallada_NuevoSismo);
+
+        botonAceptar_NuevoSismo.setText("Aceptar");
+        botonAceptar_NuevoSismo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptar_NuevoSismoActionPerformed(evt);
+            }
+        });
+
+        botonRegresar_NuevoSismo.setText("Regresar");
+        botonRegresar_NuevoSismo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegresar_NuevoSismoActionPerformed(evt);
+            }
+        });
+
+        botonSalir_NuevoSismo.setText("Salir");
+        botonSalir_NuevoSismo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalir_NuevoSismoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout NuevoSismoLayout = new javax.swing.GroupLayout(NuevoSismo);
         NuevoSismo.setLayout(NuevoSismoLayout);
         NuevoSismoLayout.setHorizontalGroup(
             NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
+            .addComponent(textTitulo_NuevoSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(NuevoSismoLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(NuevoSismoLayout.createSequentialGroup()
+                        .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textMomentoExacto_NuevoSismo)
+                            .addComponent(textProfundidad_NuevoSismo))
+                        .addGap(32, 32, 32)
+                        .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(textDetalle_Inicio, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                            .addComponent(botonEscogerFecha_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(NuevoSismoLayout.createSequentialGroup()
+                        .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textOrigenFalla_NuevoSismo)
+                            .addComponent(textDetalleFalla_NuevoSismo)
+                            .addComponent(textMagnitud_NuevoSismo))
+                        .addGap(44, 44, 44)
+                        .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(validacionMagnitud_NuevoSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(validacionProfundidad_NuevoSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputDetalleFalla_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                            .addComponent(inputOrigenFallaLista_NuevoSismo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(inputMagnitud_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addGap(39, 39, 39)
+                .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(NuevoSismoLayout.createSequentialGroup()
+                        .addComponent(textDescripcion_NuevoSismo)
+                        .addGap(18, 18, 18)
+                        .addComponent(scrollPaneDescripcionDetallada_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
+                    .addGroup(NuevoSismoLayout.createSequentialGroup()
+                        .addComponent(textUbicacion_NuevoSismo)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonUbicacion_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NuevoSismoLayout.createSequentialGroup()
+                        .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textProvincia_NuevoSismo)
+                            .addComponent(textLugar_NuevoSismo))
+                        .addGap(71, 71, 71)
+                        .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(inputLugarLista_NuevoSismo1, 0, 175, Short.MAX_VALUE)
+                            .addComponent(inputProvinciaLista_NuevoSismo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NuevoSismoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(botonAceptar_NuevoSismo)
+                .addGap(150, 150, 150)
+                .addComponent(botonRegresar_NuevoSismo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botonSalir_NuevoSismo)
+                .addContainerGap())
         );
         NuevoSismoLayout.setVerticalGroup(
             NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
+            .addGroup(NuevoSismoLayout.createSequentialGroup()
+                .addComponent(textTitulo_NuevoSismo)
+                .addGap(48, 48, 48)
+                .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textMomentoExacto_NuevoSismo)
+                    .addComponent(botonEscogerFecha_NuevoSismo)
+                    .addComponent(textLugar_NuevoSismo)
+                    .addComponent(inputLugarLista_NuevoSismo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textProfundidad_NuevoSismo)
+                    .addComponent(textDetalle_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textProvincia_NuevoSismo)
+                    .addComponent(inputProvinciaLista_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(3, 3, 3)
+                .addComponent(validacionProfundidad_NuevoSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(NuevoSismoLayout.createSequentialGroup()
+                        .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textOrigenFalla_NuevoSismo)
+                            .addComponent(inputOrigenFallaLista_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(27, 27, 27)
+                        .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textDetalleFalla_NuevoSismo)
+                            .addComponent(inputDetalleFalla_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(textDescripcion_NuevoSismo))
+                        .addGap(27, 27, 27)
+                        .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textMagnitud_NuevoSismo)
+                            .addComponent(inputMagnitud_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)))
+                    .addGroup(NuevoSismoLayout.createSequentialGroup()
+                        .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(textUbicacion_NuevoSismo)
+                            .addComponent(botonUbicacion_NuevoSismo))
+                        .addGap(27, 27, 27)
+                        .addComponent(scrollPaneDescripcionDetallada_NuevoSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(validacionMagnitud_NuevoSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonAceptar_NuevoSismo)
+                    .addComponent(botonRegresar_NuevoSismo)
+                    .addComponent(botonSalir_NuevoSismo))
+                .addGap(21, 21, 21))
         );
 
         Paneles.add(NuevoSismo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        NuevoSismo_Fecha.setBackground(new java.awt.Color(230, 57, 70));
+        NuevoSismo_Fecha.setMaximumSize(new java.awt.Dimension(750, 380));
+        NuevoSismo_Fecha.setMinimumSize(new java.awt.Dimension(750, 380));
+
+        textTitulo_NuevoSismo_Fecha.setBackground(new java.awt.Color(29, 53, 87));
+        textTitulo_NuevoSismo_Fecha.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        textTitulo_NuevoSismo_Fecha.setForeground(new java.awt.Color(241, 250, 238));
+        textTitulo_NuevoSismo_Fecha.setText(" Nuevo Sismo - Escoger Fecha ");
+        textTitulo_NuevoSismo_Fecha.setOpaque(true);
+
+        textMomentoExacto_NuevoSismo_Fecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textMomentoExacto_NuevoSismo_Fecha.setForeground(new java.awt.Color(241, 250, 238));
+        textMomentoExacto_NuevoSismo_Fecha.setText("Escoger este momento:");
+
+        botonEscogerFecha_NuevoSismo_Fecha.setBackground(new java.awt.Color(241, 250, 238));
+        botonEscogerFecha_NuevoSismo_Fecha.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        botonEscogerFecha_NuevoSismo_Fecha.setForeground(new java.awt.Color(29, 53, 87));
+        botonEscogerFecha_NuevoSismo_Fecha.setText("Ahora");
+        botonEscogerFecha_NuevoSismo_Fecha.setBorderPainted(false);
+        botonEscogerFecha_NuevoSismo_Fecha.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonEscogerFecha_NuevoSismo_Fecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEscogerFecha_NuevoSismo_FechaActionPerformed(evt);
+            }
+        });
+
+        textDia_NuevoSismo_Fecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textDia_NuevoSismo_Fecha.setForeground(new java.awt.Color(241, 250, 238));
+        textDia_NuevoSismo_Fecha.setText("Día:");
+
+        inputDiaFormated_NuevoSismo_Fecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputDiaFormated_NuevoSismo_FechaActionPerformed(evt);
+            }
+        });
+
+        textHora_NuevoSismo_Fecha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textHora_NuevoSismo_Fecha.setForeground(new java.awt.Color(241, 250, 238));
+        textHora_NuevoSismo_Fecha.setText("Hora:");
+
+        inputHoraFormated_NuevoSismo_Fecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputHoraFormated_NuevoSismo_FechaActionPerformed(evt);
+            }
+        });
+
+        botonAceptar_NuevoSismo_Fecha.setText("Aceptar");
+        botonAceptar_NuevoSismo_Fecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptar_NuevoSismo_FechaActionPerformed(evt);
+            }
+        });
+
+        botonSalir_NuevoSismo_Fecha.setText("Salir");
+        botonSalir_NuevoSismo_Fecha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalir_NuevoSismo_FechaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout NuevoSismo_FechaLayout = new javax.swing.GroupLayout(NuevoSismo_Fecha);
+        NuevoSismo_Fecha.setLayout(NuevoSismo_FechaLayout);
+        NuevoSismo_FechaLayout.setHorizontalGroup(
+            NuevoSismo_FechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(textTitulo_NuevoSismo_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(NuevoSismo_FechaLayout.createSequentialGroup()
+                .addGap(182, 182, 182)
+                .addGroup(NuevoSismo_FechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(NuevoSismo_FechaLayout.createSequentialGroup()
+                        .addGroup(NuevoSismo_FechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(textDia_NuevoSismo_Fecha)
+                            .addGroup(NuevoSismo_FechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(NuevoSismo_FechaLayout.createSequentialGroup()
+                                    .addComponent(textMomentoExacto_NuevoSismo_Fecha)
+                                    .addGap(32, 32, 32)
+                                    .addComponent(botonEscogerFecha_NuevoSismo_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(NuevoSismo_FechaLayout.createSequentialGroup()
+                                    .addComponent(inputDiaFormated_NuevoSismo_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(NuevoSismo_FechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(textHora_NuevoSismo_Fecha)
+                                        .addComponent(inputHoraFormated_NuevoSismo_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(NuevoSismo_FechaLayout.createSequentialGroup()
+                        .addGap(151, 151, 151)
+                        .addComponent(botonAceptar_NuevoSismo_Fecha)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonSalir_NuevoSismo_Fecha)
+                        .addGap(31, 31, 31))))
+        );
+        NuevoSismo_FechaLayout.setVerticalGroup(
+            NuevoSismo_FechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(NuevoSismo_FechaLayout.createSequentialGroup()
+                .addComponent(textTitulo_NuevoSismo_Fecha)
+                .addGap(45, 45, 45)
+                .addGroup(NuevoSismo_FechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textMomentoExacto_NuevoSismo_Fecha)
+                    .addComponent(botonEscogerFecha_NuevoSismo_Fecha))
+                .addGap(63, 63, 63)
+                .addGroup(NuevoSismo_FechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textDia_NuevoSismo_Fecha)
+                    .addComponent(textHora_NuevoSismo_Fecha))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(NuevoSismo_FechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inputDiaFormated_NuevoSismo_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputHoraFormated_NuevoSismo_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addGroup(NuevoSismo_FechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonAceptar_NuevoSismo_Fecha)
+                    .addComponent(botonSalir_NuevoSismo_Fecha))
+                .addGap(21, 21, 21))
+        );
+
+        Paneles.add(NuevoSismo_Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        NuevoSismo_UbicacionMapa.setBackground(new java.awt.Color(230, 57, 70));
+        NuevoSismo_UbicacionMapa.setMaximumSize(new java.awt.Dimension(750, 380));
+        NuevoSismo_UbicacionMapa.setMinimumSize(new java.awt.Dimension(750, 380));
+
+        textTitulo_NuevoSismo_Ubicacion.setBackground(new java.awt.Color(29, 53, 87));
+        textTitulo_NuevoSismo_Ubicacion.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        textTitulo_NuevoSismo_Ubicacion.setForeground(new java.awt.Color(241, 250, 238));
+        textTitulo_NuevoSismo_Ubicacion.setText(" Nuevo Sismo - Definir Ubicación ");
+        textTitulo_NuevoSismo_Ubicacion.setOpaque(true);
+
+        textLatitud_NuevoSismo_Ubicacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textLatitud_NuevoSismo_Ubicacion.setForeground(new java.awt.Color(241, 250, 238));
+        textLatitud_NuevoSismo_Ubicacion.setText("Latitud:");
+
+        inputLatitudFormated_NuevoSismo_Ubicacion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0.0000000000"))));
+        inputLatitudFormated_NuevoSismo_Ubicacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputLatitudFormated_NuevoSismo_UbicacionActionPerformed(evt);
+            }
+        });
+
+        textLongitud_NuevoSismo_Ubicacion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textLongitud_NuevoSismo_Ubicacion.setForeground(new java.awt.Color(241, 250, 238));
+        textLongitud_NuevoSismo_Ubicacion.setText("Longitud:");
+
+        inputLongitudFormated_NuevoSismo_Ubicacion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0.0000000000"))));
+        inputLongitudFormated_NuevoSismo_Ubicacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputLongitudFormated_NuevoSismo_UbicacionActionPerformed(evt);
+            }
+        });
+
+        botonAceptar_NuevoSismo_Ubicacion.setText("Aceptar");
+        botonAceptar_NuevoSismo_Ubicacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptar_NuevoSismo_UbicacionActionPerformed(evt);
+            }
+        });
+
+        botonSalir_NuevoSismo_Ubicacion.setText("Salir");
+        botonSalir_NuevoSismo_Ubicacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalir_NuevoSismo_UbicacionActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout mapa_NuevoSismo_UbicacionLayout = new javax.swing.GroupLayout(mapa_NuevoSismo_Ubicacion);
+        mapa_NuevoSismo_Ubicacion.setLayout(mapa_NuevoSismo_UbicacionLayout);
+        mapa_NuevoSismo_UbicacionLayout.setHorizontalGroup(
+            mapa_NuevoSismo_UbicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 611, Short.MAX_VALUE)
+        );
+        mapa_NuevoSismo_UbicacionLayout.setVerticalGroup(
+            mapa_NuevoSismo_UbicacionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout NuevoSismo_UbicacionMapaLayout = new javax.swing.GroupLayout(NuevoSismo_UbicacionMapa);
+        NuevoSismo_UbicacionMapa.setLayout(NuevoSismo_UbicacionMapaLayout);
+        NuevoSismo_UbicacionMapaLayout.setHorizontalGroup(
+            NuevoSismo_UbicacionMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NuevoSismo_UbicacionMapaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(mapa_NuevoSismo_Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(NuevoSismo_UbicacionMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(botonAceptar_NuevoSismo_Ubicacion)
+                    .addComponent(botonSalir_NuevoSismo_Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
+            .addGroup(NuevoSismo_UbicacionMapaLayout.createSequentialGroup()
+                .addGroup(NuevoSismo_UbicacionMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textTitulo_NuevoSismo_Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(NuevoSismo_UbicacionMapaLayout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(textLatitud_NuevoSismo_Ubicacion)
+                        .addGap(2, 2, 2)
+                        .addComponent(inputLatitudFormated_NuevoSismo_Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(textLongitud_NuevoSismo_Ubicacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(inputLongitudFormated_NuevoSismo_Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        NuevoSismo_UbicacionMapaLayout.setVerticalGroup(
+            NuevoSismo_UbicacionMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(NuevoSismo_UbicacionMapaLayout.createSequentialGroup()
+                .addComponent(textTitulo_NuevoSismo_Ubicacion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(NuevoSismo_UbicacionMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textLatitud_NuevoSismo_Ubicacion)
+                    .addComponent(textLongitud_NuevoSismo_Ubicacion)
+                    .addComponent(inputLongitudFormated_NuevoSismo_Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputLatitudFormated_NuevoSismo_Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(NuevoSismo_UbicacionMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(NuevoSismo_UbicacionMapaLayout.createSequentialGroup()
+                        .addGap(0, 223, Short.MAX_VALUE)
+                        .addComponent(botonAceptar_NuevoSismo_Ubicacion)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonSalir_NuevoSismo_Ubicacion))
+                    .addComponent(mapa_NuevoSismo_Ubicacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
+        );
+
+        Paneles.add(NuevoSismo_UbicacionMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         RegistroSismos.setMaximumSize(new java.awt.Dimension(750, 380));
         RegistroSismos.setMinimumSize(new java.awt.Dimension(750, 380));
@@ -318,23 +1084,118 @@ public class Interfaz extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonNuevoSismo_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoSismo_InicioActionPerformed
-        /*Paneles.removeAll();
-        Paneles.add(NuevoSismo);
-        Paneles.repaint();
-        Paneles.revalidate();*/
-        Inicio.setVisible(false);
-        NuevoSismo.setVisible(true);
+        ocultarPanelesExceptoEste(NuevoSismo,true);
     }//GEN-LAST:event_botonNuevoSismo_InicioActionPerformed
+
+    private void botonRegistroSismos_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistroSismos_InicioActionPerformed
+        ocultarPanelesExceptoEste(RegistroSismos);
+    }//GEN-LAST:event_botonRegistroSismos_InicioActionPerformed
+
+    private void botonSalir_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir_InicioActionPerformed
+        cerrarPrograma();
+    }//GEN-LAST:event_botonSalir_InicioActionPerformed
+
+    private void inputMagnitud_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputMagnitud_NuevoSismoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputMagnitud_NuevoSismoActionPerformed
+
+    private void inputDetalleFalla_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDetalleFalla_NuevoSismoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputDetalleFalla_NuevoSismoActionPerformed
+
+    private void botonAceptar_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar_NuevoSismoActionPerformed
+        String antiHexadecimal= "abcdefAbcdef";
+        try{
+            String stringProf= textDetalle_Inicio.getText();
+            if(stringProf.contains(antiHexadecimal)) throw new NumberFormatException();
+            double profundidad= Double.parseDouble(stringProf);
+            validacionProfundidad_NuevoSismo.setText("");
+        } catch (NumberFormatException error){
+            validacionProfundidad_NuevoSismo.setText("Dato invalido");
+        }
+        try{
+            String stringMag= inputMagnitud_NuevoSismo.getText();
+            if(stringMag.contains(antiHexadecimal)) throw new NumberFormatException();
+            double magnitud= Double.parseDouble(stringMag);
+            validacionMagnitud_NuevoSismo.setText("");
+        } catch (NumberFormatException error){
+            validacionMagnitud_NuevoSismo.setText("Dato invalido");
+        }
+        
+    }//GEN-LAST:event_botonAceptar_NuevoSismoActionPerformed
+
+    private void textDetalle_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDetalle_InicioActionPerformed
+
+    }//GEN-LAST:event_textDetalle_InicioActionPerformed
+
+    private void botonUbicacion_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonUbicacion_NuevoSismoActionPerformed
+        ocultarPanelesExceptoEste(NuevoSismo_UbicacionMapa);
+    }//GEN-LAST:event_botonUbicacion_NuevoSismoActionPerformed
+
+    private void inputProvinciaLista_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputProvinciaLista_NuevoSismoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputProvinciaLista_NuevoSismoActionPerformed
+
+    private void botonRegresar_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar_NuevoSismoActionPerformed
+        ocultarPanelesExceptoEste(Inicio);
+    }//GEN-LAST:event_botonRegresar_NuevoSismoActionPerformed
+
+    private void botonAceptar_ConfirmarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar_ConfirmarSalidaActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_botonAceptar_ConfirmarSalidaActionPerformed
+
+    private void botonSalir_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir_NuevoSismoActionPerformed
+        ConfirmarSalida.setVisible(true);
+    }//GEN-LAST:event_botonSalir_NuevoSismoActionPerformed
+
+    private void botonCancelar_ConfirmarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCancelar_ConfirmarSalidaActionPerformed
+        ConfirmarSalida.setVisible(false);
+        Paneles.setVisible(true);
+    }//GEN-LAST:event_botonCancelar_ConfirmarSalidaActionPerformed
+
+    private void botonAceptar_NuevoSismo_FechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar_NuevoSismo_FechaActionPerformed
+        ocultarPanelesExceptoEste(NuevoSismo);
+    }//GEN-LAST:event_botonAceptar_NuevoSismo_FechaActionPerformed
+
+    private void botonSalir_NuevoSismo_FechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir_NuevoSismo_FechaActionPerformed
+        cerrarPrograma();
+    }//GEN-LAST:event_botonSalir_NuevoSismo_FechaActionPerformed
+
+    private void botonEscogerFecha_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEscogerFecha_NuevoSismoActionPerformed
+        ocultarPanelesExceptoEste(NuevoSismo_Fecha);
+    }//GEN-LAST:event_botonEscogerFecha_NuevoSismoActionPerformed
+
+    private void botonEscogerFecha_NuevoSismo_FechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEscogerFecha_NuevoSismo_FechaActionPerformed
+        Date now= new Date();
+        inputDiaFormated_NuevoSismo_Fecha.setValue(now);
+        inputHoraFormated_NuevoSismo_Fecha.setValue(now);
+    }//GEN-LAST:event_botonEscogerFecha_NuevoSismo_FechaActionPerformed
+
+    private void inputDiaFormated_NuevoSismo_FechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDiaFormated_NuevoSismo_FechaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputDiaFormated_NuevoSismo_FechaActionPerformed
+
+    private void inputHoraFormated_NuevoSismo_FechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputHoraFormated_NuevoSismo_FechaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputHoraFormated_NuevoSismo_FechaActionPerformed
+
+    private void inputLatitudFormated_NuevoSismo_UbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputLatitudFormated_NuevoSismo_UbicacionActionPerformed
+        
+    }//GEN-LAST:event_inputLatitudFormated_NuevoSismo_UbicacionActionPerformed
+
+    private void inputLongitudFormated_NuevoSismo_UbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputLongitudFormated_NuevoSismo_UbicacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputLongitudFormated_NuevoSismo_UbicacionActionPerformed
+
+    private void botonAceptar_NuevoSismo_UbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar_NuevoSismo_UbicacionActionPerformed
+        ocultarPanelesExceptoEste(NuevoSismo);
+    }//GEN-LAST:event_botonAceptar_NuevoSismo_UbicacionActionPerformed
+
+    private void botonSalir_NuevoSismo_UbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir_NuevoSismo_UbicacionActionPerformed
+        cerrarPrograma();
+    }//GEN-LAST:event_botonSalir_NuevoSismo_UbicacionActionPerformed
     
-    protected ImageIcon createImageIcon(String path,String description) {
-        java.net.URL imgURL = getClass().getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL, description);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-    }
-}
+
     /**
      * @param args the command line arguments
      */
@@ -368,17 +1229,44 @@ public class Interfaz extends javax.swing.JFrame {
                 new Interfaz().setVisible(true);
             }
         });
-
-
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDialog ConfirmarSalida;
     private javax.swing.JPanel Inicio;
     private javax.swing.JPanel NuevoSismo;
+    private javax.swing.JPanel NuevoSismo_Fecha;
+    private javax.swing.JPanel NuevoSismo_UbicacionMapa;
     private javax.swing.JLayeredPane Paneles;
     private javax.swing.JPanel RegistroSismos;
+    private javax.swing.JButton botonAceptar_ConfirmarSalida;
+    private javax.swing.JButton botonAceptar_NuevoSismo;
+    private javax.swing.JButton botonAceptar_NuevoSismo_Fecha;
+    private javax.swing.JButton botonAceptar_NuevoSismo_Ubicacion;
+    private javax.swing.JButton botonCancelar_ConfirmarSalida;
+    private javax.swing.JButton botonEscogerFecha_NuevoSismo;
+    private javax.swing.JButton botonEscogerFecha_NuevoSismo_Fecha;
     private javax.swing.JButton botonNuevoSismo_Inicio;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton botonRegistroSismos_Inicio;
+    private javax.swing.JButton botonRegresar_NuevoSismo;
+    private javax.swing.JButton botonSalir_Inicio;
+    private javax.swing.JButton botonSalir_NuevoSismo;
+    private javax.swing.JButton botonSalir_NuevoSismo_Fecha;
+    private javax.swing.JButton botonSalir_NuevoSismo_Ubicacion;
+    private javax.swing.JButton botonUbicacion_NuevoSismo;
+    private javax.swing.JTextArea detalle_Inicio;
+    private javax.swing.JTextArea inputDescripcionDetallada_NuevoSismo;
+    private javax.swing.JTextField inputDetalleFalla_NuevoSismo;
+    private javax.swing.JFormattedTextField inputDiaFormated_NuevoSismo_Fecha;
+    private javax.swing.JFormattedTextField inputHoraFormated_NuevoSismo_Fecha;
+    private javax.swing.JFormattedTextField inputLatitudFormated_NuevoSismo_Ubicacion;
+    private javax.swing.JFormattedTextField inputLongitudFormated_NuevoSismo_Ubicacion;
+    private javax.swing.JComboBox<String> inputLugarLista_NuevoSismo1;
+    private javax.swing.JTextField inputMagnitud_NuevoSismo;
+    private javax.swing.JComboBox<String> inputOrigenFallaLista_NuevoSismo;
+    private javax.swing.JComboBox<String> inputProvinciaLista_NuevoSismo;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
@@ -391,5 +1279,29 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel mapa_NuevoSismo_Ubicacion;
+    private javax.swing.JScrollPane scrollPaneDescripcionDetallada_NuevoSismo;
+    private javax.swing.JLabel textConfirmarSalida_ConfirmarSalida;
+    private javax.swing.JLabel textDescripcion_NuevoSismo;
+    private javax.swing.JLabel textDetalleFalla_NuevoSismo;
+    private javax.swing.JTextField textDetalle_Inicio;
+    private javax.swing.JLabel textDia_NuevoSismo_Fecha;
+    private javax.swing.JLabel textHora_NuevoSismo_Fecha;
+    private javax.swing.JLabel textLatitud_NuevoSismo_Ubicacion;
+    private javax.swing.JLabel textLongitud_NuevoSismo_Ubicacion;
+    private javax.swing.JLabel textLugar_NuevoSismo;
+    private javax.swing.JLabel textMagnitud_NuevoSismo;
+    private javax.swing.JLabel textMomentoExacto_NuevoSismo;
+    private javax.swing.JLabel textMomentoExacto_NuevoSismo_Fecha;
+    private javax.swing.JLabel textOrigenFalla_NuevoSismo;
+    private javax.swing.JLabel textProfundidad_NuevoSismo;
+    private javax.swing.JLabel textProvincia_NuevoSismo;
+    private javax.swing.JLabel textTitulo_Inicio;
+    private javax.swing.JLabel textTitulo_NuevoSismo;
+    private javax.swing.JLabel textTitulo_NuevoSismo_Fecha;
+    private javax.swing.JLabel textTitulo_NuevoSismo_Ubicacion;
+    private javax.swing.JLabel textUbicacion_NuevoSismo;
+    private javax.swing.JLabel validacionMagnitud_NuevoSismo;
+    private javax.swing.JLabel validacionProfundidad_NuevoSismo;
     // End of variables declaration//GEN-END:variables
 }
