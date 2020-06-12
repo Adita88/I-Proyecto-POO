@@ -130,9 +130,9 @@ public class Interfaz2 extends javax.swing.JFrame {
 
     public void graficar(){
         //controlador.ControladorGraficos.generarGraficoH();
-        //ControladorGraficos.generarGraficoBarras(fecha);
-        //ControladorGraficos.generarGraficoPastel();
-        //ControladorGraficos.generarGraficoTabFecha(fecha, fecha2);
-        //ControladorGraficos.generarGraficoTabMagnitud();
+        //controlador.ControladorGraficos.generarGraficoBarras(fecha);
+        //controlador.ControladorGraficos.generarGraficoPastel();
+        //controlador.ControladorGraficos.generarGraficoTabFecha(fecha, fecha2);
+        //controlador.ControladorGraficos.generarGraficoTabMagnitud();
     }
 }
