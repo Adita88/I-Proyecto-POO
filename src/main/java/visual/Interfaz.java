@@ -249,9 +249,8 @@ public class Interfaz extends javax.swing.JFrame {
         textTitulo_VentanaIntermedia = new javax.swing.JLabel();
         botonRegresar_VentanaIntermedia = new javax.swing.JButton();
         botonSalir_NuevoSismo_Ubicacion1 = new javax.swing.JButton();
-        todosSismos_VentanaIntermedia = new javax.swing.JPanel();
         botonNuevoSismo_VentanaIntermedia = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        panelScroll_VentanaInetermediaria = new javax.swing.JScrollPane();
         TablaTodosSismos = new javax.swing.JTable();
         botonNuevoSismo_VentanaIntermedia1 = new javax.swing.JButton();
         VentanaIntermedia_DetalleSismo = new javax.swing.JPanel();
@@ -570,17 +569,6 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout todosSismos_VentanaIntermediaLayout = new javax.swing.GroupLayout(todosSismos_VentanaIntermedia);
-        todosSismos_VentanaIntermedia.setLayout(todosSismos_VentanaIntermediaLayout);
-        todosSismos_VentanaIntermediaLayout.setHorizontalGroup(
-            todosSismos_VentanaIntermediaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        todosSismos_VentanaIntermediaLayout.setVerticalGroup(
-            todosSismos_VentanaIntermediaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 422, Short.MAX_VALUE)
-        );
-
         botonNuevoSismo_VentanaIntermedia.setBackground(new java.awt.Color(29, 53, 87));
         botonNuevoSismo_VentanaIntermedia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         botonNuevoSismo_VentanaIntermedia.setForeground(new java.awt.Color(255, 255, 255));
@@ -603,7 +591,7 @@ public class Interfaz extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(TablaTodosSismos);
+        panelScroll_VentanaInetermediaria.setViewportView(TablaTodosSismos);
 
         botonNuevoSismo_VentanaIntermedia1.setBackground(new java.awt.Color(29, 53, 87));
         botonNuevoSismo_VentanaIntermedia1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -636,27 +624,22 @@ public class Interfaz extends javax.swing.JFrame {
                         .addComponent(botonSalir_NuevoSismo_Ubicacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(23, 23, 23))
                     .addGroup(VentanaIntermediaLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, Short.MAX_VALUE)))
-                .addComponent(todosSismos_VentanaIntermedia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(14, 14, 14))
+                        .addComponent(panelScroll_VentanaInetermediaria, javax.swing.GroupLayout.PREFERRED_SIZE, 726, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, Short.MAX_VALUE))))
         );
         VentanaIntermediaLayout.setVerticalGroup(
             VentanaIntermediaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(VentanaIntermediaLayout.createSequentialGroup()
                 .addComponent(textTitulo_VentanaIntermedia)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(VentanaIntermediaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(todosSismos_VentanaIntermedia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(VentanaIntermediaLayout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(VentanaIntermediaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(botonNuevoSismo_VentanaIntermedia)
-                            .addComponent(botonRegresar_VentanaIntermedia)
-                            .addComponent(botonSalir_NuevoSismo_Ubicacion1)
-                            .addComponent(botonNuevoSismo_VentanaIntermedia1))))
-                .addGap(38, 38, 38))
+                .addComponent(panelScroll_VentanaInetermediaria, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(VentanaIntermediaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonNuevoSismo_VentanaIntermedia)
+                    .addComponent(botonRegresar_VentanaIntermedia)
+                    .addComponent(botonSalir_NuevoSismo_Ubicacion1)
+                    .addComponent(botonNuevoSismo_VentanaIntermedia1))
+                .addGap(141, 141, 141))
         );
 
         Paneles.add(VentanaIntermedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -2510,8 +2493,8 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JTextField inputProfundidad_NuevoSismo;
     private javax.swing.JComboBox<String> inputProvinciaLista_NuevoSismo;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel mapa_NuevoSismo_Ubicacion;
+    private javax.swing.JScrollPane panelScroll_VentanaInetermediaria;
     private javax.swing.JPanel panel_RegistroSismos_A;
     private javax.swing.JPanel panel_RegistroSismos_B;
     private javax.swing.JPanel panel_RegistroSismos_C;
@@ -2575,7 +2558,6 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel textTitulo_VentanaIntermedia;
     private javax.swing.JLabel textUbicacion_NuevoSismo;
     private javax.swing.JLabel textUbicacion_NuevoSismo1;
-    private javax.swing.JPanel todosSismos_VentanaIntermedia;
     private javax.swing.JLabel validacionMagnitud_NuevoSismo;
     private javax.swing.JLabel validacionProfundidad_NuevoSismo;
     // End of variables declaration//GEN-END:variables
