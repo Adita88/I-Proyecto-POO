@@ -8,19 +8,14 @@ package visual;
 import java.awt.*;
 import javax.swing.JPanel;
 import modelo.*;
-import controlador.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
-import javax.swing.JComponent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
+//import com.mapbox.api.isochrone;
 
 /**
  *
@@ -35,25 +30,37 @@ public class Interfaz extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         ConfirmarSalida.setLocationRelativeTo(null);
-        asignarValoresListasNuevoSismo();
+        asignarValoresListas();
         ocultarPanelesExceptoEste(Inicio);
         
     }
     
-    private void asignarValoresListasNuevoSismo(){
+    private void asignarValoresListas(){
         inputOrigenFallaLista_NuevoSismo.removeAllItems();
-        inputLugarLista_NuevoSismo1.removeAllItems();
+        inputLugarLista_NuevoSismo.removeAllItems();
         inputProvinciaLista_NuevoSismo.removeAllItems();
+        
+        inputListaOrigen_RegistroSismos_B.removeAllItems();
+        inputListaProvincia_RegistroSismos_A.removeAllItems();
+        
+        
         for(TFalla i : TFalla.values()){
             inputOrigenFallaLista_NuevoSismo.addItem(i.toString());
         }
         for(TLugar i : TLugar.values()){
-            inputLugarLista_NuevoSismo1.addItem(i.toString());
+            inputLugarLista_NuevoSismo.addItem(i.toString());
         }
         for(TProvincia i : TProvincia.values()){
             inputProvinciaLista_NuevoSismo.addItem(i.toString());
+        }
+        for(TFalla i : TFalla.values()){
+            inputListaOrigen_RegistroSismos_B.addItem(i.toString());
+        }
+        for(TProvincia i : TProvincia.values()){
+            inputListaProvincia_RegistroSismos_A.addItem(i.toString());
         } 
     }
+    
     
     private void ocultarPanelesExceptoEste(JPanel panel, boolean ... limpiarPanel){
         boolean flagLimpiarPanel = (limpiarPanel.length >= 1) ? limpiarPanel[0] : false;
@@ -129,6 +136,27 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }
     
+    class FormatoAnnio extends MaskFormatter{
+
+        public FormatoAnnio() throws ParseException{
+            super ("####");
+        }
+
+        private SimpleDateFormat formato = new SimpleDateFormat("yyyy");
+
+        @Override
+        public Object stringToValue(String text) throws ParseException{
+            return formato.parseObject(text);
+        }
+
+        @Override
+        public String valueToString(Object value) throws ParseException{
+            if (value instanceof Date)
+                return formato.format((Date)value);
+            return formato.format(new Date());
+        }
+    }
+    
     private JFormattedTextField getFormatedTextHora(){
         try{return new javax.swing.JFormattedTextField(new FormatoHora());
         }catch(ParseException error){
@@ -138,6 +166,13 @@ public class Interfaz extends javax.swing.JFrame {
     
     private JFormattedTextField getFormatedTextDia(){
         try{return new javax.swing.JFormattedTextField(new FormatoDia());
+        }catch(ParseException error){
+            return new javax.swing.JFormattedTextField();
+        }
+    }
+    
+    private JFormattedTextField getFormatedTextAnnio(){
+        try{return new javax.swing.JFormattedTextField(new FormatoAnnio());
         }catch(ParseException error){
             return new javax.swing.JFormattedTextField();
         }
@@ -178,7 +213,7 @@ public class Interfaz extends javax.swing.JFrame {
         inputMagnitud_NuevoSismo = new javax.swing.JTextField();
         validacionMagnitud_NuevoSismo = new javax.swing.JLabel();
         textLugar_NuevoSismo = new javax.swing.JLabel();
-        inputLugarLista_NuevoSismo1 = new javax.swing.JComboBox<>();
+        inputLugarLista_NuevoSismo = new javax.swing.JComboBox<>();
         textProvincia_NuevoSismo = new javax.swing.JLabel();
         inputProvinciaLista_NuevoSismo = new javax.swing.JComboBox<>();
         textUbicacion_NuevoSismo = new javax.swing.JLabel();
@@ -209,22 +244,72 @@ public class Interfaz extends javax.swing.JFrame {
         botonSalir_NuevoSismo_Ubicacion = new javax.swing.JButton();
         mapa_NuevoSismo_Ubicacion = new javax.swing.JPanel();
         RegistroSismos = new javax.swing.JPanel();
+        textTitulo_RegistroSismos = new javax.swing.JLabel();
+        botonAceptar_RegistroSismos = new javax.swing.JButton();
+        botonSalir_RegistroSismos = new javax.swing.JButton();
+        textA1_RegistroSismos = new javax.swing.JLabel();
+        textA2_RegistroSismos = new javax.swing.JLabel();
+        textA3_RegistroSismos = new javax.swing.JLabel();
+        botonSismosMagnitudPorProvincia_RegistroSismos = new javax.swing.JButton();
+        textB1_RegistroSismos = new javax.swing.JLabel();
+        textB2_RegistroSismos = new javax.swing.JLabel();
+        textB3_RegistroSismos = new javax.swing.JLabel();
+        botonCantSismosPorOrigen_RegistroSismos = new javax.swing.JButton();
+        textC1_RegistroSismos = new javax.swing.JLabel();
+        textC2_RegistroSismos = new javax.swing.JLabel();
+        textC3_RegistroSismos = new javax.swing.JLabel();
+        botonSismosEntreFechas_RegistroSismos = new javax.swing.JButton();
+        textD1_RegistroSismos = new javax.swing.JLabel();
+        textD2_RegistroSismos = new javax.swing.JLabel();
+        textD3_RegistroSismos = new javax.swing.JLabel();
+        botonCantSismosPorMesEnAño_RegistroSismos = new javax.swing.JButton();
+        textE1_RegistroSismos = new javax.swing.JLabel();
+        textE2_RegistroSismos = new javax.swing.JLabel();
+        textE3_RegistroSismos = new javax.swing.JLabel();
+        botonClasificacionSismosPorMagnitud_RegistroSismos = new javax.swing.JButton();
+        RegistroSismos_A = new javax.swing.JPanel();
+        textTitulo_RegistroSismos_A = new javax.swing.JLabel();
+        textProvincia_RegistroSismos_A = new javax.swing.JLabel();
+        botonRegresar_RegistroSismos_A = new javax.swing.JButton();
+        botonSalir_RegistroSismos_A = new javax.swing.JButton();
+        panel_RegistroSismos_A = new javax.swing.JPanel();
+        inputListaProvincia_RegistroSismos_A = new javax.swing.JComboBox<>();
+        botonMostrar_RegistroSismos_A = new javax.swing.JButton();
+        RegistroSismos_B = new javax.swing.JPanel();
+        textTitulo_RegistroSismos_B = new javax.swing.JLabel();
+        textProvincia_RegistroSismos_B = new javax.swing.JLabel();
+        botonRegresar_RegistroSismos_B = new javax.swing.JButton();
+        botonSalir_RegistroSismos_B = new javax.swing.JButton();
+        panel_RegistroSismos_B = new javax.swing.JPanel();
+        inputListaOrigen_RegistroSismos_B = new javax.swing.JComboBox<>();
+        botonMostrar_RegistroSismos_B = new javax.swing.JButton();
+        RegistroSismos_C = new javax.swing.JPanel();
+        textTitulo_RegistroSismos_C = new javax.swing.JLabel();
+        botonRegresar_RegistroSismos_C = new javax.swing.JButton();
+        botonSalir_RegistroSismos_C = new javax.swing.JButton();
+        panel_RegistroSismos_C = new javax.swing.JPanel();
+        textDesde_RegistroSismos_C = new javax.swing.JLabel();
+        inputDia1Formated_RegistroSismos_C = getFormatedTextDia();
+        textHasta_RegistroSismos_C = new javax.swing.JLabel();
+        inputDia2Formated_RegistroSismos_C = getFormatedTextDia();
+        botonMostrar_RegistroSismos_C = new javax.swing.JButton();
+        RegistroSismos_D = new javax.swing.JPanel();
+        textTitulo_RegistroSismos_D = new javax.swing.JLabel();
+        textAño_RegistroSismos_D = new javax.swing.JLabel();
+        botonRegresar_RegistroSismos_D = new javax.swing.JButton();
+        botonSalir_RegistroSismos_D = new javax.swing.JButton();
+        panel_RegistroSismos_D = new javax.swing.JPanel();
+        botonMostrar_RegistroSismos_D = new javax.swing.JButton();
+        inputAñoFormated_RegistroSismos_D = getFormatedTextAnnio();
+        RegistroSismos_E = new javax.swing.JPanel();
+        textTitulo_RegistroSismos_E = new javax.swing.JLabel();
+        botonRegresar_RegistroSismos_E = new javax.swing.JButton();
+        botonSalir_RegistroSismos_E = new javax.swing.JButton();
+        panel_RegistroSismos_E = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        jPanel9 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jPanel13 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
-        jPanel14 = new javax.swing.JPanel();
-        jPanel15 = new javax.swing.JPanel();
-        jPanel17 = new javax.swing.JPanel();
-        jPanel11 = new javax.swing.JPanel();
 
         ConfirmarSalida.setTitle("Confirmación de Salida");
         ConfirmarSalida.setAlwaysOnTop(true);
-        ConfirmarSalida.setMaximumSize(new java.awt.Dimension(306, 157));
         ConfirmarSalida.setMinimumSize(new java.awt.Dimension(306, 157));
         ConfirmarSalida.setSize(new java.awt.Dimension(306, 157));
         ConfirmarSalida.setType(java.awt.Window.Type.POPUP);
@@ -287,15 +372,16 @@ public class Interfaz extends javax.swing.JFrame {
         Paneles.setMinimumSize(new java.awt.Dimension(750, 380));
         Paneles.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Inicio.setBackground(new java.awt.Color(29, 53, 87));
+        Inicio.setBackground(new java.awt.Color(255, 255, 255));
         Inicio.setMaximumSize(new java.awt.Dimension(750, 380));
         Inicio.setMinimumSize(new java.awt.Dimension(750, 380));
         Inicio.setPreferredSize(new java.awt.Dimension(750, 380));
 
-        botonNuevoSismo_Inicio.setBackground(new java.awt.Color(168, 218, 220));
+        botonNuevoSismo_Inicio.setBackground(new java.awt.Color(230, 57, 70));
         botonNuevoSismo_Inicio.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        botonNuevoSismo_Inicio.setForeground(new java.awt.Color(29, 53, 87));
+        botonNuevoSismo_Inicio.setForeground(new java.awt.Color(255, 255, 255));
         botonNuevoSismo_Inicio.setText("Nuevo Simos");
+        botonNuevoSismo_Inicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         botonNuevoSismo_Inicio.setBorderPainted(false);
         botonNuevoSismo_Inicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonNuevoSismo_Inicio.addActionListener(new java.awt.event.ActionListener() {
@@ -304,10 +390,11 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
-        botonRegistroSismos_Inicio.setBackground(new java.awt.Color(168, 218, 220));
+        botonRegistroSismos_Inicio.setBackground(new java.awt.Color(29, 53, 87));
         botonRegistroSismos_Inicio.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        botonRegistroSismos_Inicio.setForeground(new java.awt.Color(29, 53, 87));
+        botonRegistroSismos_Inicio.setForeground(new java.awt.Color(255, 255, 255));
         botonRegistroSismos_Inicio.setText("Registro de Sismos");
+        botonRegistroSismos_Inicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         botonRegistroSismos_Inicio.setBorderPainted(false);
         botonRegistroSismos_Inicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         botonRegistroSismos_Inicio.addActionListener(new java.awt.event.ActionListener() {
@@ -318,7 +405,7 @@ public class Interfaz extends javax.swing.JFrame {
 
         textTitulo_Inicio.setBackground(new java.awt.Color(238, 108, 77));
         textTitulo_Inicio.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
-        textTitulo_Inicio.setForeground(new java.awt.Color(241, 250, 238));
+        textTitulo_Inicio.setForeground(new java.awt.Color(29, 53, 87));
         textTitulo_Inicio.setText("Inicio  ");
 
         botonSalir_Inicio.setBackground(new java.awt.Color(255, 0, 0));
@@ -334,10 +421,9 @@ public class Interfaz extends javax.swing.JFrame {
         });
 
         detalle_Inicio.setEditable(false);
-        detalle_Inicio.setBackground(new java.awt.Color(29, 53, 87));
         detalle_Inicio.setColumns(20);
         detalle_Inicio.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        detalle_Inicio.setForeground(new java.awt.Color(241, 250, 238));
+        detalle_Inicio.setForeground(new java.awt.Color(29, 53, 87));
         detalle_Inicio.setRows(5);
         detalle_Inicio.setText("En este sistema se pueden registrar\nnuevos sismos y ver el registro que\nse mantiene de estos.");
         detalle_Inicio.setAutoscrolls(false);
@@ -466,11 +552,11 @@ public class Interfaz extends javax.swing.JFrame {
         textLugar_NuevoSismo.setForeground(new java.awt.Color(241, 250, 238));
         textLugar_NuevoSismo.setText("Lugar:");
 
-        inputLugarLista_NuevoSismo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        inputLugarLista_NuevoSismo1.setMaximumSize(new java.awt.Dimension(107, 23));
-        inputLugarLista_NuevoSismo1.setMinimumSize(new java.awt.Dimension(107, 23));
-        inputLugarLista_NuevoSismo1.setName(""); // NOI18N
-        inputLugarLista_NuevoSismo1.setPreferredSize(new java.awt.Dimension(107, 23));
+        inputLugarLista_NuevoSismo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        inputLugarLista_NuevoSismo.setMaximumSize(new java.awt.Dimension(107, 23));
+        inputLugarLista_NuevoSismo.setMinimumSize(new java.awt.Dimension(107, 23));
+        inputLugarLista_NuevoSismo.setName(""); // NOI18N
+        inputLugarLista_NuevoSismo.setPreferredSize(new java.awt.Dimension(107, 23));
 
         textProvincia_NuevoSismo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         textProvincia_NuevoSismo.setForeground(new java.awt.Color(241, 250, 238));
@@ -579,7 +665,7 @@ public class Interfaz extends javax.swing.JFrame {
                             .addComponent(textLugar_NuevoSismo))
                         .addGap(71, 71, 71)
                         .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(inputLugarLista_NuevoSismo1, 0, 175, Short.MAX_VALUE)
+                            .addComponent(inputLugarLista_NuevoSismo, 0, 175, Short.MAX_VALUE)
                             .addComponent(inputProvinciaLista_NuevoSismo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NuevoSismoLayout.createSequentialGroup()
                 .addContainerGap()
@@ -599,7 +685,7 @@ public class Interfaz extends javax.swing.JFrame {
                     .addComponent(textMomentoExacto_NuevoSismo)
                     .addComponent(botonEscogerFecha_NuevoSismo)
                     .addComponent(textLugar_NuevoSismo)
-                    .addComponent(inputLugarLista_NuevoSismo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(inputLugarLista_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textProfundidad_NuevoSismo)
@@ -624,9 +710,9 @@ public class Interfaz extends javax.swing.JFrame {
                             .addComponent(textMagnitud_NuevoSismo)
                             .addComponent(inputMagnitud_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)))
                     .addGroup(NuevoSismoLayout.createSequentialGroup()
-                        .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(textUbicacion_NuevoSismo)
-                            .addComponent(botonUbicacion_NuevoSismo))
+                        .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonUbicacion_NuevoSismo)
+                            .addComponent(textUbicacion_NuevoSismo))
                         .addGap(27, 27, 27)
                         .addComponent(scrollPaneDescripcionDetallada_NuevoSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -862,22 +948,654 @@ public class Interfaz extends javax.swing.JFrame {
 
         Paneles.add(NuevoSismo_UbicacionMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        RegistroSismos.setBackground(new java.awt.Color(29, 53, 87));
         RegistroSismos.setMaximumSize(new java.awt.Dimension(750, 380));
         RegistroSismos.setMinimumSize(new java.awt.Dimension(750, 380));
-        RegistroSismos.setPreferredSize(new java.awt.Dimension(750, 380));
+        RegistroSismos.setName(""); // NOI18N
+        RegistroSismos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout RegistroSismosLayout = new javax.swing.GroupLayout(RegistroSismos);
-        RegistroSismos.setLayout(RegistroSismosLayout);
-        RegistroSismosLayout.setHorizontalGroup(
-            RegistroSismosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-        );
-        RegistroSismosLayout.setVerticalGroup(
-            RegistroSismosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
-        );
+        textTitulo_RegistroSismos.setBackground(new java.awt.Color(230, 57, 70));
+        textTitulo_RegistroSismos.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        textTitulo_RegistroSismos.setForeground(new java.awt.Color(241, 250, 238));
+        textTitulo_RegistroSismos.setText("Registro de Sismos");
+        textTitulo_RegistroSismos.setOpaque(true);
+        RegistroSismos.add(textTitulo_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, -1));
+
+        botonAceptar_RegistroSismos.setText("Regresar");
+        botonAceptar_RegistroSismos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonAceptar_RegistroSismosActionPerformed(evt);
+            }
+        });
+        RegistroSismos.add(botonAceptar_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 330, -1, -1));
+
+        botonSalir_RegistroSismos.setText("Salir");
+        botonSalir_RegistroSismos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalir_RegistroSismosActionPerformed(evt);
+            }
+        });
+        RegistroSismos.add(botonSalir_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 330, 71, -1));
+
+        textA1_RegistroSismos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textA1_RegistroSismos.setForeground(new java.awt.Color(255, 255, 255));
+        textA1_RegistroSismos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textA1_RegistroSismos.setText("Sismos por rangos");
+        textA1_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textA1_RegistroSismos.setRequestFocusEnabled(false);
+        RegistroSismos.add(textA1_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 120, -1));
+
+        textA2_RegistroSismos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textA2_RegistroSismos.setForeground(new java.awt.Color(255, 255, 255));
+        textA2_RegistroSismos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textA2_RegistroSismos.setText(" de magnitud para");
+        textA2_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textA2_RegistroSismos.setFocusable(false);
+        textA2_RegistroSismos.setRequestFocusEnabled(false);
+        RegistroSismos.add(textA2_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 120, -1));
+
+        textA3_RegistroSismos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textA3_RegistroSismos.setForeground(new java.awt.Color(255, 255, 255));
+        textA3_RegistroSismos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textA3_RegistroSismos.setText(" una provincia");
+        textA3_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textA3_RegistroSismos.setFocusable(false);
+        textA3_RegistroSismos.setRequestFocusEnabled(false);
+        RegistroSismos.add(textA3_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 120, -1));
+
+        botonSismosMagnitudPorProvincia_RegistroSismos.setBackground(new java.awt.Color(188, 35, 43));
+        botonSismosMagnitudPorProvincia_RegistroSismos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonSismosMagnitudPorProvincia_RegistroSismos.setBorderPainted(false);
+        botonSismosMagnitudPorProvincia_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonSismosMagnitudPorProvincia_RegistroSismos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSismosMagnitudPorProvincia_RegistroSismosActionPerformed(evt);
+            }
+        });
+        RegistroSismos.add(botonSismosMagnitudPorProvincia_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 120, 240));
+
+        textB1_RegistroSismos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textB1_RegistroSismos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textB1_RegistroSismos.setText("Cantidad de");
+        textB1_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textB1_RegistroSismos.setRequestFocusEnabled(false);
+        RegistroSismos.add(textB1_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 120, -1));
+
+        textB2_RegistroSismos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textB2_RegistroSismos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textB2_RegistroSismos.setText("de sismos por tipo");
+        textB2_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textB2_RegistroSismos.setFocusable(false);
+        textB2_RegistroSismos.setRequestFocusEnabled(false);
+        RegistroSismos.add(textB2_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 180, 120, -1));
+
+        textB3_RegistroSismos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textB3_RegistroSismos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textB3_RegistroSismos.setText(" una origen");
+        textB3_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textB3_RegistroSismos.setFocusable(false);
+        textB3_RegistroSismos.setRequestFocusEnabled(false);
+        RegistroSismos.add(textB3_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 120, -1));
+
+        botonCantSismosPorOrigen_RegistroSismos.setBackground(new java.awt.Color(230, 57, 70));
+        botonCantSismosPorOrigen_RegistroSismos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonCantSismosPorOrigen_RegistroSismos.setBorderPainted(false);
+        botonCantSismosPorOrigen_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonCantSismosPorOrigen_RegistroSismos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCantSismosPorOrigen_RegistroSismosActionPerformed(evt);
+            }
+        });
+        RegistroSismos.add(botonCantSismosPorOrigen_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 120, 240));
+
+        textC1_RegistroSismos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textC1_RegistroSismos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textC1_RegistroSismos.setText("en un rango");
+        textC1_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textC1_RegistroSismos.setFocusable(false);
+        textC1_RegistroSismos.setRequestFocusEnabled(false);
+        RegistroSismos.add(textC1_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 180, 120, -1));
+
+        textC2_RegistroSismos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textC2_RegistroSismos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textC2_RegistroSismos.setText("Sismos ocurridos");
+        textC2_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textC2_RegistroSismos.setRequestFocusEnabled(false);
+        RegistroSismos.add(textC2_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, 120, -1));
+
+        textC3_RegistroSismos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textC3_RegistroSismos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textC3_RegistroSismos.setText("de fechas");
+        textC3_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textC3_RegistroSismos.setFocusable(false);
+        textC3_RegistroSismos.setRequestFocusEnabled(false);
+        RegistroSismos.add(textC3_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 200, 120, -1));
+
+        botonSismosEntreFechas_RegistroSismos.setBackground(new java.awt.Color(241, 250, 238));
+        botonSismosEntreFechas_RegistroSismos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonSismosEntreFechas_RegistroSismos.setBorderPainted(false);
+        botonSismosEntreFechas_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonSismosEntreFechas_RegistroSismos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSismosEntreFechas_RegistroSismosActionPerformed(evt);
+            }
+        });
+        RegistroSismos.add(botonSismosEntreFechas_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 70, 120, 240));
+
+        textD1_RegistroSismos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textD1_RegistroSismos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textD1_RegistroSismos.setText("sismos por mes en");
+        textD1_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textD1_RegistroSismos.setFocusable(false);
+        textD1_RegistroSismos.setRequestFocusEnabled(false);
+        RegistroSismos.add(textD1_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, 120, -1));
+
+        textD2_RegistroSismos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textD2_RegistroSismos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textD2_RegistroSismos.setText("Cantidad de");
+        textD2_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textD2_RegistroSismos.setRequestFocusEnabled(false);
+        RegistroSismos.add(textD2_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 160, 120, -1));
+
+        textD3_RegistroSismos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textD3_RegistroSismos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textD3_RegistroSismos.setText("un año");
+        textD3_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textD3_RegistroSismos.setFocusable(false);
+        textD3_RegistroSismos.setRequestFocusEnabled(false);
+        RegistroSismos.add(textD3_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, 120, -1));
+
+        botonCantSismosPorMesEnAño_RegistroSismos.setBackground(new java.awt.Color(168, 218, 220));
+        botonCantSismosPorMesEnAño_RegistroSismos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonCantSismosPorMesEnAño_RegistroSismos.setBorderPainted(false);
+        botonCantSismosPorMesEnAño_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonCantSismosPorMesEnAño_RegistroSismos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonCantSismosPorMesEnAño_RegistroSismosActionPerformed(evt);
+            }
+        });
+        RegistroSismos.add(botonCantSismosPorMesEnAño_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 120, 240));
+
+        textE1_RegistroSismos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textE1_RegistroSismos.setForeground(new java.awt.Color(255, 255, 255));
+        textE1_RegistroSismos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textE1_RegistroSismos.setText("de sismos por");
+        textE1_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textE1_RegistroSismos.setFocusable(false);
+        textE1_RegistroSismos.setRequestFocusEnabled(false);
+        RegistroSismos.add(textE1_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 180, 120, -1));
+
+        textE2_RegistroSismos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textE2_RegistroSismos.setForeground(new java.awt.Color(255, 255, 255));
+        textE2_RegistroSismos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textE2_RegistroSismos.setText("Clasificación");
+        textE2_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textE2_RegistroSismos.setRequestFocusEnabled(false);
+        RegistroSismos.add(textE2_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 160, 120, -1));
+
+        textE3_RegistroSismos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        textE3_RegistroSismos.setForeground(new java.awt.Color(255, 255, 255));
+        textE3_RegistroSismos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        textE3_RegistroSismos.setText("magnitud");
+        textE3_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        textE3_RegistroSismos.setFocusable(false);
+        textE3_RegistroSismos.setRequestFocusEnabled(false);
+        RegistroSismos.add(textE3_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 200, 120, -1));
+
+        botonClasificacionSismosPorMagnitud_RegistroSismos.setBackground(new java.awt.Color(69, 123, 157));
+        botonClasificacionSismosPorMagnitud_RegistroSismos.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        botonClasificacionSismosPorMagnitud_RegistroSismos.setBorderPainted(false);
+        botonClasificacionSismosPorMagnitud_RegistroSismos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        botonClasificacionSismosPorMagnitud_RegistroSismos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonClasificacionSismosPorMagnitud_RegistroSismosActionPerformed(evt);
+            }
+        });
+        RegistroSismos.add(botonClasificacionSismosPorMagnitud_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 70, 120, 240));
 
         Paneles.add(RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        RegistroSismos_A.setBackground(new java.awt.Color(29, 53, 87));
+        RegistroSismos_A.setMaximumSize(new java.awt.Dimension(750, 380));
+        RegistroSismos_A.setMinimumSize(new java.awt.Dimension(750, 380));
+
+        textTitulo_RegistroSismos_A.setBackground(new java.awt.Color(188, 35, 43));
+        textTitulo_RegistroSismos_A.setFont(new java.awt.Font("Tahoma", 3, 28)); // NOI18N
+        textTitulo_RegistroSismos_A.setForeground(new java.awt.Color(241, 250, 238));
+        textTitulo_RegistroSismos_A.setText(" Sismos por rangos de magnitud para una provincia ");
+        textTitulo_RegistroSismos_A.setOpaque(true);
+
+        textProvincia_RegistroSismos_A.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textProvincia_RegistroSismos_A.setForeground(new java.awt.Color(241, 250, 238));
+        textProvincia_RegistroSismos_A.setText("Provincia:");
+
+        botonRegresar_RegistroSismos_A.setText("Regresar");
+        botonRegresar_RegistroSismos_A.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegresar_RegistroSismos_AActionPerformed(evt);
+            }
+        });
+
+        botonSalir_RegistroSismos_A.setText("Salir");
+        botonSalir_RegistroSismos_A.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalir_RegistroSismos_AActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_RegistroSismos_ALayout = new javax.swing.GroupLayout(panel_RegistroSismos_A);
+        panel_RegistroSismos_A.setLayout(panel_RegistroSismos_ALayout);
+        panel_RegistroSismos_ALayout.setHorizontalGroup(
+            panel_RegistroSismos_ALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panel_RegistroSismos_ALayout.setVerticalGroup(
+            panel_RegistroSismos_ALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 291, Short.MAX_VALUE)
+        );
+
+        inputListaProvincia_RegistroSismos_A.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        inputListaProvincia_RegistroSismos_A.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputListaProvincia_RegistroSismos_AActionPerformed(evt);
+            }
+        });
+
+        botonMostrar_RegistroSismos_A.setText("Mostrar");
+        botonMostrar_RegistroSismos_A.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonMostrar_RegistroSismos_AActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout RegistroSismos_ALayout = new javax.swing.GroupLayout(RegistroSismos_A);
+        RegistroSismos_A.setLayout(RegistroSismos_ALayout);
+        RegistroSismos_ALayout.setHorizontalGroup(
+            RegistroSismos_ALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(RegistroSismos_ALayout.createSequentialGroup()
+                .addComponent(textTitulo_RegistroSismos_A, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(RegistroSismos_ALayout.createSequentialGroup()
+                .addGroup(RegistroSismos_ALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(RegistroSismos_ALayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(panel_RegistroSismos_A, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(RegistroSismos_ALayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(textProvincia_RegistroSismos_A)
+                        .addGap(18, 18, 18)
+                        .addComponent(inputListaProvincia_RegistroSismos_A, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonMostrar_RegistroSismos_A)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonRegresar_RegistroSismos_A)
+                        .addGap(8, 8, 8)
+                        .addComponent(botonSalir_RegistroSismos_A, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        RegistroSismos_ALayout.setVerticalGroup(
+            RegistroSismos_ALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroSismos_ALayout.createSequentialGroup()
+                .addComponent(textTitulo_RegistroSismos_A, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_RegistroSismos_A, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(RegistroSismos_ALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroSismos_ALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(textProvincia_RegistroSismos_A)
+                        .addComponent(inputListaProvincia_RegistroSismos_A, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonMostrar_RegistroSismos_A))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroSismos_ALayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(botonRegresar_RegistroSismos_A)
+                        .addComponent(botonSalir_RegistroSismos_A)))
+                .addGap(5, 5, 5))
+        );
+
+        Paneles.add(RegistroSismos_A, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        RegistroSismos_B.setBackground(new java.awt.Color(29, 53, 87));
+        RegistroSismos_B.setMaximumSize(new java.awt.Dimension(750, 380));
+        RegistroSismos_B.setMinimumSize(new java.awt.Dimension(750, 380));
+
+        textTitulo_RegistroSismos_B.setBackground(new java.awt.Color(230, 57, 70));
+        textTitulo_RegistroSismos_B.setFont(new java.awt.Font("Tahoma", 3, 28)); // NOI18N
+        textTitulo_RegistroSismos_B.setForeground(new java.awt.Color(255, 255, 255));
+        textTitulo_RegistroSismos_B.setText(" Cantidad de sismos por tipo de origen ");
+        textTitulo_RegistroSismos_B.setOpaque(true);
+
+        textProvincia_RegistroSismos_B.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textProvincia_RegistroSismos_B.setForeground(new java.awt.Color(241, 250, 238));
+        textProvincia_RegistroSismos_B.setText("Origen:");
+
+        botonRegresar_RegistroSismos_B.setText("Regresar");
+        botonRegresar_RegistroSismos_B.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegresar_RegistroSismos_BActionPerformed(evt);
+            }
+        });
+
+        botonSalir_RegistroSismos_B.setText("Salir");
+        botonSalir_RegistroSismos_B.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalir_RegistroSismos_BActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_RegistroSismos_BLayout = new javax.swing.GroupLayout(panel_RegistroSismos_B);
+        panel_RegistroSismos_B.setLayout(panel_RegistroSismos_BLayout);
+        panel_RegistroSismos_BLayout.setHorizontalGroup(
+            panel_RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panel_RegistroSismos_BLayout.setVerticalGroup(
+            panel_RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 291, Short.MAX_VALUE)
+        );
+
+        inputListaOrigen_RegistroSismos_B.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        botonMostrar_RegistroSismos_B.setText("Mostrar");
+
+        javax.swing.GroupLayout RegistroSismos_BLayout = new javax.swing.GroupLayout(RegistroSismos_B);
+        RegistroSismos_B.setLayout(RegistroSismos_BLayout);
+        RegistroSismos_BLayout.setHorizontalGroup(
+            RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(RegistroSismos_BLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panel_RegistroSismos_B, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(RegistroSismos_BLayout.createSequentialGroup()
+                .addGroup(RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textTitulo_RegistroSismos_B, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(RegistroSismos_BLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(textProvincia_RegistroSismos_B)
+                        .addGap(18, 18, 18)
+                        .addComponent(inputListaOrigen_RegistroSismos_B, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonMostrar_RegistroSismos_B)
+                        .addGap(203, 203, 203)
+                        .addComponent(botonRegresar_RegistroSismos_B)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonSalir_RegistroSismos_B, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        RegistroSismos_BLayout.setVerticalGroup(
+            RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroSismos_BLayout.createSequentialGroup()
+                .addComponent(textTitulo_RegistroSismos_B, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_RegistroSismos_B, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(textProvincia_RegistroSismos_B)
+                        .addComponent(inputListaOrigen_RegistroSismos_B, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonMostrar_RegistroSismos_B))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(botonRegresar_RegistroSismos_B)
+                        .addComponent(botonSalir_RegistroSismos_B)))
+                .addGap(5, 5, 5))
+        );
+
+        Paneles.add(RegistroSismos_B, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        RegistroSismos_C.setBackground(new java.awt.Color(29, 53, 87));
+        RegistroSismos_C.setMaximumSize(new java.awt.Dimension(750, 380));
+        RegistroSismos_C.setMinimumSize(new java.awt.Dimension(750, 380));
+
+        textTitulo_RegistroSismos_C.setBackground(new java.awt.Color(241, 250, 238));
+        textTitulo_RegistroSismos_C.setFont(new java.awt.Font("Tahoma", 3, 28)); // NOI18N
+        textTitulo_RegistroSismos_C.setText(" Sismos ocurridos en un rango de fechas ");
+        textTitulo_RegistroSismos_C.setOpaque(true);
+
+        botonRegresar_RegistroSismos_C.setText("Regresar");
+        botonRegresar_RegistroSismos_C.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegresar_RegistroSismos_CActionPerformed(evt);
+            }
+        });
+
+        botonSalir_RegistroSismos_C.setText("Salir");
+        botonSalir_RegistroSismos_C.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalir_RegistroSismos_CActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_RegistroSismos_CLayout = new javax.swing.GroupLayout(panel_RegistroSismos_C);
+        panel_RegistroSismos_C.setLayout(panel_RegistroSismos_CLayout);
+        panel_RegistroSismos_CLayout.setHorizontalGroup(
+            panel_RegistroSismos_CLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panel_RegistroSismos_CLayout.setVerticalGroup(
+            panel_RegistroSismos_CLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 291, Short.MAX_VALUE)
+        );
+
+        textDesde_RegistroSismos_C.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textDesde_RegistroSismos_C.setForeground(new java.awt.Color(241, 250, 238));
+        textDesde_RegistroSismos_C.setText("Desde");
+
+        inputDia1Formated_RegistroSismos_C.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputDia1Formated_RegistroSismos_CActionPerformed(evt);
+            }
+        });
+
+        textHasta_RegistroSismos_C.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textHasta_RegistroSismos_C.setForeground(new java.awt.Color(241, 250, 238));
+        textHasta_RegistroSismos_C.setText("hasta");
+
+        botonMostrar_RegistroSismos_C.setText("Mostrar");
+
+        javax.swing.GroupLayout RegistroSismos_CLayout = new javax.swing.GroupLayout(RegistroSismos_C);
+        RegistroSismos_C.setLayout(RegistroSismos_CLayout);
+        RegistroSismos_CLayout.setHorizontalGroup(
+            RegistroSismos_CLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(RegistroSismos_CLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panel_RegistroSismos_C, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(RegistroSismos_CLayout.createSequentialGroup()
+                .addGroup(RegistroSismos_CLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textTitulo_RegistroSismos_C, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(RegistroSismos_CLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(textDesde_RegistroSismos_C)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(inputDia1Formated_RegistroSismos_C, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(textHasta_RegistroSismos_C)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(inputDia2Formated_RegistroSismos_C, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonMostrar_RegistroSismos_C)
+                        .addGap(131, 131, 131)
+                        .addComponent(botonRegresar_RegistroSismos_C)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonSalir_RegistroSismos_C, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        RegistroSismos_CLayout.setVerticalGroup(
+            RegistroSismos_CLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroSismos_CLayout.createSequentialGroup()
+                .addComponent(textTitulo_RegistroSismos_C, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_RegistroSismos_C, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(RegistroSismos_CLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonRegresar_RegistroSismos_C)
+                    .addComponent(botonSalir_RegistroSismos_C)
+                    .addComponent(inputDia1Formated_RegistroSismos_C, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textHasta_RegistroSismos_C)
+                    .addComponent(textDesde_RegistroSismos_C)
+                    .addComponent(inputDia2Formated_RegistroSismos_C, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botonMostrar_RegistroSismos_C))
+                .addGap(5, 5, 5))
+        );
+
+        Paneles.add(RegistroSismos_C, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        RegistroSismos_D.setBackground(new java.awt.Color(29, 53, 87));
+        RegistroSismos_D.setMaximumSize(new java.awt.Dimension(750, 380));
+        RegistroSismos_D.setMinimumSize(new java.awt.Dimension(750, 380));
+
+        textTitulo_RegistroSismos_D.setBackground(new java.awt.Color(168, 218, 220));
+        textTitulo_RegistroSismos_D.setFont(new java.awt.Font("Tahoma", 3, 28)); // NOI18N
+        textTitulo_RegistroSismos_D.setForeground(new java.awt.Color(255, 255, 255));
+        textTitulo_RegistroSismos_D.setText(" Cantidad de sismos por mes en un año ");
+        textTitulo_RegistroSismos_D.setOpaque(true);
+
+        textAño_RegistroSismos_D.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textAño_RegistroSismos_D.setForeground(new java.awt.Color(241, 250, 238));
+        textAño_RegistroSismos_D.setText("Año:");
+
+        botonRegresar_RegistroSismos_D.setText("Regresar");
+        botonRegresar_RegistroSismos_D.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegresar_RegistroSismos_DActionPerformed(evt);
+            }
+        });
+
+        botonSalir_RegistroSismos_D.setText("Salir");
+        botonSalir_RegistroSismos_D.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalir_RegistroSismos_DActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_RegistroSismos_DLayout = new javax.swing.GroupLayout(panel_RegistroSismos_D);
+        panel_RegistroSismos_D.setLayout(panel_RegistroSismos_DLayout);
+        panel_RegistroSismos_DLayout.setHorizontalGroup(
+            panel_RegistroSismos_DLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panel_RegistroSismos_DLayout.setVerticalGroup(
+            panel_RegistroSismos_DLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 291, Short.MAX_VALUE)
+        );
+
+        botonMostrar_RegistroSismos_D.setText("Mostrar");
+
+        inputAñoFormated_RegistroSismos_D.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputAñoFormated_RegistroSismos_DActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout RegistroSismos_DLayout = new javax.swing.GroupLayout(RegistroSismos_D);
+        RegistroSismos_D.setLayout(RegistroSismos_DLayout);
+        RegistroSismos_DLayout.setHorizontalGroup(
+            RegistroSismos_DLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(RegistroSismos_DLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panel_RegistroSismos_D, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(RegistroSismos_DLayout.createSequentialGroup()
+                .addGroup(RegistroSismos_DLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textTitulo_RegistroSismos_D, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(RegistroSismos_DLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(textAño_RegistroSismos_D)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(inputAñoFormated_RegistroSismos_D, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(botonMostrar_RegistroSismos_D)
+                        .addGap(203, 203, 203)
+                        .addComponent(botonRegresar_RegistroSismos_D)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonSalir_RegistroSismos_D, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        RegistroSismos_DLayout.setVerticalGroup(
+            RegistroSismos_DLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroSismos_DLayout.createSequentialGroup()
+                .addComponent(textTitulo_RegistroSismos_D, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_RegistroSismos_D, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(RegistroSismos_DLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroSismos_DLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(textAño_RegistroSismos_D)
+                        .addComponent(botonMostrar_RegistroSismos_D)
+                        .addComponent(inputAñoFormated_RegistroSismos_D, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroSismos_DLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(botonRegresar_RegistroSismos_D)
+                        .addComponent(botonSalir_RegistroSismos_D)))
+                .addGap(5, 5, 5))
+        );
+
+        Paneles.add(RegistroSismos_D, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        RegistroSismos_E.setBackground(new java.awt.Color(29, 53, 87));
+        RegistroSismos_E.setMaximumSize(new java.awt.Dimension(750, 380));
+        RegistroSismos_E.setMinimumSize(new java.awt.Dimension(750, 380));
+
+        textTitulo_RegistroSismos_E.setBackground(new java.awt.Color(69, 123, 157));
+        textTitulo_RegistroSismos_E.setFont(new java.awt.Font("Tahoma", 3, 28)); // NOI18N
+        textTitulo_RegistroSismos_E.setForeground(new java.awt.Color(255, 255, 255));
+        textTitulo_RegistroSismos_E.setText(" Clasificación de sismos por magnitud ");
+        textTitulo_RegistroSismos_E.setOpaque(true);
+
+        botonRegresar_RegistroSismos_E.setText("Regresar");
+        botonRegresar_RegistroSismos_E.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegresar_RegistroSismos_EActionPerformed(evt);
+            }
+        });
+
+        botonSalir_RegistroSismos_E.setText("Salir");
+        botonSalir_RegistroSismos_E.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalir_RegistroSismos_EActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_RegistroSismos_ELayout = new javax.swing.GroupLayout(panel_RegistroSismos_E);
+        panel_RegistroSismos_E.setLayout(panel_RegistroSismos_ELayout);
+        panel_RegistroSismos_ELayout.setHorizontalGroup(
+            panel_RegistroSismos_ELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panel_RegistroSismos_ELayout.setVerticalGroup(
+            panel_RegistroSismos_ELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 291, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout RegistroSismos_ELayout = new javax.swing.GroupLayout(RegistroSismos_E);
+        RegistroSismos_E.setLayout(RegistroSismos_ELayout);
+        RegistroSismos_ELayout.setHorizontalGroup(
+            RegistroSismos_ELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(RegistroSismos_ELayout.createSequentialGroup()
+                .addComponent(textTitulo_RegistroSismos_E, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(RegistroSismos_ELayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(RegistroSismos_ELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panel_RegistroSismos_E, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(RegistroSismos_ELayout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(botonRegresar_RegistroSismos_E)
+                        .addGap(8, 8, 8)
+                        .addComponent(botonSalir_RegistroSismos_E, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        RegistroSismos_ELayout.setVerticalGroup(
+            RegistroSismos_ELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroSismos_ELayout.createSequentialGroup()
+                .addComponent(textTitulo_RegistroSismos_E, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_RegistroSismos_E, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(RegistroSismos_ELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonRegresar_RegistroSismos_E)
+                    .addComponent(botonSalir_RegistroSismos_E))
+                .addGap(5, 5, 5))
+        );
+
+        Paneles.add(RegistroSismos_E, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         jPanel6.setMaximumSize(new java.awt.Dimension(750, 380));
         jPanel6.setMinimumSize(new java.awt.Dimension(750, 380));
@@ -894,189 +1612,6 @@ public class Interfaz extends javax.swing.JFrame {
         );
 
         Paneles.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jPanel7.setMaximumSize(new java.awt.Dimension(750, 380));
-        jPanel7.setMinimumSize(new java.awt.Dimension(750, 380));
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
-        );
-
-        Paneles.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jPanel8.setMaximumSize(new java.awt.Dimension(750, 380));
-        jPanel8.setMinimumSize(new java.awt.Dimension(750, 380));
-        jPanel8.setPreferredSize(new java.awt.Dimension(750, 380));
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
-        );
-
-        Paneles.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jPanel9.setMaximumSize(new java.awt.Dimension(750, 380));
-        jPanel9.setMinimumSize(new java.awt.Dimension(750, 380));
-        jPanel9.setPreferredSize(new java.awt.Dimension(750, 380));
-
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
-        );
-
-        Paneles.add(jPanel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jPanel10.setMaximumSize(new java.awt.Dimension(750, 380));
-        jPanel10.setMinimumSize(new java.awt.Dimension(750, 380));
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
-        );
-
-        Paneles.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jPanel13.setMaximumSize(new java.awt.Dimension(750, 380));
-        jPanel13.setMinimumSize(new java.awt.Dimension(750, 380));
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
-        );
-
-        Paneles.add(jPanel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jPanel3.setMaximumSize(new java.awt.Dimension(750, 380));
-        jPanel3.setMinimumSize(new java.awt.Dimension(750, 380));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
-        );
-
-        Paneles.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jPanel12.setMaximumSize(new java.awt.Dimension(750, 380));
-        jPanel12.setMinimumSize(new java.awt.Dimension(750, 380));
-        jPanel12.setPreferredSize(new java.awt.Dimension(750, 380));
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
-        );
-
-        Paneles.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jPanel14.setMaximumSize(new java.awt.Dimension(750, 380));
-        jPanel14.setMinimumSize(new java.awt.Dimension(750, 380));
-        jPanel14.setPreferredSize(new java.awt.Dimension(750, 380));
-
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
-        );
-
-        Paneles.add(jPanel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jPanel15.setMaximumSize(new java.awt.Dimension(750, 380));
-        jPanel15.setMinimumSize(new java.awt.Dimension(750, 380));
-        jPanel15.setPreferredSize(new java.awt.Dimension(750, 380));
-
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
-        );
-
-        Paneles.add(jPanel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jPanel17.setMaximumSize(new java.awt.Dimension(750, 380));
-        jPanel17.setMinimumSize(new java.awt.Dimension(750, 380));
-        jPanel17.setPreferredSize(new java.awt.Dimension(750, 380));
-
-        javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
-        jPanel17.setLayout(jPanel17Layout);
-        jPanel17Layout.setHorizontalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-        );
-        jPanel17Layout.setVerticalGroup(
-            jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
-        );
-
-        Paneles.add(jPanel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        jPanel11.setMaximumSize(new java.awt.Dimension(750, 380));
-        jPanel11.setMinimumSize(new java.awt.Dimension(750, 380));
-        jPanel11.setPreferredSize(new java.awt.Dimension(750, 380));
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 750, Short.MAX_VALUE)
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 380, Short.MAX_VALUE)
-        );
-
-        Paneles.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         getContentPane().add(Paneles, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
@@ -1194,6 +1729,90 @@ public class Interfaz extends javax.swing.JFrame {
     private void botonSalir_NuevoSismo_UbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir_NuevoSismo_UbicacionActionPerformed
         cerrarPrograma();
     }//GEN-LAST:event_botonSalir_NuevoSismo_UbicacionActionPerformed
+
+    private void botonAceptar_RegistroSismosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar_RegistroSismosActionPerformed
+        ocultarPanelesExceptoEste(Inicio);
+    }//GEN-LAST:event_botonAceptar_RegistroSismosActionPerformed
+
+    private void botonSalir_RegistroSismosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir_RegistroSismosActionPerformed
+        cerrarPrograma();
+    }//GEN-LAST:event_botonSalir_RegistroSismosActionPerformed
+
+    private void botonSismosMagnitudPorProvincia_RegistroSismosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSismosMagnitudPorProvincia_RegistroSismosActionPerformed
+        ocultarPanelesExceptoEste(RegistroSismos_A, true);
+    }//GEN-LAST:event_botonSismosMagnitudPorProvincia_RegistroSismosActionPerformed
+
+    private void botonCantSismosPorOrigen_RegistroSismosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCantSismosPorOrigen_RegistroSismosActionPerformed
+        ocultarPanelesExceptoEste(RegistroSismos_B, true);
+    }//GEN-LAST:event_botonCantSismosPorOrigen_RegistroSismosActionPerformed
+
+    private void botonRegresar_RegistroSismos_AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar_RegistroSismos_AActionPerformed
+        ocultarPanelesExceptoEste(RegistroSismos);
+    }//GEN-LAST:event_botonRegresar_RegistroSismos_AActionPerformed
+
+    private void botonSalir_RegistroSismos_AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir_RegistroSismos_AActionPerformed
+        cerrarPrograma();
+    }//GEN-LAST:event_botonSalir_RegistroSismos_AActionPerformed
+
+    private void botonRegresar_RegistroSismos_BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar_RegistroSismos_BActionPerformed
+        ocultarPanelesExceptoEste(RegistroSismos);
+    }//GEN-LAST:event_botonRegresar_RegistroSismos_BActionPerformed
+
+    private void botonSalir_RegistroSismos_BActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir_RegistroSismos_BActionPerformed
+        cerrarPrograma();
+    }//GEN-LAST:event_botonSalir_RegistroSismos_BActionPerformed
+
+    private void botonRegresar_RegistroSismos_CActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar_RegistroSismos_CActionPerformed
+        ocultarPanelesExceptoEste(RegistroSismos);
+    }//GEN-LAST:event_botonRegresar_RegistroSismos_CActionPerformed
+
+    private void botonSalir_RegistroSismos_CActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir_RegistroSismos_CActionPerformed
+        cerrarPrograma();
+    }//GEN-LAST:event_botonSalir_RegistroSismos_CActionPerformed
+
+    private void inputDia1Formated_RegistroSismos_CActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputDia1Formated_RegistroSismos_CActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputDia1Formated_RegistroSismos_CActionPerformed
+
+    private void botonMostrar_RegistroSismos_AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrar_RegistroSismos_AActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_botonMostrar_RegistroSismos_AActionPerformed
+
+    private void botonRegresar_RegistroSismos_DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar_RegistroSismos_DActionPerformed
+        ocultarPanelesExceptoEste(RegistroSismos);
+    }//GEN-LAST:event_botonRegresar_RegistroSismos_DActionPerformed
+
+    private void botonSalir_RegistroSismos_DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir_RegistroSismos_DActionPerformed
+        cerrarPrograma();
+    }//GEN-LAST:event_botonSalir_RegistroSismos_DActionPerformed
+
+    private void botonRegresar_RegistroSismos_EActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar_RegistroSismos_EActionPerformed
+        ocultarPanelesExceptoEste(RegistroSismos);
+    }//GEN-LAST:event_botonRegresar_RegistroSismos_EActionPerformed
+
+    private void botonSalir_RegistroSismos_EActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir_RegistroSismos_EActionPerformed
+        cerrarPrograma();
+    }//GEN-LAST:event_botonSalir_RegistroSismos_EActionPerformed
+
+    private void botonSismosEntreFechas_RegistroSismosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSismosEntreFechas_RegistroSismosActionPerformed
+        ocultarPanelesExceptoEste(RegistroSismos_C, true);
+    }//GEN-LAST:event_botonSismosEntreFechas_RegistroSismosActionPerformed
+
+    private void botonCantSismosPorMesEnAño_RegistroSismosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCantSismosPorMesEnAño_RegistroSismosActionPerformed
+        ocultarPanelesExceptoEste(RegistroSismos_D, true);
+    }//GEN-LAST:event_botonCantSismosPorMesEnAño_RegistroSismosActionPerformed
+
+    private void botonClasificacionSismosPorMagnitud_RegistroSismosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonClasificacionSismosPorMagnitud_RegistroSismosActionPerformed
+        ocultarPanelesExceptoEste(RegistroSismos_E, true);
+    }//GEN-LAST:event_botonClasificacionSismosPorMagnitud_RegistroSismosActionPerformed
+
+    private void inputAñoFormated_RegistroSismos_DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputAñoFormated_RegistroSismos_DActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputAñoFormated_RegistroSismos_DActionPerformed
+
+    private void inputListaProvincia_RegistroSismos_AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputListaProvincia_RegistroSismos_AActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputListaProvincia_RegistroSismos_AActionPerformed
     
 
     /**
@@ -1233,6 +1852,7 @@ public class Interfaz extends javax.swing.JFrame {
         
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog ConfirmarSalida;
     private javax.swing.JPanel Inicio;
@@ -1241,51 +1861,94 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JPanel NuevoSismo_UbicacionMapa;
     private javax.swing.JLayeredPane Paneles;
     private javax.swing.JPanel RegistroSismos;
+    private javax.swing.JPanel RegistroSismos_A;
+    private javax.swing.JPanel RegistroSismos_B;
+    private javax.swing.JPanel RegistroSismos_C;
+    private javax.swing.JPanel RegistroSismos_D;
+    private javax.swing.JPanel RegistroSismos_E;
     private javax.swing.JButton botonAceptar_ConfirmarSalida;
     private javax.swing.JButton botonAceptar_NuevoSismo;
     private javax.swing.JButton botonAceptar_NuevoSismo_Fecha;
     private javax.swing.JButton botonAceptar_NuevoSismo_Ubicacion;
+    private javax.swing.JButton botonAceptar_RegistroSismos;
     private javax.swing.JButton botonCancelar_ConfirmarSalida;
+    private javax.swing.JButton botonCantSismosPorMesEnAño_RegistroSismos;
+    private javax.swing.JButton botonCantSismosPorOrigen_RegistroSismos;
+    private javax.swing.JButton botonClasificacionSismosPorMagnitud_RegistroSismos;
     private javax.swing.JButton botonEscogerFecha_NuevoSismo;
     private javax.swing.JButton botonEscogerFecha_NuevoSismo_Fecha;
+    private javax.swing.JButton botonMostrar_RegistroSismos_A;
+    private javax.swing.JButton botonMostrar_RegistroSismos_B;
+    private javax.swing.JButton botonMostrar_RegistroSismos_C;
+    private javax.swing.JButton botonMostrar_RegistroSismos_D;
     private javax.swing.JButton botonNuevoSismo_Inicio;
     private javax.swing.JButton botonRegistroSismos_Inicio;
     private javax.swing.JButton botonRegresar_NuevoSismo;
+    private javax.swing.JButton botonRegresar_RegistroSismos_A;
+    private javax.swing.JButton botonRegresar_RegistroSismos_B;
+    private javax.swing.JButton botonRegresar_RegistroSismos_C;
+    private javax.swing.JButton botonRegresar_RegistroSismos_D;
+    private javax.swing.JButton botonRegresar_RegistroSismos_E;
     private javax.swing.JButton botonSalir_Inicio;
     private javax.swing.JButton botonSalir_NuevoSismo;
     private javax.swing.JButton botonSalir_NuevoSismo_Fecha;
     private javax.swing.JButton botonSalir_NuevoSismo_Ubicacion;
+    private javax.swing.JButton botonSalir_RegistroSismos;
+    private javax.swing.JButton botonSalir_RegistroSismos_A;
+    private javax.swing.JButton botonSalir_RegistroSismos_B;
+    private javax.swing.JButton botonSalir_RegistroSismos_C;
+    private javax.swing.JButton botonSalir_RegistroSismos_D;
+    private javax.swing.JButton botonSalir_RegistroSismos_E;
+    private javax.swing.JButton botonSismosEntreFechas_RegistroSismos;
+    private javax.swing.JButton botonSismosMagnitudPorProvincia_RegistroSismos;
     private javax.swing.JButton botonUbicacion_NuevoSismo;
     private javax.swing.JTextArea detalle_Inicio;
+    private javax.swing.JFormattedTextField inputAñoFormated_RegistroSismos_D;
     private javax.swing.JTextArea inputDescripcionDetallada_NuevoSismo;
     private javax.swing.JTextField inputDetalleFalla_NuevoSismo;
+    private javax.swing.JFormattedTextField inputDia1Formated_RegistroSismos_C;
+    private javax.swing.JFormattedTextField inputDia2Formated_RegistroSismos_C;
     private javax.swing.JFormattedTextField inputDiaFormated_NuevoSismo_Fecha;
     private javax.swing.JFormattedTextField inputHoraFormated_NuevoSismo_Fecha;
     private javax.swing.JFormattedTextField inputLatitudFormated_NuevoSismo_Ubicacion;
+    private javax.swing.JComboBox<String> inputListaOrigen_RegistroSismos_B;
+    private javax.swing.JComboBox<String> inputListaProvincia_RegistroSismos_A;
     private javax.swing.JFormattedTextField inputLongitudFormated_NuevoSismo_Ubicacion;
-    private javax.swing.JComboBox<String> inputLugarLista_NuevoSismo1;
+    private javax.swing.JComboBox<String> inputLugarLista_NuevoSismo;
     private javax.swing.JTextField inputMagnitud_NuevoSismo;
     private javax.swing.JComboBox<String> inputOrigenFallaLista_NuevoSismo;
     private javax.swing.JComboBox<String> inputProvinciaLista_NuevoSismo;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel mapa_NuevoSismo_Ubicacion;
+    private javax.swing.JPanel panel_RegistroSismos_A;
+    private javax.swing.JPanel panel_RegistroSismos_B;
+    private javax.swing.JPanel panel_RegistroSismos_C;
+    private javax.swing.JPanel panel_RegistroSismos_D;
+    private javax.swing.JPanel panel_RegistroSismos_E;
     private javax.swing.JScrollPane scrollPaneDescripcionDetallada_NuevoSismo;
+    private javax.swing.JLabel textA1_RegistroSismos;
+    private javax.swing.JLabel textA2_RegistroSismos;
+    private javax.swing.JLabel textA3_RegistroSismos;
+    private javax.swing.JLabel textAño_RegistroSismos_D;
+    private javax.swing.JLabel textB1_RegistroSismos;
+    private javax.swing.JLabel textB2_RegistroSismos;
+    private javax.swing.JLabel textB3_RegistroSismos;
+    private javax.swing.JLabel textC1_RegistroSismos;
+    private javax.swing.JLabel textC2_RegistroSismos;
+    private javax.swing.JLabel textC3_RegistroSismos;
     private javax.swing.JLabel textConfirmarSalida_ConfirmarSalida;
+    private javax.swing.JLabel textD1_RegistroSismos;
+    private javax.swing.JLabel textD2_RegistroSismos;
+    private javax.swing.JLabel textD3_RegistroSismos;
     private javax.swing.JLabel textDescripcion_NuevoSismo;
+    private javax.swing.JLabel textDesde_RegistroSismos_C;
     private javax.swing.JLabel textDetalleFalla_NuevoSismo;
     private javax.swing.JTextField textDetalle_Inicio;
     private javax.swing.JLabel textDia_NuevoSismo_Fecha;
+    private javax.swing.JLabel textE1_RegistroSismos;
+    private javax.swing.JLabel textE2_RegistroSismos;
+    private javax.swing.JLabel textE3_RegistroSismos;
+    private javax.swing.JLabel textHasta_RegistroSismos_C;
     private javax.swing.JLabel textHora_NuevoSismo_Fecha;
     private javax.swing.JLabel textLatitud_NuevoSismo_Ubicacion;
     private javax.swing.JLabel textLongitud_NuevoSismo_Ubicacion;
@@ -1296,10 +1959,18 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel textOrigenFalla_NuevoSismo;
     private javax.swing.JLabel textProfundidad_NuevoSismo;
     private javax.swing.JLabel textProvincia_NuevoSismo;
+    private javax.swing.JLabel textProvincia_RegistroSismos_A;
+    private javax.swing.JLabel textProvincia_RegistroSismos_B;
     private javax.swing.JLabel textTitulo_Inicio;
     private javax.swing.JLabel textTitulo_NuevoSismo;
     private javax.swing.JLabel textTitulo_NuevoSismo_Fecha;
     private javax.swing.JLabel textTitulo_NuevoSismo_Ubicacion;
+    private javax.swing.JLabel textTitulo_RegistroSismos;
+    private javax.swing.JLabel textTitulo_RegistroSismos_A;
+    private javax.swing.JLabel textTitulo_RegistroSismos_B;
+    private javax.swing.JLabel textTitulo_RegistroSismos_C;
+    private javax.swing.JLabel textTitulo_RegistroSismos_D;
+    private javax.swing.JLabel textTitulo_RegistroSismos_E;
     private javax.swing.JLabel textUbicacion_NuevoSismo;
     private javax.swing.JLabel validacionMagnitud_NuevoSismo;
     private javax.swing.JLabel validacionProfundidad_NuevoSismo;

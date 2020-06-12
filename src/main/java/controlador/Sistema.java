@@ -17,7 +17,10 @@ public class Sistema {
     ControladorArchivo cArchivos;
     ControladorGraficos cGraficos;
     ControladorMapas cMapas;
-    ControladorSismos cSismos; 
+    ControladorSismos cSismos;
+    
+    
+    
     
     public static void main(String[] args) {
         Sistema elSistema= new Sistema();
