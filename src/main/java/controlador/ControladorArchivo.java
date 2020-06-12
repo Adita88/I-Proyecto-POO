@@ -53,31 +53,58 @@ public class ControladorArchivo implements ActionListener{
 
     public ControladorArchivo() {
     }
-
+    
+/**
+ * 
+ * @param nombreArchivo 
+ */    
     public void setNombreArchivo(String nombreArchivo) {
         this.nombreArchivo = nombreArchivo;
     }
 
+    /**
+     * 
+     * @param rutaArchivo 
+     */
     public void setRutaArchivo(String rutaArchivo) {
         this.rutaArchivo = rutaArchivo;
     }
-
+/**
+ * 
+ * @param hoja 
+ */
     public void setHoja(String hoja) {
         this.hoja = hoja;
     }
-
+    
+    /**
+     * 
+     * @return nombreArchivo: String
+     */
     public String getNombreArchivo() {
         return nombreArchivo;
     }
-
+    
+    /**
+     * 
+     * @return 
+     */
     public String getRutaArchivo() {
         return rutaArchivo;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getHoja() {
         return hoja;
     }
 
+    /**
+     * 
+     * 
+     */
     @Override
     public String toString() {
         return "ControladorArchivo{" + "nombreArchivo=" + nombreArchivo 
@@ -243,7 +270,11 @@ public class ControladorArchivo implements ActionListener{
     }
     
     
-    
+    /**
+     * 
+     * @param VistaEx
+     * @param ModeloEx 
+     */
     public ControladorArchivo(Interfaz2 VistaEx, modelo.Archivo ModeloEx){
         this.VistaEx = VistaEx;
         this.ModeloEx = ModeloEx;
@@ -252,7 +283,10 @@ public class ControladorArchivo implements ActionListener{
         VistaEx.setVisible(true);
         VistaEx.setLocationRelativeTo(null);
     }
-
+    
+    /**
+     * 
+     */
     public void AgregarFiltro(){
         seleccionaArchivo.setFileFilter(new FileNameExtensionFilter("Excel ('.xls)", "xls"));
         seleccionaArchivo.setFileFilter(new FileNameExtensionFilter("Excel ('.xlsx)", "xlsx"));

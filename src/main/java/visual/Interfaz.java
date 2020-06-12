@@ -5,6 +5,7 @@
  */
 package visual;
 
+import controlador.Sistema;
 import java.awt.*;
 import javax.swing.JPanel;
 import modelo.*;
@@ -30,6 +31,7 @@ public class Interfaz extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         ConfirmarSalida.setLocationRelativeTo(null);
+        Sistema elSistema= new Sistema();
         asignarValoresListas();
         ocultarPanelesExceptoEste(Inicio);
         
@@ -198,12 +200,18 @@ public class Interfaz extends javax.swing.JFrame {
         textTitulo_Inicio = new javax.swing.JLabel();
         botonSalir_Inicio = new javax.swing.JButton();
         detalle_Inicio = new javax.swing.JTextArea();
+        VentanaIntermedia = new javax.swing.JPanel();
+        textTitulo_VentanaIntermedia = new javax.swing.JLabel();
+        botonRegresar_VentanaIntermedia = new javax.swing.JButton();
+        botonSalir_NuevoSismo_Ubicacion1 = new javax.swing.JButton();
+        todosSismos_VentanaIntermedia = new javax.swing.JPanel();
+        botonNuevoSismo_VentanaIntermedia = new javax.swing.JButton();
         NuevoSismo = new javax.swing.JPanel();
         textTitulo_NuevoSismo = new javax.swing.JLabel();
         textMomentoExacto_NuevoSismo = new javax.swing.JLabel();
         botonEscogerFecha_NuevoSismo = new javax.swing.JButton();
         textProfundidad_NuevoSismo = new javax.swing.JLabel();
-        textDetalle_Inicio = new javax.swing.JTextField();
+        inputProfundidad_NuevoSismo = new javax.swing.JTextField();
         validacionProfundidad_NuevoSismo = new javax.swing.JLabel();
         textOrigenFalla_NuevoSismo = new javax.swing.JLabel();
         inputOrigenFallaLista_NuevoSismo = new javax.swing.JComboBox<>();
@@ -379,7 +387,7 @@ public class Interfaz extends javax.swing.JFrame {
         botonNuevoSismo_Inicio.setBackground(new java.awt.Color(230, 57, 70));
         botonNuevoSismo_Inicio.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         botonNuevoSismo_Inicio.setForeground(new java.awt.Color(255, 255, 255));
-        botonNuevoSismo_Inicio.setText("Nuevo Simos");
+        botonNuevoSismo_Inicio.setText("Registro de Sismos");
         botonNuevoSismo_Inicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         botonNuevoSismo_Inicio.setBorderPainted(false);
         botonNuevoSismo_Inicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -392,7 +400,7 @@ public class Interfaz extends javax.swing.JFrame {
         botonRegistroSismos_Inicio.setBackground(new java.awt.Color(29, 53, 87));
         botonRegistroSismos_Inicio.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         botonRegistroSismos_Inicio.setForeground(new java.awt.Color(255, 255, 255));
-        botonRegistroSismos_Inicio.setText("Registro de Sismos");
+        botonRegistroSismos_Inicio.setText("Analisis de Sismos");
         botonRegistroSismos_Inicio.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         botonRegistroSismos_Inicio.setBorderPainted(false);
         botonRegistroSismos_Inicio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -424,7 +432,7 @@ public class Interfaz extends javax.swing.JFrame {
         detalle_Inicio.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         detalle_Inicio.setForeground(new java.awt.Color(29, 53, 87));
         detalle_Inicio.setRows(5);
-        detalle_Inicio.setText("En este sistema se pueden registrar\nnuevos sismos y ver el registro que\nse mantiene de estos.");
+        detalle_Inicio.setText("En este sistema se pueden registrar\nnuevos sismos, ver el registro que\nse mantiene de estos y analizar los\nsismos almacenados");
         detalle_Inicio.setAutoscrolls(false);
         detalle_Inicio.setBorder(null);
         detalle_Inicio.setCaretColor(new java.awt.Color(61, 90, 128));
@@ -466,6 +474,87 @@ public class Interfaz extends javax.swing.JFrame {
 
         Paneles.add(Inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        VentanaIntermedia.setBackground(new java.awt.Color(230, 57, 70));
+        VentanaIntermedia.setMaximumSize(new java.awt.Dimension(750, 380));
+        VentanaIntermedia.setMinimumSize(new java.awt.Dimension(750, 380));
+
+        textTitulo_VentanaIntermedia.setBackground(new java.awt.Color(29, 53, 87));
+        textTitulo_VentanaIntermedia.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
+        textTitulo_VentanaIntermedia.setForeground(new java.awt.Color(241, 250, 238));
+        textTitulo_VentanaIntermedia.setText(" Nuevo Sismo - Definir Ubicación ");
+        textTitulo_VentanaIntermedia.setOpaque(true);
+
+        botonRegresar_VentanaIntermedia.setText("Regresar");
+        botonRegresar_VentanaIntermedia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegresar_VentanaIntermediaActionPerformed(evt);
+            }
+        });
+
+        botonSalir_NuevoSismo_Ubicacion1.setText("Salir");
+        botonSalir_NuevoSismo_Ubicacion1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalir_NuevoSismo_Ubicacion1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout todosSismos_VentanaIntermediaLayout = new javax.swing.GroupLayout(todosSismos_VentanaIntermedia);
+        todosSismos_VentanaIntermedia.setLayout(todosSismos_VentanaIntermediaLayout);
+        todosSismos_VentanaIntermediaLayout.setHorizontalGroup(
+            todosSismos_VentanaIntermediaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        todosSismos_VentanaIntermediaLayout.setVerticalGroup(
+            todosSismos_VentanaIntermediaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 287, Short.MAX_VALUE)
+        );
+
+        botonNuevoSismo_VentanaIntermedia.setBackground(new java.awt.Color(29, 53, 87));
+        botonNuevoSismo_VentanaIntermedia.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        botonNuevoSismo_VentanaIntermedia.setForeground(new java.awt.Color(255, 255, 255));
+        botonNuevoSismo_VentanaIntermedia.setText("Nuevo Sismo");
+        botonNuevoSismo_VentanaIntermedia.setBorderPainted(false);
+        botonNuevoSismo_VentanaIntermedia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonNuevoSismo_VentanaIntermediaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout VentanaIntermediaLayout = new javax.swing.GroupLayout(VentanaIntermedia);
+        VentanaIntermedia.setLayout(VentanaIntermediaLayout);
+        VentanaIntermediaLayout.setHorizontalGroup(
+            VentanaIntermediaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(VentanaIntermediaLayout.createSequentialGroup()
+                .addComponent(textTitulo_VentanaIntermedia, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(VentanaIntermediaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(VentanaIntermediaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(VentanaIntermediaLayout.createSequentialGroup()
+                        .addComponent(botonNuevoSismo_VentanaIntermedia, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(botonRegresar_VentanaIntermedia)
+                        .addGap(10, 10, 10)
+                        .addComponent(botonSalir_NuevoSismo_Ubicacion1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(todosSismos_VentanaIntermedia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(14, 14, 14))
+        );
+        VentanaIntermediaLayout.setVerticalGroup(
+            VentanaIntermediaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(VentanaIntermediaLayout.createSequentialGroup()
+                .addComponent(textTitulo_VentanaIntermedia)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(todosSismos_VentanaIntermedia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(VentanaIntermediaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(botonSalir_NuevoSismo_Ubicacion1)
+                    .addComponent(botonRegresar_VentanaIntermedia)
+                    .addComponent(botonNuevoSismo_VentanaIntermedia))
+                .addGap(9, 9, 9))
+        );
+
+        Paneles.add(VentanaIntermedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         NuevoSismo.setBackground(new java.awt.Color(230, 57, 70));
         NuevoSismo.setMaximumSize(new java.awt.Dimension(750, 380));
         NuevoSismo.setMinimumSize(new java.awt.Dimension(750, 380));
@@ -497,13 +586,13 @@ public class Interfaz extends javax.swing.JFrame {
         textProfundidad_NuevoSismo.setForeground(new java.awt.Color(241, 250, 238));
         textProfundidad_NuevoSismo.setText("Profundidad:");
 
-        textDetalle_Inicio.setMaximumSize(new java.awt.Dimension(107, 23));
-        textDetalle_Inicio.setMinimumSize(new java.awt.Dimension(107, 23));
-        textDetalle_Inicio.setName(""); // NOI18N
-        textDetalle_Inicio.setPreferredSize(new java.awt.Dimension(107, 23));
-        textDetalle_Inicio.addActionListener(new java.awt.event.ActionListener() {
+        inputProfundidad_NuevoSismo.setMaximumSize(new java.awt.Dimension(107, 23));
+        inputProfundidad_NuevoSismo.setMinimumSize(new java.awt.Dimension(107, 23));
+        inputProfundidad_NuevoSismo.setName(""); // NOI18N
+        inputProfundidad_NuevoSismo.setPreferredSize(new java.awt.Dimension(107, 23));
+        inputProfundidad_NuevoSismo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textDetalle_InicioActionPerformed(evt);
+                inputProfundidad_NuevoSismoActionPerformed(evt);
             }
         });
 
@@ -634,7 +723,7 @@ public class Interfaz extends javax.swing.JFrame {
                             .addComponent(textProfundidad_NuevoSismo))
                         .addGap(32, 32, 32)
                         .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(textDetalle_Inicio, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                            .addComponent(inputProfundidad_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
                             .addComponent(botonEscogerFecha_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(NuevoSismoLayout.createSequentialGroup()
                         .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -688,7 +777,7 @@ public class Interfaz extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textProfundidad_NuevoSismo)
-                    .addComponent(textDetalle_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputProfundidad_NuevoSismo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(textProvincia_NuevoSismo)
                     .addComponent(inputProvinciaLista_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(3, 3, 3)
@@ -956,7 +1045,7 @@ public class Interfaz extends javax.swing.JFrame {
         textTitulo_RegistroSismos.setBackground(new java.awt.Color(230, 57, 70));
         textTitulo_RegistroSismos.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
         textTitulo_RegistroSismos.setForeground(new java.awt.Color(241, 250, 238));
-        textTitulo_RegistroSismos.setText("Registro de Sismos");
+        textTitulo_RegistroSismos.setText(" Analisis de Sismos ");
         textTitulo_RegistroSismos.setOpaque(true);
         RegistroSismos.add(textTitulo_RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, -1));
 
@@ -1618,7 +1707,8 @@ public class Interfaz extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonNuevoSismo_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoSismo_InicioActionPerformed
-        ocultarPanelesExceptoEste(NuevoSismo,true);
+        ocultarPanelesExceptoEste(VentanaIntermedia,true);
+        
     }//GEN-LAST:event_botonNuevoSismo_InicioActionPerformed
 
     private void botonRegistroSismos_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistroSismos_InicioActionPerformed
@@ -1639,28 +1729,68 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void botonAceptar_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar_NuevoSismoActionPerformed
         String antiHexadecimal= "abcdefAbcdef";
+        
+        Date momentoExacto;
+        double profundidad;
+        TFalla origenFalla;
+        String detalleFalla;
+        double magnitud;
+        double latitud;
+        double longitud;
+        String descripcionDetallada;
+        TLugar lugar;
+        TProvincia provincia;
+        
         try{
-            String stringProf= textDetalle_Inicio.getText();
+            Date rawDia= (Date) inputDiaFormated_NuevoSismo_Fecha.getValue();
+            Date rawHora= (Date) inputHoraFormated_NuevoSismo_Fecha.getValue();
+            momentoExacto= new Date(
+                    rawDia.getYear(), rawDia.getMonth(), rawDia.getDay(),
+                    rawHora.getHours(), rawHora.getMinutes(), rawHora.getSeconds()
+                    );
+        }catch(NullPointerException error){
+            momentoExacto= new Date();
+        }
+        
+        try{
+            String stringProf= inputProfundidad_NuevoSismo.getText();
             if(stringProf.contains(antiHexadecimal)) throw new NumberFormatException();
-            double profundidad= Double.parseDouble(stringProf);
+            profundidad= Double.parseDouble(stringProf);
             validacionProfundidad_NuevoSismo.setText("");
         } catch (NumberFormatException error){
             validacionProfundidad_NuevoSismo.setText("Dato invalido");
         }
+        
+        origenFalla= TFalla.values()[inputOrigenFallaLista_NuevoSismo.getSelectedIndex()];
+                
+        detalleFalla= inputDetalleFalla_NuevoSismo.getSelectedText();
+        if(detalleFalla == null) detalleFalla="";    
+        
         try{
             String stringMag= inputMagnitud_NuevoSismo.getText();
             if(stringMag.contains(antiHexadecimal)) throw new NumberFormatException();
-            double magnitud= Double.parseDouble(stringMag);
+            magnitud= Double.parseDouble(stringMag);
             validacionMagnitud_NuevoSismo.setText("");
         } catch (NumberFormatException error){
             validacionMagnitud_NuevoSismo.setText("Dato invalido");
         }
         
+        latitud= (double) inputLatitudFormated_NuevoSismo_Ubicacion.getValue();
+        
+        longitud= (double) inputLongitudFormated_NuevoSismo_Ubicacion.getValue();
+        
+        descripcionDetallada=inputDescripcionDetallada_NuevoSismo.getText();
+        if (descripcionDetallada==null) descripcionDetallada="";
+        
+        lugar= TLugar.values()[inputLugarLista_NuevoSismo.getSelectedIndex()];
+        
+        provincia= TProvincia.values()[inputProvinciaLista_NuevoSismo.getSelectedIndex()];
+        
     }//GEN-LAST:event_botonAceptar_NuevoSismoActionPerformed
 
-    private void textDetalle_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textDetalle_InicioActionPerformed
+    private void inputProfundidad_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputProfundidad_NuevoSismoActionPerformed
 
-    }//GEN-LAST:event_textDetalle_InicioActionPerformed
+    }//GEN-LAST:event_inputProfundidad_NuevoSismoActionPerformed
 
     private void botonUbicacion_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonUbicacion_NuevoSismoActionPerformed
         ocultarPanelesExceptoEste(NuevoSismo_UbicacionMapa);
@@ -1671,7 +1801,7 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_inputProvinciaLista_NuevoSismoActionPerformed
 
     private void botonRegresar_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar_NuevoSismoActionPerformed
-        ocultarPanelesExceptoEste(Inicio);
+        ocultarPanelesExceptoEste(VentanaIntermedia);
     }//GEN-LAST:event_botonRegresar_NuevoSismoActionPerformed
 
     private void botonAceptar_ConfirmarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar_ConfirmarSalidaActionPerformed
@@ -1712,14 +1842,6 @@ public class Interfaz extends javax.swing.JFrame {
     private void inputHoraFormated_NuevoSismo_FechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputHoraFormated_NuevoSismo_FechaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputHoraFormated_NuevoSismo_FechaActionPerformed
-
-    private void inputLatitudFormated_NuevoSismo_UbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputLatitudFormated_NuevoSismo_UbicacionActionPerformed
-        
-    }//GEN-LAST:event_inputLatitudFormated_NuevoSismo_UbicacionActionPerformed
-
-    private void inputLongitudFormated_NuevoSismo_UbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputLongitudFormated_NuevoSismo_UbicacionActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputLongitudFormated_NuevoSismo_UbicacionActionPerformed
 
     private void botonAceptar_NuevoSismo_UbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar_NuevoSismo_UbicacionActionPerformed
         ocultarPanelesExceptoEste(NuevoSismo);
@@ -1812,6 +1934,26 @@ public class Interfaz extends javax.swing.JFrame {
     private void inputListaProvincia_RegistroSismos_AActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputListaProvincia_RegistroSismos_AActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_inputListaProvincia_RegistroSismos_AActionPerformed
+
+    private void botonRegresar_VentanaIntermediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar_VentanaIntermediaActionPerformed
+        ocultarPanelesExceptoEste(Inicio);
+    }//GEN-LAST:event_botonRegresar_VentanaIntermediaActionPerformed
+
+    private void botonSalir_NuevoSismo_Ubicacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir_NuevoSismo_Ubicacion1ActionPerformed
+        cerrarPrograma();
+    }//GEN-LAST:event_botonSalir_NuevoSismo_Ubicacion1ActionPerformed
+
+    private void inputLongitudFormated_NuevoSismo_UbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputLongitudFormated_NuevoSismo_UbicacionActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_inputLongitudFormated_NuevoSismo_UbicacionActionPerformed
+
+    private void inputLatitudFormated_NuevoSismo_UbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputLatitudFormated_NuevoSismo_UbicacionActionPerformed
+
+    }//GEN-LAST:event_inputLatitudFormated_NuevoSismo_UbicacionActionPerformed
+
+    private void botonNuevoSismo_VentanaIntermediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoSismo_VentanaIntermediaActionPerformed
+        ocultarPanelesExceptoEste(NuevoSismo, true);
+    }//GEN-LAST:event_botonNuevoSismo_VentanaIntermediaActionPerformed
     
 
     /**
@@ -1865,6 +2007,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JPanel RegistroSismos_C;
     private javax.swing.JPanel RegistroSismos_D;
     private javax.swing.JPanel RegistroSismos_E;
+    private javax.swing.JPanel VentanaIntermedia;
     private javax.swing.JButton botonAceptar_ConfirmarSalida;
     private javax.swing.JButton botonAceptar_NuevoSismo;
     private javax.swing.JButton botonAceptar_NuevoSismo_Fecha;
@@ -1881,6 +2024,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton botonMostrar_RegistroSismos_C;
     private javax.swing.JButton botonMostrar_RegistroSismos_D;
     private javax.swing.JButton botonNuevoSismo_Inicio;
+    private javax.swing.JButton botonNuevoSismo_VentanaIntermedia;
     private javax.swing.JButton botonRegistroSismos_Inicio;
     private javax.swing.JButton botonRegresar_NuevoSismo;
     private javax.swing.JButton botonRegresar_RegistroSismos_A;
@@ -1888,10 +2032,12 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JButton botonRegresar_RegistroSismos_C;
     private javax.swing.JButton botonRegresar_RegistroSismos_D;
     private javax.swing.JButton botonRegresar_RegistroSismos_E;
+    private javax.swing.JButton botonRegresar_VentanaIntermedia;
     private javax.swing.JButton botonSalir_Inicio;
     private javax.swing.JButton botonSalir_NuevoSismo;
     private javax.swing.JButton botonSalir_NuevoSismo_Fecha;
     private javax.swing.JButton botonSalir_NuevoSismo_Ubicacion;
+    private javax.swing.JButton botonSalir_NuevoSismo_Ubicacion1;
     private javax.swing.JButton botonSalir_RegistroSismos;
     private javax.swing.JButton botonSalir_RegistroSismos_A;
     private javax.swing.JButton botonSalir_RegistroSismos_B;
@@ -1916,6 +2062,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> inputLugarLista_NuevoSismo;
     private javax.swing.JTextField inputMagnitud_NuevoSismo;
     private javax.swing.JComboBox<String> inputOrigenFallaLista_NuevoSismo;
+    private javax.swing.JTextField inputProfundidad_NuevoSismo;
     private javax.swing.JComboBox<String> inputProvinciaLista_NuevoSismo;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel mapa_NuevoSismo_Ubicacion;
@@ -1942,7 +2089,6 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel textDescripcion_NuevoSismo;
     private javax.swing.JLabel textDesde_RegistroSismos_C;
     private javax.swing.JLabel textDetalleFalla_NuevoSismo;
-    private javax.swing.JTextField textDetalle_Inicio;
     private javax.swing.JLabel textDia_NuevoSismo_Fecha;
     private javax.swing.JLabel textE1_RegistroSismos;
     private javax.swing.JLabel textE2_RegistroSismos;
@@ -1970,7 +2116,9 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel textTitulo_RegistroSismos_C;
     private javax.swing.JLabel textTitulo_RegistroSismos_D;
     private javax.swing.JLabel textTitulo_RegistroSismos_E;
+    private javax.swing.JLabel textTitulo_VentanaIntermedia;
     private javax.swing.JLabel textUbicacion_NuevoSismo;
+    private javax.swing.JPanel todosSismos_VentanaIntermedia;
     private javax.swing.JLabel validacionMagnitud_NuevoSismo;
     private javax.swing.JLabel validacionProfundidad_NuevoSismo;
     // End of variables declaration//GEN-END:variables
