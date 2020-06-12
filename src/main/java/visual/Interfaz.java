@@ -362,7 +362,6 @@ public class Interfaz extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Sismos");
         setBackground(new java.awt.Color(61, 90, 128));
-        setMaximumSize(new java.awt.Dimension(750, 380));
         setMinimumSize(new java.awt.Dimension(750, 380));
         setName("Base"); // NOI18N
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

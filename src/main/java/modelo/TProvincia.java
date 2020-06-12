@@ -19,15 +19,5 @@ public enum TProvincia {
     Guanacaste,
     Puntarenas,
     Limon;
-
-    @Override
-    public String toString() {
-        switch(this) {
-            case No_Aplica: return "No Aplica";
-            case San_Jose: return "San Jose";
-            default: return this.name();
-        }
-    }
-    
-    
+  
 }

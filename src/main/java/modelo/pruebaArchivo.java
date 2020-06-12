@@ -5,66 +5,27 @@
  */
 package modelo;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.Iterator;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.usermodel.WorkbookFactory;
 
+import java.io.*;
+import java.util.*;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import org.apache.poi.EncryptedDocumentException;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.xssf.usermodel.*;
 
 /**
- * Clase Archivo
+ *
  * @author Usuario
- * 
  */
-public class Archivo {
-    
-    public String nombreArchivo = "tablaSismos.xlsx";
-    public String rutaArchivo = "C:\\Users\\Usuario\\Desktop\\primerProyectoPOO\\" + nombreArchivo;
-    public String hoja = "Hoja1";
-
-    public Archivo() {
-    }
-
-    public Archivo(String nombreArchivo, String rutaArchivo, String hoja) {
-        this.nombreArchivo = nombreArchivo;
-        this.rutaArchivo = rutaArchivo;
-        this.hoja = hoja;
-    }
-
-    public void setNombreArchivo(String nombreArchivo) {
-        this.nombreArchivo = nombreArchivo;
-    }
-
-    public void setRutaArchivo(String rutaArchivo) {
-        this.rutaArchivo = rutaArchivo;
-    }
-
-    public void setHoja(String hoja) {
-        this.hoja = hoja;
-    }
-
-    public String getNombreArchivo() {
-        return nombreArchivo;
-    }
-
-    public String getRutaArchivo() {
-        return rutaArchivo;
-    }
-
-    public String getHoja() {
-        return hoja;
-    }
+public class pruebaArchivo {
     
     Workbook book;
     
     public String Importar(File archivo, JTable tabla){
-        
+        String mensaje= "Error en la Importación";
         DefaultTableModel modelo = new DefaultTableModel();
         tabla.setModel(modelo);
         
@@ -109,18 +70,47 @@ public class Archivo {
                 
                 if(IndiceFila != 0)modelo.addRow(ListaColumna);
             }
+            mensaje= "Importacion exitosa";
+            
         } catch (Exception e) {
             // TODO: handle exception
             System.out.println(e.getMessage());
         }
-        return null;
+        return mensaje;
     }
-
-    @Override
-    public String toString() {
-        return "{" + "nombreArchivo=" + nombreArchivo 
-                + ", rutaArchivo=" + rutaArchivo 
-                + ", hoja=" + hoja + '}';
-    }   
+    
+    public String Exportar(File archivo, JTable tabla){
+        String mensaje = "Error de exportacion";
+        int NumeroFila= tabla.getRowCount(),NumeroColumna=tabla.getColumnCount();
+        if(archivo.getName().endsWith("xlsx")){
+            book = new HSSFWorkbook();
+        } else {
+            book = new XSSFWorkbook();
+        }
+        Sheet hoja= book.createSheet("Hoja1");
+        
+        try {
+            for(int i = -1; i < NumeroFila ; i++){
+                Row fila = hoja.createRow(i + 1);
+                for (int j = 0; j < NumeroColumna; j++){
+                    Cell celda = fila.createCell(j);
+                    if(i==-1){
+                        celda.setCellValue(String.valueOf(tabla.getColumnName(j)));
+                    } else {
+                        celda.setCellValue(String.valueOf(tabla.getValueAt(i, j)));
+                    }
+                    
+                    book.write(new FileOutputStream(archivo));
+                }
+            }
+            
+            mensaje = "Exportacion exitosa";
+            
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println(e.getMessage());
+        }
+        return mensaje;
+    }
     
 }

@@ -6,27 +6,48 @@
 package controlador;
 
 
+import modelo.*;
+import modelo.TFalla;
+import java.awt.event.ActionEvent;
+import java.awt.event.AWTEventListener;
+import java.awt.event.ActionListener;
+
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import visual.Interfaz2;
 
 /**
  *
  * @author Usuario
  */
-public class ControladorArchivo {
+public class ControladorArchivo implements ActionListener{
     
     private String nombreArchivo = "tablaSismos.xlsx";
     private String rutaArchivo = "C:\\Users\\Usuario\\Desktop\\primerProyectoPOO\\" + nombreArchivo;
     private String hoja = "Hoja1";
+    modelo.Archivo ModeloEx = new modelo.Archivo();
+    Interfaz2 VistaEx = new Interfaz2();
+    JFileChooser seleccionaArchivo = new JFileChooser();
+    File archivo;
+    int contador = 0;
     
     //private ListIterator<> lista = new ListIterator<>();
 
@@ -56,10 +77,21 @@ public class ControladorArchivo {
     public String getHoja() {
         return hoja;
     }
+
+    @Override
+    public String toString() {
+        return "ControladorArchivo{" + "nombreArchivo=" + nombreArchivo 
+                + ", rutaArchivo=" + rutaArchivo 
+                + ", hoja=" + hoja + '}';
+    }
     
+    /**
+     * Método para cargar el archivo de excel y generar lista de sismos
+     * @return 
+     */
     public static ArrayList CargarExcel() {
-        ArrayList<String> arrayDatos = new ArrayList<>();
-        ArrayList<String> arrayFilas = new ArrayList<>();
+        ArrayList arrayDatos = new ArrayList();
+        ArrayList<String> arrayFilas = new ArrayList();
         try {
             InputStream archivo = new FileInputStream(new File("C:\\Users\\Usuario\\Desktop\\primerProyectoPOO\\tablaSismos.xlsx"));
             XSSFWorkbook wb = new XSSFWorkbook(archivo);
@@ -69,22 +101,14 @@ public class ControladorArchivo {
             XSSFRow fila;
             String datos = new String();
 
-            //System.out.println("Apunto de entrar a loops");
-
-            //System.out.println("" + sheet.getLastRowNum());
-
             for (int i = 0; i < sheet.getLastRowNum() + 1; i++) {
                 fila = sheet.getRow(i);
                 for (int j = 0; j < fila.getLastCellNum(); j++) {
-                    celda = fila.getCell(j);
-                    //System.out.println("Valor: " + celda.toString());
-                    arrayDatos.add(fila.getCell(j) + "     ");
+                    arrayDatos.add(fila.getCell(j));
                 }
                 arrayFilas.add(arrayDatos + "\n");
                 arrayDatos = new ArrayList<>();
             }
-            //System.out.println("Finalizado");
-            
 
         } catch (Exception e) {
             // TODO: handle exception
@@ -93,6 +117,11 @@ public class ControladorArchivo {
         return arrayFilas;
     }
     
+    /**
+     * Método para modificar el archivo de Excel
+     * @param nombreArchivo
+     * @param data 
+     */
     public static void modificarExcel(String nombreArchivo, String[] data) {
         try {
             InputStream archivo = new FileInputStream(new File(nombreArchivo));
@@ -125,8 +154,132 @@ public class ControladorArchivo {
             System.out.println(e.getMessage());
         }
     }
-    
-    public boolean guardar(modelo.Archivo unArchivo){
-            return true ;  // el estudiante se ha agregado con éxito
+   
+    /**
+     * Mpetodo que recibe la lista del archivo de excel y genera ArrayList sismos
+     * @return 
+     */
+    public static ArrayList listaSismos(){
+        List<Object> lista= new ArrayList<Object>();
+        lista = CargarExcel();
+        lista.remove(lista.get(0));
+        
+        Sismo unSismo = new Sismo();
+        ArrayList<Sismo> listaSismos = new ArrayList();
+        
+        Date fecha = new Date();
+        double profundidad = 0.0;
+        modelo.TFalla origenFalla = null;
+        String detalleFalla = "";
+        double magnitud = 0.0;
+        double latitud = 0.0;
+        double longitud= 0.0;
+        String descripcionDetallada = "";
+        TLugar lugar = null;
+        TProvincia provincia = null;
+        SimpleDateFormat formato =new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        
+        for(Object obj: lista){
+            
+            String[] elementos = obj.toString().split(",");
+            for (String elemento : elementos) {
+                if (elemento.equals(elementos[0])) {
+                    String dato = "";
+                    for (int j = 1; j < elemento.length(); j++) {
+                        dato += elemento.charAt(j);
+                    }
+                    try {
+                        fecha = formato.parse(dato);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(ControladorArchivo.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                } else if (elemento.equals(elementos[1])) {
+                    profundidad = Double.parseDouble(elemento);
+                } else if (elemento.equals(elementos[2])) {
+                    String dato = "";
+                    for (int j = 1; j < elemento.length(); j++) {
+                        dato += elemento.charAt(j);
+                    }
+                    origenFalla = TFalla.valueOf(dato);
+                } else if (elemento.equals(elementos[3])) {
+                    detalleFalla = elemento;
+                } else if (elemento.equals(elementos[4])) {
+                    magnitud = Double.parseDouble(elemento);
+                } else if (elemento.equals(elementos[5])) {
+                    latitud = Double.parseDouble(elemento);
+                } else if (elemento.equals(elementos[6])) {
+                    longitud = Double.parseDouble(elemento);
+                } else if (elemento.equals(elementos[7])) {
+                    descripcionDetallada = elemento;
+                } else if (elemento.equals(elementos[8])) {
+                    String dato = "";
+                    for (int j = 1; j < elemento.length(); j++) {
+                        dato += elemento.charAt(j);
+                    }
+                    lugar = TLugar.valueOf(dato);
+                } else if (elemento.equals(elementos[9])) {
+                    String dato = "";
+                    for (int j = 1; j < elemento.length()-2; j++) {
+                        dato += elemento.charAt(j);
+                    }
+                    provincia = TProvincia.valueOf(dato);
+                }
+                  
+            }
+            unSismo.setMomentoExacto(fecha);
+            unSismo.setProfundidad(profundidad);
+            unSismo.setOrigenFalla(origenFalla);
+            unSismo.setDetalleFalla(detalleFalla);
+            unSismo.setMagnitud(magnitud);
+            unSismo.setLatitud(latitud);
+            unSismo.setLongitud(longitud);
+            unSismo.setDescripcionDetallada(descripcionDetallada);
+            unSismo.setLugar(lugar);
+            unSismo.setProvincia(provincia);
+            listaSismos.add(unSismo);
+            unSismo = new Sismo();
         }
-}
+        return listaSismos;
+    }
+    
+    
+    
+    public ControladorArchivo(Interfaz2 VistaEx, modelo.Archivo ModeloEx){
+        this.VistaEx = VistaEx;
+        this.ModeloEx = ModeloEx;
+        this.VistaEx.btnImportar.addActionListener(this);
+        //this.VistaEx.btnExportar.addActionListener(this);
+        VistaEx.setVisible(true);
+        VistaEx.setLocationRelativeTo(null);
+    }
+
+    public void AgregarFiltro(){
+        seleccionaArchivo.setFileFilter(new FileNameExtensionFilter("Excel ('.xls)", "xls"));
+        seleccionaArchivo.setFileFilter(new FileNameExtensionFilter("Excel ('.xlsx)", "xlsx"));
+    }
+    
+    @Override
+    public void actionPerformed(ActionEvent e){
+        contador ++;
+        if(contador == 1 )AgregarFiltro();
+        
+        if(e.getSource()==VistaEx.btnImportar){
+            archivo = new File("C:\\Users\\Usuario\\Desktop\\primerProyectoPOO\\tablaSismos.xlsx");
+                
+                if(seleccionaArchivo.getName(archivo).endsWith("xls")){
+                    
+                    ModeloEx.Importar(archivo, VistaEx.datosExcel);
+                } else if(archivo.getName().endsWith("xlsx")){
+                    ModeloEx.Importar(archivo, VistaEx.datosExcel);
+                } else {
+                    
+                    JOptionPane.showMessageDialog(null, "Seleccionar formato valido");
+                }
+         }
+            
+            
+    }
+  
+ }
+    
+

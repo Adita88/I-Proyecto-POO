@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package controlador;
+import java.util.ArrayList;
+import java.util.Date;
+import modelo.*;
 
 /**
  *
@@ -12,6 +15,8 @@ package controlador;
 public class Sistema2 {
     
     ControladorArchivo cArchivos;
+    ControladorSismos cSismos;
+    ControladorGraficos cGraficos;
     
     public Sistema2() {
     }
@@ -34,16 +39,11 @@ public class Sistema2 {
      * @param args the command line arguments
      */
     
-    private static ControladorArchivo archivos = new ControladorArchivo();
+
     public static void main(String[] args) {
         
-        System.out.print(ControladorArchivo.CargarExcel());
-        String nombreArchivo = "tablaSismos.xlsx";
-        String [] data = {"29/02/2020", "09:56:02", "2.6", "4", "2.6 km ESE de Bijagua de Upala", "Fallamiento Local", "Bijagua de Upala", "10.7227"," -85.0358", "ver"};
-        ControladorArchivo.modificarExcel(nombreArchivo, data);
-        System.out.print(ControladorArchivo.CargarExcel());
-        System.out.print("\n");
-        System.out.print(data);
+        Sistema2 elSistema= new Sistema2();
+   
     }
     
 }
