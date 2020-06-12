@@ -5,6 +5,8 @@
  */
 package modelo;
 
+//Import
+import controlador.ControladorArchivo;
 import controlador.ControladorGraficos;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -12,27 +14,33 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- *
+ * Clase Grafico
  * @author Usuario
  */
 public class Grafico {
     
+    
+    /**
+     * Genera el gráfico Histograma
+     */
     public static void paintHistograma() {
         
         Graphics g = null;
         
-        int int_Na = ControladorGraficos.graficoProvincia(ControladorGraficos.listaSismos(), TProvincia.No_Aplica);
-        int int_Sj = ControladorGraficos.graficoProvincia(ControladorGraficos.listaSismos(), TProvincia.San_Jose);
-        int int_Al = ControladorGraficos.graficoProvincia(ControladorGraficos.listaSismos(), TProvincia.Alajuela);
-        int int_Ca = ControladorGraficos.graficoProvincia(ControladorGraficos.listaSismos(), TProvincia.Cartago);
-        int int_He = ControladorGraficos.graficoProvincia(ControladorGraficos.listaSismos(), TProvincia.Heredia);
-        int int_Pu = ControladorGraficos.graficoProvincia(ControladorGraficos.listaSismos(), TProvincia.Puntarenas);
-        int int_Gu = ControladorGraficos.graficoProvincia(ControladorGraficos.listaSismos(), TProvincia.Guanacaste);
-        int int_Li = ControladorGraficos.graficoProvincia(ControladorGraficos.listaSismos(), TProvincia.Limon);
+        //Variables que indican la cantidad de Sismo por provincia
+        int int_Na = ControladorGraficos.graficoProvincia(ControladorArchivo.listaSismos(), TProvincia.No_Aplica);
+        int int_Sj = ControladorGraficos.graficoProvincia(ControladorArchivo.listaSismos(), TProvincia.San_Jose);
+        int int_Al = ControladorGraficos.graficoProvincia(ControladorArchivo.listaSismos(), TProvincia.Alajuela);
+        int int_Ca = ControladorGraficos.graficoProvincia(ControladorArchivo.listaSismos(), TProvincia.Cartago);
+        int int_He = ControladorGraficos.graficoProvincia(ControladorArchivo.listaSismos(), TProvincia.Heredia);
+        int int_Pu = ControladorGraficos.graficoProvincia(ControladorArchivo.listaSismos(), TProvincia.Puntarenas);
+        int int_Gu = ControladorGraficos.graficoProvincia(ControladorArchivo.listaSismos(), TProvincia.Guanacaste);
+        int int_Li = ControladorGraficos.graficoProvincia(ControladorArchivo.listaSismos(), TProvincia.Limon);
 
         int valor_Mayor = ControladorGraficos.MayorValor(int_Na, int_Sj, int_Al, int_Ca, int_He, int_Pu, int_Gu, int_Li);
-        int total  = ControladorGraficos.listaSismos().size();
-
+        int total  = ControladorArchivo.listaSismos().size();
+        
+        //Determina el largo de las Barras
         int largo_Na = int_Na * 450 / valor_Mayor;
         int largo_Sj = int_Sj * 450 / valor_Mayor;
         int largo_Al = int_Al * 450 / valor_Mayor;
@@ -41,8 +49,9 @@ public class Grafico {
         int largo_Pu = int_Pu * 450 / valor_Mayor;
         int largo_Gu = int_Gu * 450 / valor_Mayor;
         int largo_Li = int_Li * 450 / valor_Mayor;
-
-        if (ControladorGraficos.listaSismos().size() >= 30){
+        
+       
+        if (ControladorArchivo.listaSismos().size() >= 30){
             g.drawString("35", 25, 170);
             g.drawString("30", 25, 210);
             g.drawString("25", 25, 250);
@@ -51,7 +60,7 @@ public class Grafico {
             g.drawString("10", 25, 370);
             g.drawString("5", 30, 410);
             g.drawString("0", 30, 450);
-        } else if(ControladorGraficos.listaSismos().size() >= 25){
+        } else if(ControladorArchivo.listaSismos().size() >= 25){
             g.drawString("30", 25, 170);
             g.drawString("25", 25, 230);
             g.drawString("20", 25, 275);
@@ -59,35 +68,36 @@ public class Grafico {
             g.drawString("10", 25, 360);
             g.drawString("5", 30, 405);
             g.drawString("0", 30, 450);
-        }else if(ControladorGraficos.listaSismos().size() >= 20){
+        }else if(ControladorArchivo.listaSismos().size() >= 20){
             g.drawString("25", 25, 170);
             g.drawString("20", 25, 230);
             g.drawString("15", 25, 315);
             g.drawString("10", 25, 360);
             g.drawString("5", 30, 405);
             g.drawString("0", 30, 450);
-        }else if(ControladorGraficos.listaSismos().size() >= 15){
+        }else if(ControladorArchivo.listaSismos().size() >= 15){
             g.drawString("20", 25, 170);
             g.drawString("15", 25, 240);
             g.drawString("10", 25, 310);
             g.drawString("5", 30, 380);
             g.drawString("0", 30, 450);
-        }else if(ControladorGraficos.listaSismos().size() >= 10){
+        }else if(ControladorArchivo.listaSismos().size() >= 10){
             g.drawString("15", 25, 170);
             g.drawString("10", 25, 265);
             g.drawString("5", 30, 355);
             g.drawString("0", 30, 450);
-        }else if(ControladorGraficos.listaSismos().size() >= 5){
+        }else if(ControladorArchivo.listaSismos().size() >= 5){
             g.drawString("10", 25, 170);
             g.drawString("5", 30, 310);
             g.drawString("0", 30, 450);
-        }else if(ControladorGraficos.listaSismos().size() >= 0){
+        }else if(ControladorArchivo.listaSismos().size() >= 0){
             g.drawString("5", 30, 170);
             g.drawString("0", 30, 450);
         } else {
             System.out.println("La lista esta vacía");
         }
 
+        //Se dibuja cada Barra y se le indica un nombre y un número
         g.setColor(new Color(0,0,0));
         g.fillRect(75,450-largo_Na/total, 80, largo_Na/total);
         g.drawString("N/A", 105 , 465);
@@ -140,16 +150,20 @@ public class Grafico {
     }
           //Gráfico de pastel
     
+    /**
+     * Genera Gráfico Pastel
+     */
     public static void graficoPastel(){
         
         Graphics g = null;
-    
-        int int_ChoqueP = ControladorGraficos.graficoTOrigen(ControladorGraficos.listaSismos(), modelo.TFalla.Choque_Placas);
-        int int_DefInt = ControladorGraficos.graficoTOrigen(ControladorGraficos.listaSismos(), modelo.TFalla.Deformación_Interna);
-        int int_FallaLocal = ControladorGraficos.graficoTOrigen(ControladorGraficos.listaSismos(), modelo.TFalla.Fallamiento_Local);
-        int int_SubPla = ControladorGraficos.graficoTOrigen(ControladorGraficos.listaSismos(), modelo.TFalla.Subduccion_Placas);
-        int int_TFL = ControladorGraficos.graficoTOrigen(ControladorGraficos.listaSismos(), modelo.TFalla.Tectónico_Falla_Local);
-        int int_TSub = ControladorGraficos.graficoTOrigen(ControladorGraficos.listaSismos(), modelo.TFalla.Tectónico_Subducción);
+        
+        //Variables cantidad de Sismos por Falla
+        int int_ChoqueP = ControladorGraficos.graficoTOrigen(ControladorArchivo.listaSismos(), modelo.TFalla.Choque_Placas);
+        int int_DefInt = ControladorGraficos.graficoTOrigen(ControladorArchivo.listaSismos(), modelo.TFalla.Deformación_Interna);
+        int int_FallaLocal = ControladorGraficos.graficoTOrigen(ControladorArchivo.listaSismos(), modelo.TFalla.Fallamiento_Local);
+        int int_SubPla = ControladorGraficos.graficoTOrigen(ControladorArchivo.listaSismos(), modelo.TFalla.Subduccion_Placas);
+        int int_TFL = ControladorGraficos.graficoTOrigen(ControladorArchivo.listaSismos(), modelo.TFalla.Tectónico_Falla_Local);
+        int int_TSub = ControladorGraficos.graficoTOrigen(ControladorArchivo.listaSismos(), modelo.TFalla.Tectónico_Subducción);
 
         int total_sismos = int_ChoqueP + int_DefInt + int_FallaLocal + int_SubPla + int_TFL + int_TSub;
 
@@ -160,6 +174,7 @@ public class Grafico {
         int grados_TFL = int_TFL * 360 / total_sismos;
         int grados_TSub = int_TSub * 360 / total_sismos;
 
+        //Se crea el gráfico
         g.setColor(new Color(255, 0, 0));
         g.fillArc(25, 80, 200, 200, 0, grados_ChoqueP);
         g.fillRect(250, 120, 20, 20);
@@ -197,15 +212,21 @@ public class Grafico {
         g.drawString("Color morado", 275, 285);
 
         }
+
     
+    /**
+     * Genera el Gráfico de Barras con cantidad de Sismos por mes
+     * @param fecha 
+     */
     public static void graficoBarras(Date fecha){
            //Gráfico de Barras
            
         Graphics g = null;
           
-        ArrayList<Sismo> lista = ControladorGraficos.listaSismos();
+        ArrayList<Sismo> lista = ControladorArchivo.listaSismos();
         ArrayList<Sismo> listaS = ControladorGraficos.listaSismoporAnno(lista, fecha.getYear());
         
+        //Variables por mes
         int int_enero = 0;
         int int_febrero = 0;
         int int_marzo = 0;
@@ -219,6 +240,8 @@ public class Grafico {
         int int_noviembre = 0;
         int int_diciembre = 0;
         
+        
+        //Se determina la cantidad de Sismos por mes;
         if(listaS.isEmpty()){
             
             System.out.println("No sismos registrados en ese año");
@@ -238,11 +261,12 @@ public class Grafico {
             int_diciembre = ControladorGraficos.graficoSismoPorMes(listaS,11);
         }
 
- 
+        
         int mes_Mayor = ControladorGraficos.MayorMes(int_enero, int_febrero, int_marzo, int_abril, int_mayo,int_junio, int_julio,int_agosto,int_setiembre, int_octubre,int_noviembre,int_diciembre);
         int mes_Menor = ControladorGraficos.MenorMes(int_enero, int_febrero, int_marzo, int_abril, int_mayo,int_junio, int_julio,int_agosto,int_setiembre, int_octubre,int_noviembre,int_diciembre);
-        int total  = ControladorGraficos.listaSismos().size();
+        int total  = ControladorArchivo.listaSismos().size();
 
+         //Determina el largo de las barras
         int largo_enero = (int_enero * 450) / mes_Mayor;
         int largo_febrero = int_febrero * 450 / mes_Mayor;
         int largo_marzo = int_marzo * 450 / mes_Mayor;
@@ -256,7 +280,7 @@ public class Grafico {
         int largo_noviembre = int_noviembre * 450 / mes_Mayor;
         int largo_diciembre = int_diciembre * 450 / mes_Mayor;
                         
-        if (ControladorGraficos.listaSismos().size() >= 30){
+        if (ControladorArchivo.listaSismos().size() >= 30){
             g.drawString("35", 25, 170);
             g.drawString("30", 25, 210);
             g.drawString("25", 25, 250);
@@ -265,7 +289,7 @@ public class Grafico {
             g.drawString("10", 25, 370);
             g.drawString("5", 30, 410);
             g.drawString("0", 30, 450);
-        } else if(ControladorGraficos.listaSismos().size() >= 25){
+        } else if(ControladorArchivo.listaSismos().size() >= 25){
             g.drawString("30", 25, 170);
             g.drawString("25", 25, 230);
             g.drawString("20", 25, 275);
@@ -273,35 +297,36 @@ public class Grafico {
             g.drawString("10", 25, 360);
             g.drawString("5", 30, 405);
             g.drawString("0", 30, 450);
-        }else if(ControladorGraficos.listaSismos().size() >= 20){
+        }else if(ControladorArchivo.listaSismos().size() >= 20){
             g.drawString("25", 25, 170);
             g.drawString("20", 25, 230);
             g.drawString("15", 25, 315);
             g.drawString("10", 25, 360);
             g.drawString("5", 30, 405);
             g.drawString("0", 30, 450);
-        }else if(ControladorGraficos.listaSismos().size() >= 15){
+        }else if(ControladorArchivo.listaSismos().size() >= 15){
             g.drawString("20", 25, 170);
             g.drawString("15", 25, 240);
             g.drawString("10", 25, 310);
             g.drawString("5", 30, 380);
             g.drawString("0", 30, 450);
-        }else if(ControladorGraficos.listaSismos().size() >= 10){
+        }else if(ControladorArchivo.listaSismos().size() >= 10){
             g.drawString("15", 25, 170);
             g.drawString("10", 25, 265);
             g.drawString("5", 30, 355);
             g.drawString("0", 30, 450);
-        }else if(ControladorGraficos.listaSismos().size() >= 5){
+        }else if(ControladorArchivo.listaSismos().size() >= 5){
             g.drawString("10", 25, 170);
             g.drawString("5", 30, 310);
             g.drawString("0", 30, 450);
-        }else if(ControladorGraficos.listaSismos().size() >= 0){
+        }else if(ControladorArchivo.listaSismos().size() >= 0){
             g.drawString("5", 30, 170);
             g.drawString("0", 30, 450);
         } else {
             System.out.println("La lista esta vacía");
         }
     
+        //Se comienza la creación de las barras y se le asigna un nombre y un número
         g.setColor(Color.BLACK);
         g.fillRect(60,450-largo_enero/total, 40, largo_enero/total);
         g.drawString("Enero", 65 , 465);
@@ -377,23 +402,30 @@ public class Grafico {
 
         }
     
+    
+    /**
+     * Se crea el Gráfico Tabular para determinar cantidad de sismos por Magnitud
+     */
     public static void graficoTabularMagnitud(){
         
         Graphics g = null;
     
              //Gráfico Tabular Magnitud
-             
-        int int_Micro = ControladorGraficos.graficoMagnitud(ControladorGraficos.listaSismos(), "Micro");
-        int int_Menor1 = ControladorGraficos.graficoMagnitud(ControladorGraficos.listaSismos(), "Menor1");
-        int int_Menor2 = ControladorGraficos.graficoMagnitud(ControladorGraficos.listaSismos(), "Menor2");
-        int int_Ligero = ControladorGraficos.graficoMagnitud(ControladorGraficos.listaSismos(), "Ligero");
-        int int_Moderado = ControladorGraficos.graficoMagnitud(ControladorGraficos.listaSismos(), "Moderado");
-        int int_Fuerte = ControladorGraficos.graficoMagnitud(ControladorGraficos.listaSismos(), "Fuerte");
-        int int_Mayor = ControladorGraficos.graficoMagnitud(ControladorGraficos.listaSismos(), "Mayor");
-        int int_Gran1 = ControladorGraficos.graficoMagnitud(ControladorGraficos.listaSismos(), "Gran1");
-        int int_Gran2 = ControladorGraficos.graficoMagnitud(ControladorGraficos.listaSismos(), "Gran2");
-        int int_Epico = ControladorGraficos.graficoMagnitud(ControladorGraficos.listaSismos(), "Epico");
+         
+        //Variables que determinan la cantidad de sismos por tipo de magnitud
+        int int_Micro = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Micro");
+        int int_Menor1 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Menor1");
+        int int_Menor2 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Menor2");
+        int int_Ligero = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Ligero");
+        int int_Moderado = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Moderado");
+        int int_Fuerte = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Fuerte");
+        int int_Mayor = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Mayor");
+        int int_Gran1 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Gran1");
+        int int_Gran2 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Gran2");
+        int int_Epico = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Epico");
         
+        
+        //Se crean la tabla y se les da un nombre y un número
         g.setColor(Color.BLACK);
         g.drawRect(200,100, 300, 30);
         g.setColor(new Color(0,0,0));
@@ -582,21 +614,20 @@ public class Grafico {
   
     } 
     
+    
+    /**
+     * Gráfico Tabular que indica la cantidad de Sismos en un rango de fechas determinado
+     * @param fecha
+     * @param fecha2 
+     */
     public static void graficoTabFecha(Date fecha, Date fecha2){
           //Gráfico Tabular por rango de Fecha
           
           Graphics g = null;
           
-//        int r= (int) (Math.random()* ((20 - 0) + 1) + 0);
-//        int m = (int) (Math.random()* ((12 - 0) + 1) + 0);
-//        Date fecha = new Date(100+r, m, 1+r+1, r+4, r+40, r+20+1);
-//        
-//        int r2= (int) (Math.random()* ((20 - 0) + 1) + 0);
-//        int m2 = (int) (Math.random()* ((12 - 0) + 1) + 0);
-//        Date fecha2 = new Date(100+r2, m2, 1+r2+1, r2+4, r2+40, r2+20+1);
+        int int_sisFecha = ControladorGraficos.rangoFecha(ControladorArchivo.listaSismos(), fecha, fecha2);
           
-        int int_sisFecha = ControladorGraficos.rangoFecha(ControladorGraficos.listaSismos(), fecha, fecha2);
-          
+        //Se crea la tabla
         g.setColor(Color.BLACK);
         g.drawRect(200,100, 300, 30);
         g.setColor(new Color(0,0,0));

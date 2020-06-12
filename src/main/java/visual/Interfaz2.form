@@ -32,11 +32,7 @@
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="btnImportar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
-                      <Component id="btnExportar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btnGrafico" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+                      <EmptySpace min="49" pref="412" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -46,11 +42,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnImportar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnExportar" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnGrafico" alignment="3" min="-2" max="-2" attributes="0"/>
-              </Group>
+              <Component id="btnImportar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="228" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
@@ -62,14 +54,6 @@
     <Component class="javax.swing.JButton" name="btnImportar">
       <Properties>
         <Property name="text" type="java.lang.String" value="jButton1"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-      </AuxValues>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnExportar">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jButton2"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
@@ -162,13 +146,5 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnGrafico">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="jButton1"/>
-      </Properties>
-      <AuxValues>
-        <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-      </AuxValues>
-    </Component>
   </SubComponents>
 </Form>

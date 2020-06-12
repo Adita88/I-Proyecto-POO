@@ -8,7 +8,7 @@ package modelo;
 import java.util.Date;
 
 /**
- *
+ *Clase Sismo
  * @author Usuario
  */
 public class Sismo {
@@ -30,7 +30,7 @@ public class Sismo {
     public Sismo() {
     }
     
-
+    
     public Sismo(Date momentoExacto, double profundidad, TFalla origenFalla, String detalleFalla, double magnitud, String descripcionDetallada, TLugar lugar, TProvincia provincia) {
         this.momentoExacto = momentoExacto;
         this.profundidad = profundidad;

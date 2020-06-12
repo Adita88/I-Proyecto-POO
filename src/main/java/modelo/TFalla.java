@@ -16,19 +16,5 @@ public enum TFalla {
     Tectónico_Subducción,
     Deformación_Interna,
     Fallamiento_Local,
-    Tectónico_Falla_Local;
-
-    @Override
-    public String toString() {
-        switch(this) {
-            case Subduccion_Placas: return "Subduccion de Placas";
-            case Choque_Placas: return "Choque de Placas";
-            case Tectónico_Subducción: return "Tectónico por Subducción";
-            case Deformación_Interna: return "Deformación Interna";
-            case Fallamiento_Local: return "Fallamiento Local";
-            case Tectónico_Falla_Local: return "Tectónico por Falla Local";
-            default: throw new IllegalArgumentException();
-        }
-    }
-    
+    Tectónico_Falla_Local; 
 }
