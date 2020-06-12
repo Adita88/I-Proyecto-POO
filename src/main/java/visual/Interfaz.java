@@ -31,11 +31,13 @@ public class Interfaz extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         ConfirmarSalida.setLocationRelativeTo(null);
-        Sistema elSistema= new Sistema();
+        elSistema= new Sistema();
         asignarValoresListas();
         ocultarPanelesExceptoEste(Inicio);
         
     }
+    
+    public Sistema elSistema;
     
     private void asignarValoresListas(){
         inputOrigenFallaLista_NuevoSismo.removeAllItems();
@@ -1731,15 +1733,17 @@ public class Interfaz extends javax.swing.JFrame {
         String antiHexadecimal= "abcdefAbcdef";
         
         Date momentoExacto;
-        double profundidad;
+        double profundidad=0;
         TFalla origenFalla;
         String detalleFalla;
-        double magnitud;
+        double magnitud=0;
         double latitud;
         double longitud;
         String descripcionDetallada;
         TLugar lugar;
         TProvincia provincia;
+        
+        if(0==inputLugarLista_NuevoSismo.getSelectedIndex()) inputProvinciaLista_NuevoSismo.setSelectedIndex(0);
         
         try{
             Date rawDia= (Date) inputDiaFormated_NuevoSismo_Fecha.getValue();
@@ -1750,6 +1754,7 @@ public class Interfaz extends javax.swing.JFrame {
                     );
         }catch(NullPointerException error){
             momentoExacto= new Date();
+            return;
         }
         
         try{
@@ -1759,6 +1764,7 @@ public class Interfaz extends javax.swing.JFrame {
             validacionProfundidad_NuevoSismo.setText("");
         } catch (NumberFormatException error){
             validacionProfundidad_NuevoSismo.setText("Dato invalido");
+            return;
         }
         
         origenFalla= TFalla.values()[inputOrigenFallaLista_NuevoSismo.getSelectedIndex()];
@@ -1773,11 +1779,21 @@ public class Interfaz extends javax.swing.JFrame {
             validacionMagnitud_NuevoSismo.setText("");
         } catch (NumberFormatException error){
             validacionMagnitud_NuevoSismo.setText("Dato invalido");
+            
+        }
+        try{
+            latitud= (double) inputLatitudFormated_NuevoSismo_Ubicacion.getValue();
+        } catch(NullPointerException error){
+            inputLatitudFormated_NuevoSismo_Ubicacion.setValue("9.9333296");
+            return;
         }
         
-        latitud= (double) inputLatitudFormated_NuevoSismo_Ubicacion.getValue();
-        
-        longitud= (double) inputLongitudFormated_NuevoSismo_Ubicacion.getValue();
+        try{
+            longitud= (double) inputLongitudFormated_NuevoSismo_Ubicacion.getValue();
+        } catch(NullPointerException error){
+            inputLongitudFormated_NuevoSismo_Ubicacion.setValue("-84.0833282");
+            return;
+        }
         
         descripcionDetallada=inputDescripcionDetallada_NuevoSismo.getText();
         if (descripcionDetallada==null) descripcionDetallada="";
@@ -1785,6 +1801,12 @@ public class Interfaz extends javax.swing.JFrame {
         lugar= TLugar.values()[inputLugarLista_NuevoSismo.getSelectedIndex()];
         
         provincia= TProvincia.values()[inputProvinciaLista_NuevoSismo.getSelectedIndex()];
+        
+        
+        
+
+        elSistema.nuevoSismo(momentoExacto, profundidad, origenFalla, detalleFalla, magnitud, latitud, longitud, descripcionDetallada, lugar, provincia);
+        ocultarPanelesExceptoEste(VentanaIntermedia);
         
     }//GEN-LAST:event_botonAceptar_NuevoSismoActionPerformed
 
