@@ -5,7 +5,7 @@
  */
 package modelo;
 
-import java.util.Date;
+import java.util.Date; 
 
 /**
  *Clase Sismo
