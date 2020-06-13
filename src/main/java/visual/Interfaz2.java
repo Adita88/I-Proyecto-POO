@@ -5,7 +5,7 @@
  */
 package visual;
 import controlador.ControladorArchivo;
-import controlador.ControladorGraficos;
+import controlador.ControladorGraficos; 
 import java.text.ParseException;
 
 /**
