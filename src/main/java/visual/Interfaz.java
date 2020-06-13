@@ -5,6 +5,7 @@
  */
 package visual;
 
+
 import controlador.Sistema;
 import java.awt.*;
 import javax.swing.JPanel;
