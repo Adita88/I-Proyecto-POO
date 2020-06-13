@@ -24,6 +24,7 @@ public class Interfaz2 extends javax.swing.JFrame {
     }
     
     boolean bandera = false;
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
