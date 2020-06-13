@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 
-package controlador;
+package controlador; 
 
 import java.util.ArrayList;
 import static java.util.Collections.reverse;
