@@ -6,6 +6,8 @@
 
 package controlador;
 
+import java.awt.Graphics;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import modelo.*;
@@ -73,9 +75,24 @@ public class ControladorGraficos {
      public static ArrayList listaSismoporAnno(ArrayList<Sismo> lista, int anno){
         ArrayList<Sismo> listaNueva = new ArrayList();
         
+        
         for(int i = 0; i < lista.size(); i++){
             
-            if (lista.get(i).getMomentoExacto().getYear() == anno){
+            if (lista.get(i).getMomentoExacto().getYear() + 1900 == anno){
+                listaNueva.add(lista.get(i));
+            } 
+        }
+       
+        return listaNueva;
+    }
+     
+     public static ArrayList listaSismoporProvincia(ArrayList<Sismo> lista, TProvincia provincia){
+        ArrayList<Sismo> listaNueva = new ArrayList();
+        
+        
+        for(int i = 0; i < lista.size(); i++){
+            
+            if (lista.get(i).getProvincia().equals(provincia)){
                 listaNueva.add(lista.get(i));
             } 
         }
@@ -110,7 +127,7 @@ public class ControladorGraficos {
      * @return 
      */
     public static int graficoMagnitud(ArrayList<Sismo> lista, String descripcion){
-        int contador = 0;
+        int contador = 0; 
         
         for(int i = 0; i < lista.size(); i++){
             double mag = lista.get(i).getMagnitud();
@@ -118,39 +135,39 @@ public class ControladorGraficos {
                 if (descripcion.equals("Micro")){
                     contador += 1;
                 } 
-            } else if (mag >= 2.0 && mag < 2.9){
+            } else if (mag >= 2.0 && mag <= 2.9){
                 if (descripcion.equals("Menor1")){
                     contador += 1;
                 } 
-            } else if (mag >= 3.0 && mag < 3.9){
+            } else if (mag >= 3.0 && mag <= 3.9){
                 if (descripcion.equals("Menor2")){
                     contador += 1;
                 } 
-            } else if (mag >= 4.0 && mag < 4.9){
+            } else if (mag >= 4.0 && mag <= 4.9){
                 if (descripcion.equals("Ligero")){
                     contador += 1;
                 } 
-            } else if (mag >= 5.0 && mag < 5.9){
+            } else if (mag >= 5.0 && mag <= 5.9){
                 if (descripcion.equals("Moderado")){
                     contador += 1;
                 } 
-            } else if (mag >= 6.0 && mag < 6.9){
+            } else if (mag >= 6.0 && mag <= 6.9){
                 if (descripcion.equals("Fuerte")){
                     contador += 1;
                 } 
-            } else if (mag >= 7.0 && mag < 7.9){
+            } else if (mag >= 7.0 && mag <= 7.9){
                 if (descripcion.equals("Mayor")){
                     contador += 1;
                 } 
-            } else if (mag >= 8.0 && mag < 8.9){
+            } else if (mag >= 8.0 && mag <= 8.9){
                 if (descripcion.equals("Gran1")){
                     contador += 1;
                 } 
-            } else if (mag >= 9.0 && mag < 9.9){
+            } else if (mag >= 9.0 && mag <= 9.9){
                 if (descripcion.equals("Gran2")){
                     contador += 1;
                 } 
-            } else {
+            } else if (mag > 10.0){
                 if (descripcion.equals("Epico")){
                     contador += 1;
                 }        
@@ -168,22 +185,48 @@ public class ControladorGraficos {
      * @return 
      */
     public static int rangoFecha(ArrayList<Sismo> lista, Date fecha, Date fecha2) {
-         
-         int contador = 0;
-         
-         for(int i = 0; i < lista.size(); i++){
-             
-             if (fecha.before(fecha2)){
-                 if (lista.get(i).getMomentoExacto().after(fecha) && lista.get(i).getMomentoExacto().before(fecha2)){
-                     contador += 1;
-                 }
-             } else {
-                 if (lista.get(i).getMomentoExacto().after(fecha2) && lista.get(i).getMomentoExacto().before(fecha)){
-                     contador += 1;
-                 }
-             }
-             
-         }
+        
+        
+        int contador = 0;
+        
+        SimpleDateFormat formato =new SimpleDateFormat("dd/MM/yyyy");
+        //fecha.setTime(1577845*1000000);
+        System.out.println(fecha.getDay());
+        System.out.println(fecha.getMonth());
+        System.out.println(fecha.getYear());
+        fecha.setYear(fecha.getYear() + 1900);
+        
+        System.out.println(fecha.getYear());
+        
+        //System.out.println(fecha2);
+        
+        for(int i = 0; i < lista.size(); i++){
+            
+            if (fecha.before(fecha2)){
+                
+                //System.out.println(i);
+                //System.out.println(fecha.getYear());
+                System.out.println(lista.get(i).getMomentoExacto().getDay());
+                System.out.println(lista.get(i).getMomentoExacto().getMonth());
+                System.out.println(lista.get(i).getMomentoExacto().getYear());
+                //System.out.println(lista.get(i).getMomentoExacto().after(fecha) + "Si esta despues de la fecha");
+                //System.out.println(lista.get(i).getMomentoExacto().before(fecha2));
+                //System.out.println(fecha2.getTime());
+                System.out.println("\n");
+                if (lista.get(i).getMomentoExacto().after(fecha) && lista.get(i).getMomentoExacto().before(fecha2)){
+                    System.out.println("paso por aqui");
+                    contador += 1;
+                }
+            } else {
+
+                System.out.println("Mejor aqui");
+                if (lista.get(i).getMomentoExacto().after(fecha2) && lista.get(i).getMomentoExacto().before(fecha)){
+                    contador += 1;
+                }
+            }
+
+        }
+         System.out.println("Ni siquiera entro");
          return contador;
     }
     
@@ -309,44 +352,45 @@ public class ControladorGraficos {
                 }
     }
 
-    /**
-     * LLama de la clase Graficos al gráfico Histograma
-     */
-    public static void generarGraficoH(){
-        modelo.Grafico.paintHistograma();
-    }
-    
-    /**
-     * LLama de la clase Graficos al gráfico Pastel
-     */
-    public static void generarGraficoPastel(){
-        modelo.Grafico.graficoPastel();
-    }
-    
-    /**
-     * LLama de la clase Graficos al gráfico de Barras por fecha
-     * @param fecha 
-     */
-    public static void generarGraficoBarras(Date fecha){
-        modelo.Grafico.graficoBarras(fecha);
-    }
-    
-    /**
-     * LLama de la clase Graficos al gráfico Magnitud
-     */
-    public static void generarGraficoTabMagnitud(){
-        modelo.Grafico.graficoTabularMagnitud();
-    }
-    
-    
-    /**
-     * LLama de la clase Graficos al gráfico por rango de fechas
-     * @param fecha
-     * @param fecha2 
-     */
-    public static void generarGraficoTabFecha(Date fecha, Date fecha2){
-        modelo.Grafico.graficoTabFecha(fecha, fecha2);
-    }
+//    /**
+//     * LLama de la clase Graficos al gráfico Histograma
+//     */
+//    public static void generarGraficoH(){
+//        Graphics g = null;
+//        modelo.Grafico.paintH(g);
+//    }
+//    
+//    /**
+//     * LLama de la clase Graficos al gráfico Pastel
+//     */
+//    public static void generarGraficoPastel(){
+//        modelo.Grafico.graficoPastel();
+//    }
+//    
+//    /**
+//     * LLama de la clase Graficos al gráfico de Barras por fecha
+//     * @param fecha 
+//     */
+//    public static void generarGraficoBarras(Date fecha){
+//        modelo.Grafico.graficoBarras(fecha);
+//    }
+//    
+//    /**
+//     * LLama de la clase Graficos al gráfico Magnitud
+//     */
+//    public static void generarGraficoTabMagnitud(){
+//        modelo.Grafico.graficoTabularMagnitud();
+//    }
+//    
+//    
+//    /**
+//     * LLama de la clase Graficos al gráfico por rango de fechas
+//     * @param fecha
+//     * @param fecha2 
+//     */
+//    public static void generarGraficoTabFecha(Date fecha, Date fecha2){
+//        modelo.Grafico.graficoTabFecha(fecha, fecha2);
+//    }
 
  
 }
