@@ -22,6 +22,7 @@ import java.util.logging.Logger;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
@@ -127,16 +128,16 @@ public class Interfaz extends javax.swing.JFrame {
         int i=1;
         for (Sismo unSismo : listaSismos){
             datos[0]=i;
-            datos[1]=unSismo.getMomentoExacto().toString();
-            datos[2]=unSismo.getProfundidad();
-            datos[3] = unSismo.getOrigenFalla();
-            datos[4] = unSismo.getDetalleFalla();
-            datos[5]=unSismo.getMagnitud();
-            datos[6]=unSismo.getLatitud();
-            datos[7]=unSismo.getLongitud();
-            datos[8] = unSismo.getDescripcionDetallada();
-            datos[9]=unSismo.getLugar();
-            datos[10]=unSismo.getProvincia();
+            datos[1]=  unSismo.getMomentoExacto().toString();
+            datos[2]=  unSismo.getProfundidad();
+            datos[3]=  unSismo.getOrigenFalla();
+            datos[4]=  unSismo.getDetalleFalla();
+            datos[5]=  unSismo.getMagnitud();
+            datos[6]=  unSismo.getLatitud();
+            datos[7]=  unSismo.getLongitud();
+            datos[8]=  unSismo.getDescripcionDetallada();
+            datos[9]=  unSismo.getLugar();
+            datos[10]= unSismo.getProvincia();
             i++;
             tabla1.addRow(datos);
         }
@@ -236,7 +237,7 @@ public class Interfaz extends javax.swing.JFrame {
         DetalleSismo_momentoExacto.setText(unSismo.getMomentoExacto().toString());
         DetalleSismo_profundidad.setText(""+unSismo.getProfundidad());
         DetalleSismo_provincia.setText(unSismo.getProvincia().toString());
-        DetalleSismo_ubicacionExacta.setText(unSismo.getLatitud()+", "+unSismo.getLongitud());
+        DetalleSismo_ubicacionExacta.setText("("+unSismo.getLatitud()+", "+unSismo.getLongitud()+")");
         DetalleSismo_origenFalla.setText(unSismo.getOrigenFalla().toString());
     }
     
@@ -303,6 +304,7 @@ public class Interfaz extends javax.swing.JFrame {
         botonAceptar_ConfirmarSalida = new javax.swing.JButton();
         botonCancelar_ConfirmarSalida = new javax.swing.JButton();
         textConfirmarSalida_ConfirmarSalida = new javax.swing.JLabel();
+        MensajeError_NuevoSismo = new javax.swing.JFrame();
         Paneles = new javax.swing.JLayeredPane();
         Inicio = new javax.swing.JPanel();
         botonNuevoSismo_Inicio = new javax.swing.JButton();
@@ -386,6 +388,7 @@ public class Interfaz extends javax.swing.JFrame {
         botonAceptar_NuevoSismo_Ubicacion = new javax.swing.JButton();
         botonSalir_NuevoSismo_Ubicacion = new javax.swing.JButton();
         mapa_NuevoSismo_Ubicacion = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
         RegistroSismos = new javax.swing.JPanel();
         textTitulo_RegistroSismos = new javax.swing.JLabel();
         botonAceptar_RegistroSismos = new javax.swing.JButton();
@@ -410,12 +413,6 @@ public class Interfaz extends javax.swing.JFrame {
         textE2_RegistroSismos = new javax.swing.JLabel();
         textE3_RegistroSismos = new javax.swing.JLabel();
         botonClasificacionSismosPorMagnitud_RegistroSismos = new javax.swing.JButton();
-        RegistroSismos_B = new javax.swing.JPanel();
-        textTitulo_RegistroSismos_B = new javax.swing.JLabel();
-        textProvincia_RegistroSismos_B = new javax.swing.JLabel();
-        botonRegresar_RegistroSismos_B = new javax.swing.JButton();
-        botonSalir_RegistroSismos_B = new javax.swing.JButton();
-        panel_RegistroSismos_B = new javax.swing.JPanel();
         RegistroSismos_A = new javax.swing.JPanel();
         textTitulo_RegistroSismos_A = new javax.swing.JLabel();
         textProvincia_RegistroSismos_A = new javax.swing.JLabel();
@@ -424,6 +421,12 @@ public class Interfaz extends javax.swing.JFrame {
         panel_RegistroSismos_A = new javax.swing.JPanel();
         inputListaProvincia_RegistroSismos_A = new javax.swing.JComboBox<>();
         botonMostrar_RegistroSismos_A = new javax.swing.JButton();
+        RegistroSismos_B = new javax.swing.JPanel();
+        textTitulo_RegistroSismos_B = new javax.swing.JLabel();
+        textProvincia_RegistroSismos_B = new javax.swing.JLabel();
+        botonRegresar_RegistroSismos_B = new javax.swing.JButton();
+        botonSalir_RegistroSismos_B = new javax.swing.JButton();
+        panel_RegistroSismos_B = new javax.swing.JPanel();
         RegistroSismos_C = new javax.swing.JPanel();
         textTitulo_RegistroSismos_C = new javax.swing.JLabel();
         botonRegresar_RegistroSismos_C = new javax.swing.JButton();
@@ -453,6 +456,7 @@ public class Interfaz extends javax.swing.JFrame {
         jTabporMag = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
 
+        ConfirmarSalida.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         ConfirmarSalida.setTitle("Confirmación de Salida");
         ConfirmarSalida.setAlwaysOnTop(true);
         ConfirmarSalida.setMinimumSize(new java.awt.Dimension(306, 157));
@@ -504,22 +508,33 @@ public class Interfaz extends javax.swing.JFrame {
                 .addGap(51, 51, 51))
         );
 
+        javax.swing.GroupLayout MensajeError_NuevoSismoLayout = new javax.swing.GroupLayout(MensajeError_NuevoSismo.getContentPane());
+        MensajeError_NuevoSismo.getContentPane().setLayout(MensajeError_NuevoSismoLayout);
+        MensajeError_NuevoSismoLayout.setHorizontalGroup(
+            MensajeError_NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        MensajeError_NuevoSismoLayout.setVerticalGroup(
+            MensajeError_NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Sismos");
-        setBackground(new java.awt.Color(61, 90, 128));
+        setBackground(new java.awt.Color(0, 0, 0));
         setMinimumSize(new java.awt.Dimension(750, 380));
         setName("Base"); // NOI18N
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Paneles.setBackground(new java.awt.Color(61, 90, 128));
+        Paneles.setBackground(new java.awt.Color(0, 0, 0));
         Paneles.setMaximumSize(new java.awt.Dimension(750, 380));
         Paneles.setMinimumSize(new java.awt.Dimension(750, 380));
         Paneles.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         Inicio.setBackground(new java.awt.Color(255, 255, 255));
-        Inicio.setMaximumSize(new java.awt.Dimension(750, 380));
-        Inicio.setMinimumSize(new java.awt.Dimension(750, 380));
-        Inicio.setPreferredSize(new java.awt.Dimension(750, 380));
+        Inicio.setMaximumSize(new java.awt.Dimension(750, 510));
+        Inicio.setMinimumSize(new java.awt.Dimension(750, 510));
+        Inicio.setPreferredSize(new java.awt.Dimension(750, 510));
 
         botonNuevoSismo_Inicio.setBackground(new java.awt.Color(230, 57, 70));
         botonNuevoSismo_Inicio.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -607,14 +622,14 @@ public class Interfaz extends javax.swing.JFrame {
                         .addComponent(botonRegistroSismos_Inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(20, 20, 20)
                 .addComponent(botonSalir_Inicio)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(147, Short.MAX_VALUE))
         );
 
         Paneles.add(Inicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         VentanaIntermedia.setBackground(new java.awt.Color(230, 57, 70));
-        VentanaIntermedia.setMaximumSize(new java.awt.Dimension(750, 380));
-        VentanaIntermedia.setMinimumSize(new java.awt.Dimension(750, 380));
+        VentanaIntermedia.setMaximumSize(new java.awt.Dimension(750, 510));
+        VentanaIntermedia.setMinimumSize(new java.awt.Dimension(750, 510));
 
         textTitulo_VentanaIntermedia.setBackground(new java.awt.Color(29, 53, 87));
         textTitulo_VentanaIntermedia.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
@@ -709,8 +724,9 @@ public class Interfaz extends javax.swing.JFrame {
         Paneles.add(VentanaIntermedia, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         VentanaIntermedia_DetalleSismo.setBackground(new java.awt.Color(230, 57, 70));
-        VentanaIntermedia_DetalleSismo.setMaximumSize(new java.awt.Dimension(750, 380));
-        VentanaIntermedia_DetalleSismo.setMinimumSize(new java.awt.Dimension(750, 380));
+        VentanaIntermedia_DetalleSismo.setMaximumSize(new java.awt.Dimension(750, 510));
+        VentanaIntermedia_DetalleSismo.setMinimumSize(new java.awt.Dimension(750, 510));
+        VentanaIntermedia_DetalleSismo.setPreferredSize(new java.awt.Dimension(750, 510));
 
         textTitulo_NuevoSismo1.setBackground(new java.awt.Color(29, 53, 87));
         textTitulo_NuevoSismo1.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
@@ -727,6 +743,7 @@ public class Interfaz extends javax.swing.JFrame {
         textProfundidad_NuevoSismo1.setText("Profundidad:");
 
         DetalleSismo_origenFalla.setEditable(false);
+        DetalleSismo_origenFalla.setFocusable(false);
         DetalleSismo_origenFalla.setMaximumSize(new java.awt.Dimension(107, 23));
         DetalleSismo_origenFalla.setMinimumSize(new java.awt.Dimension(107, 23));
         DetalleSismo_origenFalla.setName(""); // NOI18N
@@ -746,6 +763,7 @@ public class Interfaz extends javax.swing.JFrame {
         textDetalleFalla_NuevoSismo1.setText("Detalle de Falla:");
 
         DetalleSismo_detalleFalla.setEditable(false);
+        DetalleSismo_detalleFalla.setFocusable(false);
         DetalleSismo_detalleFalla.setMaximumSize(new java.awt.Dimension(107, 23));
         DetalleSismo_detalleFalla.setMinimumSize(new java.awt.Dimension(107, 23));
         DetalleSismo_detalleFalla.setPreferredSize(new java.awt.Dimension(107, 23));
@@ -760,6 +778,7 @@ public class Interfaz extends javax.swing.JFrame {
         textMagnitud_NuevoSismo1.setText("Magnitud:");
 
         DetalleSismo_magnitud.setEditable(false);
+        DetalleSismo_magnitud.setFocusable(false);
         DetalleSismo_magnitud.setMaximumSize(new java.awt.Dimension(107, 23));
         DetalleSismo_magnitud.setMinimumSize(new java.awt.Dimension(107, 23));
         DetalleSismo_magnitud.setPreferredSize(new java.awt.Dimension(107, 23));
@@ -792,6 +811,7 @@ public class Interfaz extends javax.swing.JFrame {
         DetalleSismo_DescripcionDetallada.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         DetalleSismo_DescripcionDetallada.setRows(5);
         DetalleSismo_DescripcionDetallada.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        DetalleSismo_DescripcionDetallada.setFocusable(false);
         scrollPaneDescripcionDetallada_NuevoSismo1.setViewportView(DetalleSismo_DescripcionDetallada);
 
         botonRegresar_NuevoSismo1.setText("Regresar");
@@ -811,6 +831,7 @@ public class Interfaz extends javax.swing.JFrame {
         });
 
         DetalleSismo_momentoExacto.setEditable(false);
+        DetalleSismo_momentoExacto.setFocusable(false);
         DetalleSismo_momentoExacto.setMaximumSize(new java.awt.Dimension(107, 23));
         DetalleSismo_momentoExacto.setMinimumSize(new java.awt.Dimension(107, 23));
         DetalleSismo_momentoExacto.setName(""); // NOI18N
@@ -822,6 +843,7 @@ public class Interfaz extends javax.swing.JFrame {
         });
 
         DetalleSismo_lugar.setEditable(false);
+        DetalleSismo_lugar.setFocusable(false);
         DetalleSismo_lugar.setMaximumSize(new java.awt.Dimension(107, 23));
         DetalleSismo_lugar.setMinimumSize(new java.awt.Dimension(107, 23));
         DetalleSismo_lugar.setName(""); // NOI18N
@@ -833,6 +855,7 @@ public class Interfaz extends javax.swing.JFrame {
         });
 
         DetalleSismo_provincia.setEditable(false);
+        DetalleSismo_provincia.setFocusable(false);
         DetalleSismo_provincia.setMaximumSize(new java.awt.Dimension(107, 23));
         DetalleSismo_provincia.setMinimumSize(new java.awt.Dimension(107, 23));
         DetalleSismo_provincia.setName(""); // NOI18N
@@ -844,6 +867,7 @@ public class Interfaz extends javax.swing.JFrame {
         });
 
         DetalleSismo_ubicacionExacta.setEditable(false);
+        DetalleSismo_ubicacionExacta.setFocusable(false);
         DetalleSismo_ubicacionExacta.setMaximumSize(new java.awt.Dimension(107, 23));
         DetalleSismo_ubicacionExacta.setMinimumSize(new java.awt.Dimension(107, 23));
         DetalleSismo_ubicacionExacta.setName(""); // NOI18N
@@ -855,6 +879,7 @@ public class Interfaz extends javax.swing.JFrame {
         });
 
         DetalleSismo_profundidad.setEditable(false);
+        DetalleSismo_profundidad.setFocusable(false);
         DetalleSismo_profundidad.setMaximumSize(new java.awt.Dimension(107, 23));
         DetalleSismo_profundidad.setMinimumSize(new java.awt.Dimension(107, 23));
         DetalleSismo_profundidad.setName(""); // NOI18N
@@ -967,9 +992,9 @@ public class Interfaz extends javax.swing.JFrame {
         Paneles.add(VentanaIntermedia_DetalleSismo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         NuevoSismo.setBackground(new java.awt.Color(230, 57, 70));
-        NuevoSismo.setMaximumSize(new java.awt.Dimension(750, 380));
-        NuevoSismo.setMinimumSize(new java.awt.Dimension(750, 380));
-        NuevoSismo.setPreferredSize(new java.awt.Dimension(750, 380));
+        NuevoSismo.setMaximumSize(new java.awt.Dimension(750, 510));
+        NuevoSismo.setMinimumSize(new java.awt.Dimension(750, 510));
+        NuevoSismo.setPreferredSize(new java.awt.Dimension(750, 510));
 
         textTitulo_NuevoSismo.setBackground(new java.awt.Color(29, 53, 87));
         textTitulo_NuevoSismo.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
@@ -1207,16 +1232,16 @@ public class Interfaz extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(textMagnitud_NuevoSismo)
-                            .addComponent(inputMagnitud_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)))
+                            .addComponent(inputMagnitud_NuevoSismo, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(validacionMagnitud_NuevoSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(NuevoSismoLayout.createSequentialGroup()
                         .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botonUbicacion_NuevoSismo)
                             .addComponent(textUbicacion_NuevoSismo))
                         .addGap(27, 27, 27)
                         .addComponent(scrollPaneDescripcionDetallada_NuevoSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(validacionMagnitud_NuevoSismo, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(30, 30, 30)
                 .addGroup(NuevoSismoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonAceptar_NuevoSismo)
                     .addComponent(botonRegresar_NuevoSismo)
@@ -1227,8 +1252,9 @@ public class Interfaz extends javax.swing.JFrame {
         Paneles.add(NuevoSismo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         NuevoSismo_Fecha.setBackground(new java.awt.Color(230, 57, 70));
-        NuevoSismo_Fecha.setMaximumSize(new java.awt.Dimension(750, 380));
-        NuevoSismo_Fecha.setMinimumSize(new java.awt.Dimension(750, 380));
+        NuevoSismo_Fecha.setMaximumSize(new java.awt.Dimension(750, 510));
+        NuevoSismo_Fecha.setMinimumSize(new java.awt.Dimension(750, 510));
+        NuevoSismo_Fecha.setPreferredSize(new java.awt.Dimension(750, 510));
 
         textTitulo_NuevoSismo_Fecha.setBackground(new java.awt.Color(29, 53, 87));
         textTitulo_NuevoSismo_Fecha.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
@@ -1342,8 +1368,9 @@ public class Interfaz extends javax.swing.JFrame {
         Paneles.add(NuevoSismo_Fecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         NuevoSismo_UbicacionMapa.setBackground(new java.awt.Color(230, 57, 70));
-        NuevoSismo_UbicacionMapa.setMaximumSize(new java.awt.Dimension(750, 380));
-        NuevoSismo_UbicacionMapa.setMinimumSize(new java.awt.Dimension(750, 380));
+        NuevoSismo_UbicacionMapa.setMaximumSize(new java.awt.Dimension(750, 510));
+        NuevoSismo_UbicacionMapa.setMinimumSize(new java.awt.Dimension(750, 510));
+        NuevoSismo_UbicacionMapa.setPreferredSize(new java.awt.Dimension(750, 510));
 
         textTitulo_NuevoSismo_Ubicacion.setBackground(new java.awt.Color(29, 53, 87));
         textTitulo_NuevoSismo_Ubicacion.setFont(new java.awt.Font("Tahoma", 3, 36)); // NOI18N
@@ -1355,7 +1382,11 @@ public class Interfaz extends javax.swing.JFrame {
         textLatitud_NuevoSismo_Ubicacion.setForeground(new java.awt.Color(241, 250, 238));
         textLatitud_NuevoSismo_Ubicacion.setText("Latitud:");
 
-        inputLatitudFormated_NuevoSismo_Ubicacion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0.0000000000"))));
+        try {
+            inputLatitudFormated_NuevoSismo_Ubicacion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.######")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         inputLatitudFormated_NuevoSismo_Ubicacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputLatitudFormated_NuevoSismo_UbicacionActionPerformed(evt);
@@ -1366,7 +1397,11 @@ public class Interfaz extends javax.swing.JFrame {
         textLongitud_NuevoSismo_Ubicacion.setForeground(new java.awt.Color(241, 250, 238));
         textLongitud_NuevoSismo_Ubicacion.setText("Longitud:");
 
-        inputLongitudFormated_NuevoSismo_Ubicacion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("0.0000000000"))));
+        try {
+            inputLongitudFormated_NuevoSismo_Ubicacion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.######")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         inputLongitudFormated_NuevoSismo_Ubicacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 inputLongitudFormated_NuevoSismo_UbicacionActionPerformed(evt);
@@ -1398,18 +1433,17 @@ public class Interfaz extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        jButton1.setText("Mostrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout NuevoSismo_UbicacionMapaLayout = new javax.swing.GroupLayout(NuevoSismo_UbicacionMapa);
         NuevoSismo_UbicacionMapa.setLayout(NuevoSismo_UbicacionMapaLayout);
         NuevoSismo_UbicacionMapaLayout.setHorizontalGroup(
             NuevoSismo_UbicacionMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NuevoSismo_UbicacionMapaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(mapa_NuevoSismo_Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addGroup(NuevoSismo_UbicacionMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botonAceptar_NuevoSismo_Ubicacion)
-                    .addComponent(botonSalir_NuevoSismo_Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(14, 14, 14))
             .addGroup(NuevoSismo_UbicacionMapaLayout.createSequentialGroup()
                 .addGroup(NuevoSismo_UbicacionMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textTitulo_NuevoSismo_Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1423,6 +1457,17 @@ public class Interfaz extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(inputLongitudFormated_NuevoSismo_Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, NuevoSismo_UbicacionMapaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(NuevoSismo_UbicacionMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addGroup(NuevoSismo_UbicacionMapaLayout.createSequentialGroup()
+                        .addComponent(mapa_NuevoSismo_Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addGroup(NuevoSismo_UbicacionMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(botonAceptar_NuevoSismo_Ubicacion)
+                            .addComponent(botonSalir_NuevoSismo_Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(14, 14, 14))
         );
         NuevoSismo_UbicacionMapaLayout.setVerticalGroup(
             NuevoSismo_UbicacionMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1433,11 +1478,12 @@ public class Interfaz extends javax.swing.JFrame {
                     .addComponent(textLatitud_NuevoSismo_Ubicacion)
                     .addComponent(textLongitud_NuevoSismo_Ubicacion)
                     .addComponent(inputLongitudFormated_NuevoSismo_Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputLatitudFormated_NuevoSismo_Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(inputLatitudFormated_NuevoSismo_Ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(NuevoSismo_UbicacionMapaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(NuevoSismo_UbicacionMapaLayout.createSequentialGroup()
-                        .addGap(0, 223, Short.MAX_VALUE)
+                        .addGap(0, 353, Short.MAX_VALUE)
                         .addComponent(botonAceptar_NuevoSismo_Ubicacion)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(botonSalir_NuevoSismo_Ubicacion))
@@ -1448,9 +1494,10 @@ public class Interfaz extends javax.swing.JFrame {
         Paneles.add(NuevoSismo_UbicacionMapa, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         RegistroSismos.setBackground(new java.awt.Color(29, 53, 87));
-        RegistroSismos.setMaximumSize(new java.awt.Dimension(750, 380));
-        RegistroSismos.setMinimumSize(new java.awt.Dimension(750, 380));
+        RegistroSismos.setMaximumSize(new java.awt.Dimension(750, 510));
+        RegistroSismos.setMinimumSize(new java.awt.Dimension(750, 510));
         RegistroSismos.setName(""); // NOI18N
+        RegistroSismos.setPreferredSize(new java.awt.Dimension(750, 510));
         RegistroSismos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         textTitulo_RegistroSismos.setBackground(new java.awt.Color(230, 57, 70));
@@ -1654,86 +1701,10 @@ public class Interfaz extends javax.swing.JFrame {
 
         Paneles.add(RegistroSismos, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        RegistroSismos_B.setBackground(new java.awt.Color(29, 53, 87));
-        RegistroSismos_B.setMaximumSize(new java.awt.Dimension(750, 380));
-        RegistroSismos_B.setMinimumSize(new java.awt.Dimension(750, 380));
-
-        textTitulo_RegistroSismos_B.setBackground(new java.awt.Color(230, 57, 70));
-        textTitulo_RegistroSismos_B.setFont(new java.awt.Font("Tahoma", 3, 28)); // NOI18N
-        textTitulo_RegistroSismos_B.setForeground(new java.awt.Color(255, 255, 255));
-        textTitulo_RegistroSismos_B.setText(" Cantidad de sismos por tipo de origen ");
-        textTitulo_RegistroSismos_B.setOpaque(true);
-
-        textProvincia_RegistroSismos_B.setBackground(new java.awt.Color(29, 53, 87));
-        textProvincia_RegistroSismos_B.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        textProvincia_RegistroSismos_B.setForeground(new java.awt.Color(29, 53, 87));
-        textProvincia_RegistroSismos_B.setText("Origen:");
-
-        botonRegresar_RegistroSismos_B.setText("Regresar");
-        botonRegresar_RegistroSismos_B.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonRegresar_RegistroSismos_BActionPerformed(evt);
-            }
-        });
-
-        botonSalir_RegistroSismos_B.setText("Salir");
-        botonSalir_RegistroSismos_B.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonSalir_RegistroSismos_BActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout panel_RegistroSismos_BLayout = new javax.swing.GroupLayout(panel_RegistroSismos_B);
-        panel_RegistroSismos_B.setLayout(panel_RegistroSismos_BLayout);
-        panel_RegistroSismos_BLayout.setHorizontalGroup(
-            panel_RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        panel_RegistroSismos_BLayout.setVerticalGroup(
-            panel_RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 291, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout RegistroSismos_BLayout = new javax.swing.GroupLayout(RegistroSismos_B);
-        RegistroSismos_B.setLayout(RegistroSismos_BLayout);
-        RegistroSismos_BLayout.setHorizontalGroup(
-            RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(RegistroSismos_BLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(panel_RegistroSismos_B, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(RegistroSismos_BLayout.createSequentialGroup()
-                .addGroup(RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textTitulo_RegistroSismos_B, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(RegistroSismos_BLayout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(textProvincia_RegistroSismos_B)
-                        .addGap(487, 487, 487)
-                        .addComponent(botonRegresar_RegistroSismos_B)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(botonSalir_RegistroSismos_B, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        RegistroSismos_BLayout.setVerticalGroup(
-            RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroSismos_BLayout.createSequentialGroup()
-                .addComponent(textTitulo_RegistroSismos_B, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panel_RegistroSismos_B, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-                .addGroup(RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textProvincia_RegistroSismos_B, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(botonRegresar_RegistroSismos_B)
-                        .addComponent(botonSalir_RegistroSismos_B)))
-                .addGap(5, 5, 5))
-        );
-
-        Paneles.add(RegistroSismos_B, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
         RegistroSismos_A.setBackground(new java.awt.Color(29, 53, 87));
-        RegistroSismos_A.setMaximumSize(new java.awt.Dimension(750, 380));
-        RegistroSismos_A.setMinimumSize(new java.awt.Dimension(750, 380));
+        RegistroSismos_A.setMaximumSize(new java.awt.Dimension(750, 510));
+        RegistroSismos_A.setMinimumSize(new java.awt.Dimension(750, 510));
+        RegistroSismos_A.setPreferredSize(new java.awt.Dimension(750, 510));
 
         textTitulo_RegistroSismos_A.setBackground(new java.awt.Color(188, 35, 43));
         textTitulo_RegistroSismos_A.setFont(new java.awt.Font("Tahoma", 3, 28)); // NOI18N
@@ -1829,9 +1800,88 @@ public class Interfaz extends javax.swing.JFrame {
 
         Paneles.add(RegistroSismos_A, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
+        RegistroSismos_B.setBackground(new java.awt.Color(29, 53, 87));
+        RegistroSismos_B.setMaximumSize(new java.awt.Dimension(750, 510));
+        RegistroSismos_B.setMinimumSize(new java.awt.Dimension(750, 510));
+        RegistroSismos_B.setPreferredSize(new java.awt.Dimension(750, 510));
+
+        textTitulo_RegistroSismos_B.setBackground(new java.awt.Color(230, 57, 70));
+        textTitulo_RegistroSismos_B.setFont(new java.awt.Font("Tahoma", 3, 28)); // NOI18N
+        textTitulo_RegistroSismos_B.setForeground(new java.awt.Color(255, 255, 255));
+        textTitulo_RegistroSismos_B.setText(" Cantidad de sismos por tipo de origen ");
+        textTitulo_RegistroSismos_B.setOpaque(true);
+
+        textProvincia_RegistroSismos_B.setBackground(new java.awt.Color(29, 53, 87));
+        textProvincia_RegistroSismos_B.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        textProvincia_RegistroSismos_B.setForeground(new java.awt.Color(29, 53, 87));
+        textProvincia_RegistroSismos_B.setText("Origen:");
+
+        botonRegresar_RegistroSismos_B.setText("Regresar");
+        botonRegresar_RegistroSismos_B.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonRegresar_RegistroSismos_BActionPerformed(evt);
+            }
+        });
+
+        botonSalir_RegistroSismos_B.setText("Salir");
+        botonSalir_RegistroSismos_B.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonSalir_RegistroSismos_BActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout panel_RegistroSismos_BLayout = new javax.swing.GroupLayout(panel_RegistroSismos_B);
+        panel_RegistroSismos_B.setLayout(panel_RegistroSismos_BLayout);
+        panel_RegistroSismos_BLayout.setHorizontalGroup(
+            panel_RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panel_RegistroSismos_BLayout.setVerticalGroup(
+            panel_RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 291, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout RegistroSismos_BLayout = new javax.swing.GroupLayout(RegistroSismos_B);
+        RegistroSismos_B.setLayout(RegistroSismos_BLayout);
+        RegistroSismos_BLayout.setHorizontalGroup(
+            RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(RegistroSismos_BLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(panel_RegistroSismos_B, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(RegistroSismos_BLayout.createSequentialGroup()
+                .addGroup(RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textTitulo_RegistroSismos_B, javax.swing.GroupLayout.PREFERRED_SIZE, 750, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(RegistroSismos_BLayout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(textProvincia_RegistroSismos_B)
+                        .addGap(487, 487, 487)
+                        .addComponent(botonRegresar_RegistroSismos_B)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(botonSalir_RegistroSismos_B, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        RegistroSismos_BLayout.setVerticalGroup(
+            RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroSismos_BLayout.createSequentialGroup()
+                .addComponent(textTitulo_RegistroSismos_B, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panel_RegistroSismos_B, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(textProvincia_RegistroSismos_B, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(botonRegresar_RegistroSismos_B)
+                        .addComponent(botonSalir_RegistroSismos_B)))
+                .addGap(5, 5, 5))
+        );
+
+        Paneles.add(RegistroSismos_B, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
         RegistroSismos_C.setBackground(new java.awt.Color(29, 53, 87));
-        RegistroSismos_C.setMaximumSize(new java.awt.Dimension(750, 380));
-        RegistroSismos_C.setMinimumSize(new java.awt.Dimension(750, 380));
+        RegistroSismos_C.setMaximumSize(new java.awt.Dimension(750, 510));
+        RegistroSismos_C.setMinimumSize(new java.awt.Dimension(750, 510));
+        RegistroSismos_C.setPreferredSize(new java.awt.Dimension(750, 510));
 
         textTitulo_RegistroSismos_C.setBackground(new java.awt.Color(241, 250, 238));
         textTitulo_RegistroSismos_C.setFont(new java.awt.Font("Tahoma", 3, 28)); // NOI18N
@@ -1952,8 +2002,9 @@ public class Interfaz extends javax.swing.JFrame {
         Paneles.add(RegistroSismos_C, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         RegistroSismos_D.setBackground(new java.awt.Color(29, 53, 87));
-        RegistroSismos_D.setMaximumSize(new java.awt.Dimension(750, 380));
-        RegistroSismos_D.setMinimumSize(new java.awt.Dimension(750, 380));
+        RegistroSismos_D.setMaximumSize(new java.awt.Dimension(750, 510));
+        RegistroSismos_D.setMinimumSize(new java.awt.Dimension(750, 510));
+        RegistroSismos_D.setPreferredSize(new java.awt.Dimension(750, 510));
 
         textTitulo_RegistroSismos_D.setBackground(new java.awt.Color(168, 218, 220));
         textTitulo_RegistroSismos_D.setFont(new java.awt.Font("Tahoma", 3, 28)); // NOI18N
@@ -2048,8 +2099,9 @@ public class Interfaz extends javax.swing.JFrame {
         Paneles.add(RegistroSismos_D, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         RegistroSismos_E.setBackground(new java.awt.Color(29, 53, 87));
-        RegistroSismos_E.setMaximumSize(new java.awt.Dimension(750, 380));
-        RegistroSismos_E.setMinimumSize(new java.awt.Dimension(750, 380));
+        RegistroSismos_E.setMaximumSize(new java.awt.Dimension(750, 510));
+        RegistroSismos_E.setMinimumSize(new java.awt.Dimension(750, 510));
+        RegistroSismos_E.setPreferredSize(new java.awt.Dimension(750, 510));
 
         textTitulo_RegistroSismos_E.setBackground(new java.awt.Color(69, 123, 157));
         textTitulo_RegistroSismos_E.setFont(new java.awt.Font("Tahoma", 3, 28)); // NOI18N
@@ -2188,20 +2240,22 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_inputDetalleFalla_NuevoSismoActionPerformed
 
     private void botonAceptar_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar_NuevoSismoActionPerformed
-        String antiHexadecimal= "abcdefAbcdef";
+        String antiHexadecimal= "abcdefABCDEF";
         
         Date momentoExacto;
         double profundidad=0;
         TFalla origenFalla;
         String detalleFalla;
         double magnitud=0;
-        double latitud;
-        double longitud;
+        double latitud = 0;
+        double longitud = 0;
         String descripcionDetallada;
         TLugar lugar;
         TProvincia provincia;
+        boolean banderaError=false;
         
         if(0==inputLugarLista_NuevoSismo.getSelectedIndex()) inputProvinciaLista_NuevoSismo.setSelectedIndex(0);
+        if(0==inputProvinciaLista_NuevoSismo.getSelectedIndex()) inputLugarLista_NuevoSismo.setSelectedIndex(0);
         
         try{
             Date rawDia= (Date) inputDiaFormated_NuevoSismo_Fecha.getValue();
@@ -2212,7 +2266,7 @@ public class Interfaz extends javax.swing.JFrame {
                     );
         }catch(NullPointerException error){
             momentoExacto= new Date();
-            return;
+            //banderaError=true;
         }
         
         try{
@@ -2222,7 +2276,7 @@ public class Interfaz extends javax.swing.JFrame {
             validacionProfundidad_NuevoSismo.setText("");
         } catch (NumberFormatException error){
             validacionProfundidad_NuevoSismo.setText("Dato invalido");
-            return;
+            banderaError=true;
         }
         
         origenFalla= TFalla.values()[inputOrigenFallaLista_NuevoSismo.getSelectedIndex()];
@@ -2237,20 +2291,23 @@ public class Interfaz extends javax.swing.JFrame {
             validacionMagnitud_NuevoSismo.setText("");
         } catch (NumberFormatException error){
             validacionMagnitud_NuevoSismo.setText("Dato invalido");
-            
-        }
-        try{
-            latitud= (double) inputLatitudFormated_NuevoSismo_Ubicacion.getValue();
-        } catch(NullPointerException error){
-            inputLatitudFormated_NuevoSismo_Ubicacion.setValue("9.9333296");
-            return;
+            banderaError=true;
         }
         
         try{
-            longitud= (double) inputLongitudFormated_NuevoSismo_Ubicacion.getValue();
-        } catch(NullPointerException error){
-            inputLongitudFormated_NuevoSismo_Ubicacion.setValue("-84.0833282");
-            return;
+            String stringLong= inputLongitudFormated_NuevoSismo_Ubicacion.getText();
+            longitud= Double.parseDouble(stringLong);;
+        } catch (NumberFormatException error){
+            JOptionPane.showMessageDialog(MensajeError_NuevoSismo, "Longitud no valida.");
+            banderaError=true;
+        }
+        
+        try{
+            String stringLat= inputLatitudFormated_NuevoSismo_Ubicacion.getText();
+            latitud= Double.parseDouble(stringLat);
+        } catch (NumberFormatException error){
+            JOptionPane.showMessageDialog(MensajeError_NuevoSismo, "Latitud no valida.");
+            banderaError=true;
         }
         
         descripcionDetallada=inputDescripcionDetallada_NuevoSismo.getText();
@@ -2260,13 +2317,14 @@ public class Interfaz extends javax.swing.JFrame {
         
         provincia= TProvincia.values()[inputProvinciaLista_NuevoSismo.getSelectedIndex()];
         
+//        System.out.println("Lat: "+ latitud+"\nLog: "+longitud);
         
-        
-
+        if(!banderaError){
         elSistema.nuevoSismo(momentoExacto, profundidad, origenFalla, detalleFalla, magnitud, latitud, longitud, descripcionDetallada, lugar, provincia);
+//        System.out.println("Lat: "+ latitud+"\nLog: "+longitud);
         ocultarPanelesExceptoEste(VentanaIntermedia);
         cargarValoresATablaSismos(elSistema.getcSismos().getSismosOrdenadosFecha(true));
-    
+        }
     }//GEN-LAST:event_botonAceptar_NuevoSismoActionPerformed
 
     private void inputProfundidad_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputProfundidad_NuevoSismoActionPerformed
@@ -2327,6 +2385,22 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_inputHoraFormated_NuevoSismo_FechaActionPerformed
 
     private void botonAceptar_NuevoSismo_UbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar_NuevoSismo_UbicacionActionPerformed
+        boolean banderaError=false;        
+        try{
+            String stringLong= inputLongitudFormated_NuevoSismo_Ubicacion.getText();
+            double longitud= Double.parseDouble(stringLong);
+        } catch (NumberFormatException error){
+            JOptionPane.showMessageDialog(MensajeError_NuevoSismo, "Longitud no valida.");
+            banderaError=true;
+        }
+        
+        try{
+            String stringLat= inputLatitudFormated_NuevoSismo_Ubicacion.getText();
+            double latitud= Double.parseDouble(stringLat);
+        } catch (NumberFormatException error){
+            JOptionPane.showMessageDialog(MensajeError_NuevoSismo, "Latitud no valida.");
+            banderaError=true;
+        }
         ocultarPanelesExceptoEste(NuevoSismo);
     }//GEN-LAST:event_botonAceptar_NuevoSismo_UbicacionActionPerformed
 
@@ -2538,10 +2612,16 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_botonNuevoSismo_VentanaIntermediaActionPerformed
 
     private void botonNuevoSismo_VentanaIntermedia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoSismo_VentanaIntermedia1ActionPerformed
+        if (TablaTodosSismos.getSelectedRow()!= -1){
         ocultarPanelesExceptoEste(VentanaIntermedia_DetalleSismo,true);
-        //escribirDatos_DetalleSismo(elSistema.getcSismos().getSismosOrdenadosFecha().get(TablaTodosSismos.getSelectedRow()));
+        try{
+            escribirDatos_DetalleSismo(elSistema.getcSismos().getSismosOrdenadosFecha().get(TablaTodosSismos.getSelectedRow()));
+        }catch(IndexOutOfBoundsException error){
+        
+        }
         
         cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
+        }
     }//GEN-LAST:event_botonNuevoSismo_VentanaIntermedia1ActionPerformed
 
     private void DetalleSismo_origenFallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DetalleSismo_origenFallaActionPerformed
@@ -2557,12 +2637,12 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_DetalleSismo_magnitudActionPerformed
 
     private void botonRegresar_NuevoSismo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar_NuevoSismo1ActionPerformed
-        ocultarPanelesExceptoEste(VentanaIntermedia);
         cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
+        ocultarPanelesExceptoEste(VentanaIntermedia);
     }//GEN-LAST:event_botonRegresar_NuevoSismo1ActionPerformed
 
     private void botonSalir_NuevoSismo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir_NuevoSismo1ActionPerformed
-        // TODO add your handling code here:
+       cerrarPrograma();
     }//GEN-LAST:event_botonSalir_NuevoSismo1ActionPerformed
 
     private void DetalleSismo_momentoExactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DetalleSismo_momentoExactoActionPerformed
@@ -2674,6 +2754,26 @@ public class Interfaz extends javax.swing.JFrame {
         }
             
     }//GEN-LAST:event_botonMostrar_RegistroSismos_CActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        boolean banderaError=false;        
+        try{
+            String stringLong= inputLongitudFormated_NuevoSismo_Ubicacion.getText();
+            double longitud= Double.parseDouble(stringLong);
+        } catch (NumberFormatException error){
+            JOptionPane.showMessageDialog(MensajeError_NuevoSismo, "Longitud no valida.");
+            banderaError=true;
+        }
+        
+        try{
+            String stringLat= inputLatitudFormated_NuevoSismo_Ubicacion.getText();
+            double latitud= Double.parseDouble(stringLat);
+        } catch (NumberFormatException error){
+            JOptionPane.showMessageDialog(MensajeError_NuevoSismo, "Latitud no valida.");
+            banderaError=true;
+        }
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
     
 
     /**
@@ -2726,6 +2826,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JTextField DetalleSismo_provincia;
     private javax.swing.JTextField DetalleSismo_ubicacionExacta;
     private javax.swing.JPanel Inicio;
+    private javax.swing.JFrame MensajeError_NuevoSismo;
     private javax.swing.JPanel NuevoSismo;
     private javax.swing.JPanel NuevoSismo_Fecha;
     private javax.swing.JPanel NuevoSismo_UbicacionMapa;
@@ -2796,6 +2897,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> inputOrigenFallaLista_NuevoSismo;
     private javax.swing.JTextField inputProfundidad_NuevoSismo;
     private javax.swing.JComboBox<String> inputProvinciaLista_NuevoSismo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

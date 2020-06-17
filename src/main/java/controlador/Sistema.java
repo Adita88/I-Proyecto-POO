@@ -33,7 +33,8 @@ public class Sistema {
 
     
     public void nuevoSismo(Date momentoExacto, double profundidad, TFalla origenFalla, String detalleFalla, double magnitud, double latitud, double longitud, String descripcionDetallada, TLugar lugar, TProvincia provincia){
-        cSismos.addSismo(new Sismo(momentoExacto, profundidad, origenFalla, detalleFalla, magnitud, descripcionDetallada, lugar, provincia));
+        System.out.println("Lat: "+ latitud+"\nLog: "+longitud);
+        cSismos.addSismo(new Sismo(momentoExacto, profundidad, origenFalla, detalleFalla, magnitud, latitud, longitud, descripcionDetallada, lugar, provincia));
     }
     
     public ControladorArchivo getcArchivos() {

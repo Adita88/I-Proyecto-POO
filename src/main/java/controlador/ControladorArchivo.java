@@ -179,7 +179,10 @@ public class ControladorArchivo{
     public static ArrayList listaSismos(){
         List<Object> lista= new ArrayList<Object>();
         lista = CargarExcel();
+        try{
         lista.remove(lista.get(0));
+        }catch (IndexOutOfBoundsException error){   
+        }
         
         Sismo unSismo = new Sismo();
         ArrayList<Sismo> listaSismos = new ArrayList();
