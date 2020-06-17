@@ -2257,8 +2257,8 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void botonNuevoSismo_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoSismo_InicioActionPerformed
         ocultarPanelesExceptoEste(VentanaIntermedia,true);
-        TablaTodosSismos.clearSelection();
-        TablaTodosSismos.removeAll();
+        DefaultTableModel model= (DefaultTableModel) TablaTodosSismos.getModel();
+        model.setRowCount(0);
         cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
     }//GEN-LAST:event_botonNuevoSismo_InicioActionPerformed
 
@@ -2362,7 +2362,10 @@ public class Interfaz extends javax.swing.JFrame {
             
         elSistema.nuevoSismo(momentoExacto, profundidad, origenFalla, detalleFalla, magnitud, latitud, longitud, descripcionDetallada, lugar, provincia);
 //        System.out.println("Lat: "+ latitud+"\nLog: "+longitud);
+        DefaultTableModel model= (DefaultTableModel) TablaTodosSismos.getModel();
+        model.setRowCount(0);
         cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
+        
         ocultarPanelesExceptoEste(VentanaIntermedia);
         }
     }//GEN-LAST:event_botonAceptar_NuevoSismoActionPerformed
