@@ -28,7 +28,7 @@ public class ControladorSismos {
     }
     /**
      * Constructor sobrecargado
-     * @param sismos 
+     * @param sismos Lista de sismos 
      */
     public ControladorSismos(ArrayList<Sismo> sismos) {
         this.sismos = sismos;
@@ -36,8 +36,8 @@ public class ControladorSismos {
     
     /**
      * Agrega sismo que Recibe
-     * @param sismo
-     * @return 
+     * @param sismo Sismo 
+     * @return sismo
      */
     public boolean addSismo(Sismo sismo){
         sismos.add(sismo);
@@ -47,8 +47,8 @@ public class ControladorSismos {
     
     /**
      * Elimina Sismo de la lista guardada
-     * @param sismo
-     * @return 
+     * @param sismo Lista de sismos 
+     * @return  remover sismo
      */
     public boolean removeSismo(Sismo sismo){
         return false;
@@ -58,8 +58,8 @@ public class ControladorSismos {
     /**
      * Ordena sismos guardados por Fecha, puede ser en
      * orden ascendente (opcional false) o descendente (true)
-     * @param ordenDescendente
-     * @return 
+     * @param ordenDescendente orden Ascendente
+     * @return  arraylist sismos ordenados
      */
     public ArrayList <Sismo> getSismosOrdenadosFecha (boolean ... ordenDescendente){
         boolean flag = (ordenDescendente.length >= 1) ? ordenDescendente[0] : false;
@@ -71,9 +71,9 @@ public class ControladorSismos {
     /**
      * Recibe lista de Sismos y la devuelve ordenada por Fecha, puede ser en
      * orden ascendente (opcional false) o descendente (true)
-     * @param sismos1
-     * @param ordenDescendente
-     * @return 
+     * @param sismos1 Lista de sismos 
+     * @param ordenDescendente orden
+     * @return arraylist sismos ordenados
      */
     public ArrayList <Sismo> getSismosOrdenadosFecha (ArrayList<Sismo> sismos1, boolean ... ordenDescendente) {
         boolean flag = (ordenDescendente.length >= 1) ? ordenDescendente[0] : false;
@@ -87,8 +87,8 @@ public class ControladorSismos {
     /**
      * Ordena sismos guardados por Magitud, puede ser en
      * orden ascendente (opcional false) o descendente (true)
-     * @param ordenDescendente
-     * @return 
+     * @param ordenDescendente orden
+     * @return arraylist sismos ordenados
      */
     public ArrayList <Sismo> getSismosOrdenadosMagnitud(boolean ... ordenDescendente){
         boolean flag = (ordenDescendente.length >= 1) ? ordenDescendente[0] : false;
@@ -102,9 +102,9 @@ public class ControladorSismos {
      * Recibe sismos y los devuelve ordenados por Magitud, puede ser en
      * orden ascendente (opcional false) o descendente (true)
      * 
-     * @param sismos1
+     * @param sismos1 Lista de sismos 
      * @param ordenDescendente Opcional
-     * @return 
+     * @return arraylist sismos ordenados
      */
     public ArrayList <Sismo> getSismosOrdenadosMagnitud(ArrayList<Sismo> sismos1, boolean ... ordenDescendente) {
         boolean flag = (ordenDescendente.length >= 1) ? ordenDescendente[0] : false;
@@ -118,8 +118,8 @@ public class ControladorSismos {
     
     /**
      * Obtiene Sismos Iguales a Magnitud
-     * @param magnitud
-     * @return 
+     * @param magnitud Magnitud
+     * @return arraylist sismos con igual magnitud
      */
     public ArrayList<Sismo> getSismosIgualAMagnitud(double magnitud){
         ArrayList <Sismo> listaSismos= new ArrayList<>();
@@ -132,8 +132,8 @@ public class ControladorSismos {
     
     /**
      * Obtiene Simsos Menores A Magnitud
-     * @param magnitud
-     * @return 
+     * @param magnitud Magnitud
+     * @return arraylist sismos por magnitud
      */
     public ArrayList<Sismo> getSismosMenorAMagnitud(double magnitud){
         ArrayList <Sismo> listaSismos= new ArrayList<>();
@@ -146,8 +146,8 @@ public class ControladorSismos {
     
     /**
      * Obtiene Sismos mayores a Magnitud
-     * @param magnitud
-     * @return 
+     * @param magnitud Magnitud
+     * @return arraylist sismos por magnitud
      */
     public ArrayList<Sismo> getSismosMayorAMagnitud(double magnitud){
         ArrayList <Sismo> listaSismos= new ArrayList<>();
@@ -159,8 +159,8 @@ public class ControladorSismos {
     
     /**
      * Obtiene Sismos por Origen de Falla
-     * @param origenFalla
-     * @return 
+     * @param origenFalla Origen Falla
+     * @return arraylist sismos por origen falla
      */
     public ArrayList<Sismo> getSismosOrigenFalla(TFalla origenFalla){
         ArrayList <Sismo> listaSismos= new ArrayList<>();
@@ -172,8 +172,8 @@ public class ControladorSismos {
     
     /**
      * Obtiene sismos por provincia
-     * @param provincia
-     * @return 
+     * @param provincia provincia
+     * @return arraylist sismos por provincia
      */
     public ArrayList<Sismo> getSismosProvincia(TProvincia provincia){
         ArrayList <Sismo> listaSismos= new ArrayList<>();
@@ -185,8 +185,8 @@ public class ControladorSismos {
     
     /**
      * Obtiene Sismos por lugar donde sucedio (maritimo, terrestre)
-     * @param lugar
-     * @return 
+     * @param lugar lugar
+     * @return  arraylist sismos por lugar
      */
     public ArrayList<Sismo> getSismosLugar(TLugar lugar){
         ArrayList <Sismo> listaSismos= new ArrayList<>();
@@ -198,8 +198,8 @@ public class ControladorSismos {
     
     /**
      * Obtiene sismos de una fecha en específico
-     * @param fecha
-     * @return 
+     * @param fecha fecha
+     * @return  arraylist sismos por fecha
      */
     public ArrayList<Sismo> getSismosOrigenFalla(Date fecha){
         ArrayList <Sismo> listaSismos= new ArrayList<>();
@@ -211,9 +211,9 @@ public class ControladorSismos {
     
     /**
      * Obtiene sismos que se encuentren entre dos fechas dadas
-     * @param FechaInicio
-     * @param FechaFinal
-     * @return 
+     * @param FechaInicio fecha inicio
+     * @param FechaFinal fecha final
+     * @return arraylist sismos rangod e fechas
      */
     public ArrayList <Sismo> getSismosEntreFechas(Date FechaInicio, Date FechaFinal){
         ArrayList <Sismo> copiaSismos= new ArrayList<>();
@@ -227,7 +227,7 @@ public class ControladorSismos {
 
     /**
      * Get común
-     * @return 
+     * @return getSismo
      */
     public ArrayList<Sismo> getSismos() {
         return sismos;
@@ -235,7 +235,7 @@ public class ControladorSismos {
 
     /**
      * Set común
-     * @param sismos 
+     * @param sismos  Lista de sismos 
      */
     public void setSismos(ArrayList<Sismo> sismos) {
         this.sismos = sismos;
@@ -243,7 +243,7 @@ public class ControladorSismos {
 
     /**
      * To String Común
-     * @return 
+     * @return toString
      */
     @Override
     public String toString() {

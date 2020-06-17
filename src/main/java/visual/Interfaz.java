@@ -56,6 +56,9 @@ public class Interfaz extends javax.swing.JFrame {
     DefaultTableModel tabla2 = new DefaultTableModel();
     DefaultTableModel tabla3 = new DefaultTableModel();
     
+    /**
+     * Asigna valores a la lista
+     */
     private void asignarValoresListas(){
         inputOrigenFallaLista_NuevoSismo.removeAllItems();
         inputLugarLista_NuevoSismo.removeAllItems();
@@ -82,7 +85,11 @@ public class Interfaz extends javax.swing.JFrame {
         } 
     }
     
-    
+    /**
+     * Oculta los paneles y deja solo 1 visible
+     * @param panel panel a dejar visible
+     * @param limpiarPanel accion de limpiar el resto de paneles
+     */
     private void ocultarPanelesExceptoEste(JPanel panel, boolean ... limpiarPanel){
         boolean flagLimpiarPanel = (limpiarPanel.length >= 1) ? limpiarPanel[0] : false;
         
@@ -95,6 +102,10 @@ public class Interfaz extends javax.swing.JFrame {
         panel.setVisible(true);
     }
     
+    /**
+     * Limpiar ventanas
+     * @param panel Panel a limpiar
+     */
     private void limpiarVentana(JPanel panel){
         for(Component componente : panel.getComponents()){   
             if(componente instanceof JTextField){
@@ -112,11 +123,19 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Cerrar Programa
+     * @return 
+     */
     private int cerrarPrograma(){
         ConfirmarSalida.setVisible(true);
         Paneles.setVisible(false);
         return 0;
     }
+    
+    /**
+     * Set del panel Tabla Todos Sismos
+     */
     
     private void setModeloTablaTodosSismos(){
         String[] header = {"#","Fecha y hora",
@@ -126,6 +145,10 @@ public class Interfaz extends javax.swing.JFrame {
         TablaTodosSismos.setModel(tabla1);
     }
     
+    /**
+     * Carga valores a la tabla Todos Sismos
+     * @param listaSismos  Lista de sismos 
+     */
     private void cargarValoresATablaSismos(ArrayList<Sismo> listaSismos){
         for(int i=0;i<tabla1.getRowCount();i++) tabla1.removeRow(i);
         Object[] datos= new Object[tabla1.getColumnCount()];
@@ -148,7 +171,9 @@ public class Interfaz extends javax.swing.JFrame {
         TablaTodosSismos.setModel(tabla1);
     }
     
-
+/**
+ * Formato dia
+ */
     class FormatoDia extends MaskFormatter{
 
         public FormatoDia() throws ParseException{
@@ -170,6 +195,9 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Formato hora
+     */
     class FormatoHora extends MaskFormatter{
 
         public FormatoHora() throws ParseException{
@@ -191,6 +219,9 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Formato año
+     */
     class FormatoAnnio extends MaskFormatter{
 
         public FormatoAnnio() throws ParseException{
@@ -212,6 +243,11 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }
     
+    
+    /**
+     * Obtener informacion de JFormatted Field
+     * @return 
+     */
     private JFormattedTextField getFormatedTextHora(){
         try{return new javax.swing.JFormattedTextField(new FormatoHora());
         }catch(ParseException error){
@@ -219,6 +255,10 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * informacion de JFormatted Field
+     * @return 
+     */
     private JFormattedTextField getFormatedTextDia(){
         try{return new javax.swing.JFormattedTextField(new FormatoDia());
         }catch(ParseException error){
@@ -226,6 +266,10 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * informacion de JFormatted Field
+     * @return 
+     */
     private JFormattedTextField getFormatedTextAnnio(){
         try{return new javax.swing.JFormattedTextField(new FormatoAnnio());
         }catch(ParseException error){
@@ -233,6 +277,10 @@ public class Interfaz extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Escribir datos del sismo
+     * @param unSismo un sismo tipo Sismo
+     */
     private void escribirDatos_DetalleSismo(Sismo unSismo){
         DetalleSismo_DescripcionDetallada.append(unSismo.getDescripcionDetallada());
         DetalleSismo_detalleFalla.setText(unSismo.getDetalleFalla());
@@ -245,12 +293,19 @@ public class Interfaz extends javax.swing.JFrame {
         DetalleSismo_origenFalla.setText(unSismo.getOrigenFalla().toString());
     }
     
+    /**
+     * Tabla jTabporMag
+     */
     private void setModelojTabporMag(){
         String[] header = {"Magnitud ", "Descripción", "Cantidad"};
         tabla2.setColumnIdentifiers(header);
         jTabporMag.setModel(tabla2);
     }
     
+    /**
+     * CArga valores a jTabporMag
+     * @param lista 
+     */
     private void cargarValoresATablaGrafTabMAg(ArrayList lista){
         for(int i=0;i<tabla2.getRowCount();i++) tabla2.removeRow(i);
         Object[] datos= new Object[tabla2.getColumnCount()];
@@ -270,12 +325,19 @@ public class Interfaz extends javax.swing.JFrame {
         jTabporMag.setModel(tabla2);
     }
     
+    /**
+     * Set modelo tabla jTableSismoporFecha
+     */
     private void setModelojTableSismoporFecha(){
         String[] header = {"Fecha ", "Cantidad"};
         tabla3.setColumnIdentifiers(header);
         jTableSismoporFecha.setModel(tabla3);
     }
     
+    /**
+     * carga valores a jTableSismoporFecha
+     * @param lista  lista de sismos
+     */
     private void cargarValoresARangoFechas(ArrayList lista){
         for(int i=0;i<tabla3.getRowCount();i++) tabla3.removeRow(i);
         Object[] datos= new Object[tabla3.getColumnCount()];
@@ -295,6 +357,10 @@ public class Interfaz extends javax.swing.JFrame {
         jTableSismoporFecha.setModel(tabla3);
     }
     
+    /**
+     * Comprobar largo de nuevo sismo
+     * @return 
+     */
     private boolean comprobarLatLong_NuevoSismo(){
         boolean banderaError=false;        
         try{

@@ -43,30 +43,30 @@ public class ControladorArchivo{
     }
     
 /**
- * 
- * @param nombreArchivo 
- */    
+ * Nombre de archivo
+ * @param nombreArchivo  nombre de archivo
+ */   
     public void setNombreArchivo(String nombreArchivo) {
         this.nombreArchivo = nombreArchivo;
     }
 
     /**
-     * 
-     * @param rutaArchivo 
+     * ruta archivo
+     * @param rutaArchivo  ruta del archivo de Excel
      */
     public void setRutaArchivo(String rutaArchivo) {
         this.rutaArchivo = rutaArchivo;
     }
 /**
- * 
- * @param hoja 
+ * hoja
+ * @param hoja Hoja de Excel
  */
     public void setHoja(String hoja) {
         this.hoja = hoja;
     }
     
     /**
-     * 
+     * getnombreArchivo
      * @return nombreArchivo: String
      */
     public String getNombreArchivo() {
@@ -74,25 +74,22 @@ public class ControladorArchivo{
     }
     
     /**
-     * 
-     * @return 
+     * rutaArchivo
+     * @return ruta archivo
      */
     public String getRutaArchivo() {
         return rutaArchivo;
     }
 
     /**
-     * 
-     * @return 
+     * hoja
+     * @return  hoja
      */
     public String getHoja() {
         return hoja;
     }
 
-    /**
-     * 
-     * 
-     */
+   
     @Override
     public String toString() {
         return "ControladorArchivo{" + "nombreArchivo=" + nombreArchivo 
@@ -102,7 +99,7 @@ public class ControladorArchivo{
     
     /**
      * Método para cargar el archivo de excel y generar lista de sismos
-     * @return 
+     * @return Arraylist con sismos
      */
     public static ArrayList CargarExcel() {
         ArrayList arrayDatos = new ArrayList();
@@ -133,10 +130,11 @@ public class ControladorArchivo{
         return arrayFilas;
     }
     
+    
     /**
      * Método para modificar el archivo de Excel
-     * @param nombreArchivo
-     * @param data 
+     * @param nombreArchivo nombre del archivo de Excel
+     * @param sismo un sismo
      */
     public static void modificarExcel(String nombreArchivo, Sismo sismo) {
         SimpleDateFormat formato =new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
@@ -195,7 +193,7 @@ public class ControladorArchivo{
    
     /**
      * Metodo que recibe la lista del archivo de excel y genera ArrayList sismos
-     * @return 
+     * @return arraylist con sismos
      */
     public static ArrayList listaSismos(){
         List<Object> lista= new ArrayList<Object>();

@@ -31,7 +31,19 @@ public class Sistema {
         this.cSismos = cSismos;
     }
 
-    
+    /**
+     *  Genera un nuevo sismo
+     * @param momentoExacto Momento Exacto del sismo
+     * @param profundidad´profundidad
+     * @param origenFalla origen falla
+     * @param detalleFalla detalle de la falla
+     * @param magnitud magnitud
+     * @param latitud latitud
+     * @param longitud longitud
+     * @param descripcionDetallada descripcion del lugar
+     * @param lugar lugar
+     * @param provincia  provincia
+     */
     public void nuevoSismo(Date momentoExacto, double profundidad, TFalla origenFalla, String detalleFalla, double magnitud, double latitud, double longitud, String descripcionDetallada, TLugar lugar, TProvincia provincia){
         System.out.println("Lat: "+ latitud+"\nLog: "+longitud);
         cSismos.addSismo(new Sismo(momentoExacto, profundidad, origenFalla, detalleFalla, magnitud, latitud, longitud, descripcionDetallada, lugar, provincia));
