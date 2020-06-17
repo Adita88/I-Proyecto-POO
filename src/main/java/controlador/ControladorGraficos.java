@@ -6,7 +6,6 @@
 
 package controlador;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import modelo.*;
@@ -17,13 +16,7 @@ import modelo.*;
  */
 public class ControladorGraficos {
     
-    public boolean generarGraficos(modelo.Grafico unGrafico){
-            return true ;  // el estudiante se ha agregado con éxito
-        }
-    
-    //ArrayList<Sismo> listaS = document;
-    
-    
+   
     ArrayList<Sismo> arrayFilas = new ArrayList();
     ArrayList<Sismo> listaS;
     
