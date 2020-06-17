@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import static org.apache.poi.hssf.usermodel.HeaderFooter.date;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -139,7 +140,8 @@ public class ControladorArchivo{
      * @param nombreArchivo
      * @param data 
      */
-    public static void modificarExcel(String nombreArchivo, String[] data) {
+    public static void modificarExcel(String nombreArchivo, Sismo sismo) {
+        SimpleDateFormat formato =new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         try {
             InputStream archivo = new FileInputStream(new File(nombreArchivo));
             XSSFWorkbook libroViejo = new XSSFWorkbook(archivo);
@@ -149,15 +151,36 @@ public class ControladorArchivo{
             XSSFRow filaVieja;
 
             filaVieja = hoja1.createRow(hoja1.getLastRowNum() + 1);
-            for (int i = 0; i < data.length; i++) {// Tantos loops como info en el arreglo
+            for (int i = 0; i < sismo.toString().length(); i++) {// Tantos loops como info en el arreglo
                 XSSFCell cell = filaVieja.createCell(i);
-                cell.setCellValue(data[i]);
+                if (i == 0){
+                    String momento = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(sismo.getMomentoExacto());
+                    cell.setCellValue((String) (momento));
+                } else if (i == 1){
+                    cell.setCellValue((Double) sismo.getProfundidad());
+                } else if (i == 2){
+                    cell.setCellValue((String) sismo.getOrigenFalla().toString());
+                } else if (i == 3){
+                    cell.setCellValue((String) sismo.getDetalleFalla());
+                } else if (i == 4){
+                    cell.setCellValue((Double) sismo.getMagnitud());
+                } else if (i == 5){
+                    cell.setCellValue((Double) sismo.getLatitud());
+                } else if (i == 6){
+                    cell.setCellValue((Double) sismo.getLongitud());
+                } else if (i == 7){
+                    cell.setCellValue((String) sismo.getDescripcionDetallada());
+                } else if (i == 8){
+                    cell.setCellValue((String) sismo.getLugar().toString());
+                } else if (i == 9){
+                    cell.setCellValue((String) sismo.getProvincia().toString());
+                }
+                
             }
-
             FileOutputStream fos = null;
             File file;
 
-            file = new File(nombreArchivo);
+            file = new File("C:\\Users\\Usuario\\Desktop\\primerProyectoPOO\\tablaSismos.xlsx");
             fos = new FileOutputStream(file);
 
             libroViejo.write(fos);
@@ -240,11 +263,18 @@ public class ControladorArchivo{
                     lugar = TLugar.valueOf(dato);
                 } else if (elemento.equals(elementos[9])) {
                     String dato = "";
-                    for (int j = 1; j < elemento.length()-2; j++) {
+                    for (int j = 1; j < elemento.length(); j++) {
                         dato += elemento.charAt(j);
                     }
+                    if(dato.contains("]\n")){
+                        String dato2 = "";
+                        for (int j = 0; j < dato.length()-2; j++) {
+                            dato2 += dato.charAt(j);
+                        }
+                        provincia = TProvincia.valueOf(dato2);
+                    }else{
                     provincia = TProvincia.valueOf(dato);
-                }
+                }}
                   
             }
             unSismo.setMomentoExacto(fecha);

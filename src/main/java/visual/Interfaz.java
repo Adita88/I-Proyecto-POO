@@ -2345,10 +2345,12 @@ public class Interfaz extends javax.swing.JFrame {
 //        System.out.println("Lat: "+ latitud+"\nLog: "+longitud);
         
         if(!banderaError){
+            
         elSistema.nuevoSismo(momentoExacto, profundidad, origenFalla, detalleFalla, magnitud, latitud, longitud, descripcionDetallada, lugar, provincia);
 //        System.out.println("Lat: "+ latitud+"\nLog: "+longitud);
+        
         ocultarPanelesExceptoEste(VentanaIntermedia);
-        cargarValoresATablaSismos(elSistema.getcSismos().getSismosOrdenadosFecha(true));
+        //cargarValoresATablaSismos(elSistema.getcSismos().getSismosOrdenadosFecha(true));
         }
     }//GEN-LAST:event_botonAceptar_NuevoSismoActionPerformed
 
@@ -2367,6 +2369,7 @@ public class Interfaz extends javax.swing.JFrame {
     private void botonRegresar_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar_NuevoSismoActionPerformed
         ocultarPanelesExceptoEste(VentanaIntermedia);
         //cargarValoresATablaSismos(elSistema.getcSismos().getSismosOrdenadosFecha(true));
+        TablaTodosSismos.removeAll();
         cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
     }//GEN-LAST:event_botonRegresar_NuevoSismoActionPerformed
 
@@ -2617,7 +2620,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void botonNuevoSismo_VentanaIntermediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoSismo_VentanaIntermediaActionPerformed
         ocultarPanelesExceptoEste(NuevoSismo, true);
-        cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
+       //cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
     }//GEN-LAST:event_botonNuevoSismo_VentanaIntermediaActionPerformed
 
     private void botonNuevoSismo_VentanaIntermedia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoSismo_VentanaIntermedia1ActionPerformed
@@ -2629,7 +2632,7 @@ public class Interfaz extends javax.swing.JFrame {
         
         }
         
-        cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
+        //cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
         }
     }//GEN-LAST:event_botonNuevoSismo_VentanaIntermedia1ActionPerformed
 
