@@ -35,6 +35,18 @@ public class Sistema {
     public void nuevoSismo(Date momentoExacto, double profundidad, TFalla origenFalla, String detalleFalla, double magnitud, double latitud, double longitud, String descripcionDetallada, TLugar lugar, TProvincia provincia){
         System.out.println("Lat: "+ latitud+"\nLog: "+longitud);
         cSismos.addSismo(new Sismo(momentoExacto, profundidad, origenFalla, detalleFalla, magnitud, latitud, longitud, descripcionDetallada, lugar, provincia));
+        Sismo nuevoSismo = new Sismo();
+        nuevoSismo.setMomentoExacto(momentoExacto);
+        nuevoSismo.setProfundidad(profundidad);
+        nuevoSismo.setOrigenFalla(origenFalla);
+        nuevoSismo.setDetalleFalla(detalleFalla);
+        nuevoSismo.setMagnitud(magnitud);
+        nuevoSismo.setLatitud(latitud);
+        nuevoSismo.setLongitud(longitud);
+        nuevoSismo.setDescripcionDetallada(descripcionDetallada);
+        nuevoSismo.setLugar(lugar);
+        nuevoSismo.setProvincia(provincia);
+        ControladorArchivo.modificarExcel("tablaSismos.xlsx", nuevoSismo);
     }
     
     public ControladorArchivo getcArchivos() {
