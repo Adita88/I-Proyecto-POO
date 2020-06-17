@@ -62,8 +62,15 @@ public class Archivo {
         return hoja;
     }
     
+    
     Workbook book;
     
+    /**
+     * Importar el archivo de excel
+     * @param archivo Nombre del archivo
+     * @param tabla Tabla donde mostrarlo
+     * @return 
+     */
     public String Importar(File archivo, JTable tabla){
         
         DefaultTableModel modelo = new DefaultTableModel();

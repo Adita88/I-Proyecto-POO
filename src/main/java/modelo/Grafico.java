@@ -8,17 +8,12 @@ package modelo;
 
 //Import
 
-import controlador.ControladorArchivo;
-import controlador.ControladorGraficos;
-import controlador.pruebas;
+
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Time;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -51,6 +46,14 @@ public class Grafico {
     public Grafico() {
     }
     
+    /**
+     * Crea el grafico de barras
+     * @param d dimension del JPanel
+     * @param v Arraylist de los valores a incluir en el grafico
+     * @param arg1 Datos a mostrar en el gráfico
+     * @param arg2 Datos a mostrar en el gráfico
+     * @param data Datos a mostrar en el gráfico
+     */
     public void crear_grafico_de_barras(Dimension d, int[] v, String[] arg1, String arg2[],String[] data){
         
         this.d= d;
@@ -72,6 +75,10 @@ public class Grafico {
     
      /* carga la imagen que esta en memoria en el objeto jLabel */
 
+    /**
+     * Cargar la imagen del grafico de barras
+     * @param lb JLabel a mostrar la imagen
+     */
     public void cargar_grafico(JLabel lb){
 
         ImageIcon imagenFondo = new ImageIcon(_image); 
@@ -79,6 +86,9 @@ public class Grafico {
         lb.repaint();
     } 
     
+    /**
+     * Guardar la imagen en memoria
+     */
     public void Guardar(){
 
        JFileChooser fileChooser = new JFileChooser();
@@ -94,13 +104,18 @@ public class Grafico {
 
             } catch (IOException ex) {
 
-                Logger.getLogger(pruebas .class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Grafico .class.getName()).log(Level.SEVERE, null, ex);
 
             }
         }
     }
     
-    
+    /**
+     * Crea el gráfico de histograma
+     * @param histograma Arraylist de valores 
+     * @param jPanelHistograma JPanel a mostrar el gráfico
+     * @param colorBarras  Color de las barras
+     */
     public void GraficoHistograma(int[] histograma,JPanel jPanelHistograma,Color colorBarras) {
        
         //Creamos el dataSet y añadimos el histograma
@@ -136,6 +151,11 @@ public class Grafico {
     
     }
     
+    /**
+     * Crea el grafico Pastel
+     * @param v valores a mostrar en el gráfico
+     * @param grafPastel lugar a mostrar el Gráfico 
+     */
     public void crearGraficoPastel(int[] v, JPanel grafPastel) {
 
         // Fuente de Datos
@@ -564,264 +584,270 @@ public class Grafico {
 //    /**
 //     * Se crea el Gráfico Tabular para determinar cantidad de sismos por Magnitud
 //     */
-//    public void graficoTabularMagnitud(Dimension ){
+    
+//    public void    paint(){
 //        
-//        Graphics g = null;
+//            Graphics g = null;
+//
+//                 //Gráfico Tabular Magnitud
+//
+//            //Variables que determinan la cantidad de sismos por tipo de magnitud
+//            int int_Micro = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Micro");
+//            int int_Menor1 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Menor1");
+//            int int_Menor2 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Menor2");
+//            int int_Ligero = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Ligero");
+//            int int_Moderado = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Moderado");
+//            int int_Fuerte = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Fuerte");
+//            int int_Mayor = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Mayor");
+//            int int_Gran1 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Gran1");
+//            int int_Gran2 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Gran2");
+//            int int_Epico = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Epico");
+//
+//
+//            //Se crean la tabla y se les da un nombre y un número
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(200,100, 300, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("Clasificación de sismos por magnitud ", 240, 120);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(200,130, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("Magnitud ", 225, 150);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(300,130, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("Descripción", 320, 150);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(400,130, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("Cantidad", 425, 150);
+//
+//
+//            //INFO
+//            g.setColor(Color.BLACK);
+//            g.drawRect(200,160, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("Menos de 2.0", 210, 180);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(300,160, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("Micro", 335, 180);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(400,160, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString(String.valueOf(int_Micro), 440, 180);
+//
+//
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(200,190, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("2.0 - 2.9", 230, 210);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(300,190, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("Menor", 335, 210);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(400,190, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString(String.valueOf(int_Menor1), 440, 210);
+//
+//
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(200,220, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("3.0 - 3.9", 230, 240);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(300,220, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("Menor", 335, 240);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(400,220, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString(String.valueOf(int_Menor2), 440, 240);
+//
+//
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(200,250, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("4.0 - 4.9", 230, 270);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(300,250, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("Ligero", 335, 270);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(400,250, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString(String.valueOf(int_Ligero), 440, 270);
+//
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(200,280, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("5.0 -5.9", 230, 300);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(300,280, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("Moderado", 325, 300);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(400,280, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString(String.valueOf(int_Moderado), 440, 300);
+//
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(200,310, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("6.0 - 6.9", 230, 330);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(300,310, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("Fuerte", 335, 330);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(400,310, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString(String.valueOf(int_Fuerte), 440, 330);
+//
+//
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(200,340, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("7.0 - 7.9", 230, 360);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(300,340, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("Mayor", 335, 360);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(400,340, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString(String.valueOf(int_Mayor), 440, 360);
+//
+//
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(200,370, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("8.0 - 8.9", 230, 390);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(300,370, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("Gran", 335, 390);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(400,370, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString(String.valueOf(int_Gran1), 440, 390);
+//
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(200,400, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("9.0 - 9.9", 230, 420);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(300,400, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("Gran", 335, 420);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(400,400, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString(String.valueOf(int_Gran2), 440, 420);
+//
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(200,430, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("10.0 +", 240, 450);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(300,430, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString("Épico", 335, 450);
+//
+//            g.setColor(Color.BLACK);
+//            g.drawRect(400,430, 100, 30);
+//            g.setColor(new Color(0,0,0));
+//            g.drawString(String.valueOf(int_Epico), 440, 450);
+//        
+//        
+//  
+//    } 
 //    
-//             //Gráfico Tabular Magnitud
-//         
-//        //Variables que determinan la cantidad de sismos por tipo de magnitud
-//        int int_Micro = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Micro");
-//        int int_Menor1 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Menor1");
-//        int int_Menor2 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Menor2");
-//        int int_Ligero = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Ligero");
-//        int int_Moderado = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Moderado");
-//        int int_Fuerte = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Fuerte");
-//        int int_Mayor = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Mayor");
-//        int int_Gran1 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Gran1");
-//        int int_Gran2 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Gran2");
-//        int int_Epico = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Epico");
-//        
-//        
-//        //Se crean la tabla y se les da un nombre y un número
-//        
+//    public void graficoTabularMagnitud(Dimension d){
+//        paint();
+//    }
+////    
+////    
+////    /**
+////     * Gráfico Tabular que indica la cantidad de Sismos en un rango de fechas determinado
+////     * @param fecha
+////     * @param fecha2 
+////     */
+//    public void graficoTabFecha(Date fecha, Date fecha2, JPanel panel){
+//          //Gráfico Tabular por rango de Fecha
+//          
+//          Graphics g = null;
+//          
+//        int int_sisFecha = ControladorGraficos.rangoFecha(ControladorArchivo.listaSismos(), fecha, fecha2);
+//          
+//        //Se crea la tabla
 //        g.setColor(Color.BLACK);
 //        g.drawRect(200,100, 300, 30);
 //        g.setColor(new Color(0,0,0));
-//        g.drawString("Clasificación de sismos por magnitud ", 240, 120);
+//        g.drawString("Clasificación de sismos por rango de fecha ", 240, 120);
 //        
 //        g.setColor(Color.BLACK);
-//        g.drawRect(200,130, 100, 30);
+//        g.drawRect(200,130, 200, 30);
 //        g.setColor(new Color(0,0,0));
-//        g.drawString("Magnitud ", 225, 150);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(300,130, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("Descripción", 320, 150);
+//        g.drawString("Fecha ", 285, 150);
 //        
 //        g.setColor(Color.BLACK);
 //        g.drawRect(400,130, 100, 30);
 //        g.setColor(new Color(0,0,0));
-//        g.drawString("Cantidad", 425, 150);
+//        g.drawString("Cantidad", 430, 150);
 //        
-//        
-//        //INFO
-//        g.setColor(Color.BLACK);
-//        g.drawRect(200,160, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("Menos de 2.0", 210, 180);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(300,160, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("Micro", 335, 180);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(400,160, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString(String.valueOf(int_Micro), 440, 180);
 //        
 //        
 //        
 //        g.setColor(Color.BLACK);
-//        g.drawRect(200,190, 100, 30);
+//        g.drawRect(200,160, 200, 30);
 //        g.setColor(new Color(0,0,0));
-//        g.drawString("2.0 - 2.9", 230, 210);
+//        g.drawString(String.valueOf(fecha), 215, 180);
 //        
 //        g.setColor(Color.BLACK);
-//        g.drawRect(300,190, 100, 30);
+//        g.drawRect(200,190, 200, 30);
 //        g.setColor(new Color(0,0,0));
-//        g.drawString("Menor", 335, 210);
+//        g.drawString(String.valueOf(fecha2), 215, 210);
 //        
 //        g.setColor(Color.BLACK);
-//        g.drawRect(400,190, 100, 30);
+//        g.drawRect(400,160, 100, 60);
 //        g.setColor(new Color(0,0,0));
-//        g.drawString(String.valueOf(int_Menor1), 440, 210);
+//        g.drawString(String.valueOf(int_sisFecha), 445, 195);       
 //        
-//        
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(200,220, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("3.0 - 3.9", 230, 240);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(300,220, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("Menor", 335, 240);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(400,220, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString(String.valueOf(int_Menor2), 440, 240);
-//        
-//        
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(200,250, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("4.0 - 4.9", 230, 270);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(300,250, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("Ligero", 335, 270);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(400,250, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString(String.valueOf(int_Ligero), 440, 270);
-//        
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(200,280, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("5.0 -5.9", 230, 300);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(300,280, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("Moderado", 325, 300);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(400,280, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString(String.valueOf(int_Moderado), 440, 300);
-//        
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(200,310, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("6.0 - 6.9", 230, 330);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(300,310, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("Fuerte", 335, 330);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(400,310, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString(String.valueOf(int_Fuerte), 440, 330);
-//        
-//        
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(200,340, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("7.0 - 7.9", 230, 360);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(300,340, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("Mayor", 335, 360);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(400,340, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString(String.valueOf(int_Mayor), 440, 360);
-//        
-//        
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(200,370, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("8.0 - 8.9", 230, 390);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(300,370, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("Gran", 335, 390);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(400,370, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString(String.valueOf(int_Gran1), 440, 390);
-//        
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(200,400, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("9.0 - 9.9", 230, 420);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(300,400, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("Gran", 335, 420);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(400,400, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString(String.valueOf(int_Gran2), 440, 420);
-//        
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(200,430, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("10.0 +", 240, 450);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(300,430, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString("Épico", 335, 450);
-//        
-//        g.setColor(Color.BLACK);
-//        g.drawRect(400,430, 100, 30);
-//        g.setColor(new Color(0,0,0));
-//        g.drawString(String.valueOf(int_Epico), 440, 450);
-//        return null;
-//  
-//    } 
-//    
-//    
-//    /**
-//     * Gráfico Tabular que indica la cantidad de Sismos en un rango de fechas determinado
-//     * @param fecha
-//     * @param fecha2 
-//     */
-    public void graficoTabFecha(Date fecha, Date fecha2, JPanel panel){
-          //Gráfico Tabular por rango de Fecha
-          
-          Graphics g = null;
-          
-        int int_sisFecha = ControladorGraficos.rangoFecha(ControladorArchivo.listaSismos(), fecha, fecha2);
-          
-        //Se crea la tabla
-        g.setColor(Color.BLACK);
-        g.drawRect(200,100, 300, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Clasificación de sismos por rango de fecha ", 240, 120);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(200,130, 200, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Fecha ", 285, 150);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(400,130, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Cantidad", 430, 150);
-        
-        
-        
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(200,160, 200, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString(String.valueOf(fecha), 215, 180);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(200,190, 200, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString(String.valueOf(fecha2), 215, 210);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(400,160, 100, 60);
-        g.setColor(new Color(0,0,0));
-        g.drawString(String.valueOf(int_sisFecha), 445, 195);       
-        
-    }
+//    }
 
 }
 //

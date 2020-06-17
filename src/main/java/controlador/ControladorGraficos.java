@@ -6,8 +6,6 @@
 
 package controlador;
 
-import java.awt.Graphics;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import modelo.*;
@@ -30,8 +28,8 @@ public class ControladorGraficos {
     
     /**
      * Método indica cuantos sismos hay por provincia
-     * @param lista
-     * @param provincia
+     * @param lista recibe la lista con los sismos registrados
+     * @param provincia Reciba el tipo de provincia a comparar
      * @return 
      */
     public static int graficoProvincia(ArrayList<Sismo> lista, modelo.TProvincia provincia){
@@ -49,8 +47,8 @@ public class ControladorGraficos {
     
     /**
      * Método indica cuantos sismos hay por Origen
-     * @param lista
-     * @param origen
+     * @param lista recibe la lista con los sismos registrados
+     * @param origen recibe el tipo de origen a comprar
      * @return 
      */
     public static int graficoTOrigen(ArrayList<Sismo> lista, modelo.TFalla origen){
@@ -68,8 +66,8 @@ public class ControladorGraficos {
     
     /**
      * Método indica cuantos sismos hay por año
-     * @param lista
-     * @param anno
+     * @param lista recibe la lista con los sismos registrados
+     * @param anno año a revisar
      * @return 
      */
      public static ArrayList listaSismoporAnno(ArrayList<Sismo> lista, int anno){
@@ -86,7 +84,13 @@ public class ControladorGraficos {
         return listaNueva;
     }
      
-     public static ArrayList listaSismoporProvincia(ArrayList<Sismo> lista, TProvincia provincia){
+    /**
+     * Método que retorna la cantidad de sismos hay en una provincia en especifico
+     * @param lista recibe la lista con los sismos registrados
+     * @param provincia recibe la provincia a revisar
+     * @return 
+     */
+    public static ArrayList listaSismoporProvincia(ArrayList<Sismo> lista, TProvincia provincia){
         ArrayList<Sismo> listaNueva = new ArrayList();
         
         
@@ -102,8 +106,8 @@ public class ControladorGraficos {
     
     /**
      * Método indica cuantos sismos hay por mes
-     * @param lista
-     * @param mes
+     * @param lista recibe la lista con los sismos registrados
+     * @param mes mes a comparar
      * @return 
      */
     public static int graficoSismoPorMes(ArrayList<Sismo> lista, int mes){
@@ -122,8 +126,8 @@ public class ControladorGraficos {
     
     /**
      * Método indica cuantos sismos hay por magnitud
-     * @param lista
-     * @param descripcion
+     * @param lista recibe la lista con los sismos registrados
+     * @param descripcion El tipo de magnitud a comparar
      * @return 
      */
     public static int graficoMagnitud(ArrayList<Sismo> lista, String descripcion){
@@ -179,9 +183,9 @@ public class ControladorGraficos {
     
     /**
      * Método indica cuantos sismos hay en un rango de fechas
-     * @param lista
-     * @param fecha
-     * @param fecha2
+     * @param lista recibe la lista con los sismos registrados
+     * @param fecha fecha a revisar
+     * @param fecha2 fecha a revisar 
      * @return 
      */
     public static int rangoFecha(ArrayList<Sismo> lista, Date fecha, Date fecha2) {
@@ -189,44 +193,23 @@ public class ControladorGraficos {
         
         int contador = 0;
         
-        SimpleDateFormat formato =new SimpleDateFormat("dd/MM/yyyy");
-        //fecha.setTime(1577845*1000000);
-        System.out.println(fecha.getDay());
-        System.out.println(fecha.getMonth());
-        System.out.println(fecha.getYear());
-        fecha.setYear(fecha.getYear() + 1900);
-        
-        System.out.println(fecha.getYear());
-        
-        //System.out.println(fecha2);
-        
         for(int i = 0; i < lista.size(); i++){
             
             if (fecha.before(fecha2)){
                 
-                //System.out.println(i);
-                //System.out.println(fecha.getYear());
-                System.out.println(lista.get(i).getMomentoExacto().getDay());
-                System.out.println(lista.get(i).getMomentoExacto().getMonth());
-                System.out.println(lista.get(i).getMomentoExacto().getYear());
-                //System.out.println(lista.get(i).getMomentoExacto().after(fecha) + "Si esta despues de la fecha");
-                //System.out.println(lista.get(i).getMomentoExacto().before(fecha2));
-                //System.out.println(fecha2.getTime());
-                System.out.println("\n");
                 if (lista.get(i).getMomentoExacto().after(fecha) && lista.get(i).getMomentoExacto().before(fecha2)){
                     System.out.println("paso por aqui");
                     contador += 1;
                 }
             } else {
 
-                System.out.println("Mejor aqui");
                 if (lista.get(i).getMomentoExacto().after(fecha2) && lista.get(i).getMomentoExacto().before(fecha)){
                     contador += 1;
                 }
             }
 
         }
-         System.out.println("Ni siquiera entro");
+
          return contador;
     }
     
@@ -351,46 +334,4 @@ public class ControladorGraficos {
         return int_diciembre;
                 }
     }
-
-//    /**
-//     * LLama de la clase Graficos al gráfico Histograma
-//     */
-//    public static void generarGraficoH(){
-//        Graphics g = null;
-//        modelo.Grafico.paintH(g);
-//    }
-//    
-//    /**
-//     * LLama de la clase Graficos al gráfico Pastel
-//     */
-//    public static void generarGraficoPastel(){
-//        modelo.Grafico.graficoPastel();
-//    }
-//    
-//    /**
-//     * LLama de la clase Graficos al gráfico de Barras por fecha
-//     * @param fecha 
-//     */
-//    public static void generarGraficoBarras(Date fecha){
-//        modelo.Grafico.graficoBarras(fecha);
-//    }
-//    
-//    /**
-//     * LLama de la clase Graficos al gráfico Magnitud
-//     */
-//    public static void generarGraficoTabMagnitud(){
-//        modelo.Grafico.graficoTabularMagnitud();
-//    }
-//    
-//    
-//    /**
-//     * LLama de la clase Graficos al gráfico por rango de fechas
-//     * @param fecha
-//     * @param fecha2 
-//     */
-//    public static void generarGraficoTabFecha(Date fecha, Date fecha2){
-//        modelo.Grafico.graficoTabFecha(fecha, fecha2);
-//    }
-
- 
 }

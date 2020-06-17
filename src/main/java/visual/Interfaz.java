@@ -11,9 +11,6 @@ import controlador.ControladorGraficos;
 import controlador.Sistema;
 import modelo.TProvincia;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.awt.Graphics;
-import java.sql.Time;
 import javax.swing.JPanel;
 import modelo.*;
 import java.text.ParseException;
@@ -28,7 +25,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
-import org.jfree.chart.ChartPanel;
 //import com.mapbox.api.isochrone;
 
 /**
@@ -49,11 +45,15 @@ public class Interfaz extends javax.swing.JFrame {
         ocultarPanelesExceptoEste(Inicio);
         setModeloTablaTodosSismos();
         Grafico migrafico = new Grafico();
+        setModelojTabporMag();
+        setModelojTableSismoporFecha();
         
     }
     
     public Sistema elSistema;
     DefaultTableModel tabla1 = new DefaultTableModel();
+    DefaultTableModel tabla2 = new DefaultTableModel();
+    DefaultTableModel tabla3 = new DefaultTableModel();
     
     private void asignarValoresListas(){
         inputOrigenFallaLista_NuevoSismo.removeAllItems();
@@ -240,6 +240,56 @@ public class Interfaz extends javax.swing.JFrame {
         DetalleSismo_origenFalla.setText(unSismo.getOrigenFalla().toString());
     }
     
+    private void setModelojTabporMag(){
+        String[] header = {"Magnitud ", "Descripción", "Cantidad"};
+        tabla2.setColumnIdentifiers(header);
+        jTabporMag.setModel(tabla2);
+    }
+    
+    private void cargarValoresATablaGrafTabMAg(ArrayList lista){
+        for(int i=0;i<tabla2.getRowCount();i++) tabla2.removeRow(i);
+        Object[] datos= new Object[tabla2.getColumnCount()];
+        
+        int i=0;
+        
+            for (Object j : lista){
+                if (i < 2){
+                    datos[i]=j;
+                    i++;
+                } else {
+                    datos[i]=j;
+                    tabla2.addRow(datos); 
+                    i = 0;
+                }
+        }
+        jTabporMag.setModel(tabla2);
+    }
+    
+    private void setModelojTableSismoporFecha(){
+        String[] header = {"Fecha ", "Cantidad"};
+        tabla3.setColumnIdentifiers(header);
+        jTableSismoporFecha.setModel(tabla3);
+    }
+    
+    private void cargarValoresARangoFechas(ArrayList lista){
+        for(int i=0;i<tabla3.getRowCount();i++) tabla3.removeRow(i);
+        Object[] datos= new Object[tabla3.getColumnCount()];
+        
+        int i=0;
+        
+            for (Object j : lista){
+                if (i < 1){
+                    datos[i]=j;
+                    i++;
+                } else {
+                    datos[i]=j;
+                    tabla3.addRow(datos); 
+                    i = 0;
+                }
+        }
+        jTableSismoporFecha.setModel(tabla3);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -379,6 +429,8 @@ public class Interfaz extends javax.swing.JFrame {
         botonRegresar_RegistroSismos_C = new javax.swing.JButton();
         botonSalir_RegistroSismos_C = new javax.swing.JButton();
         panel_RegistroSismos_C = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableSismoporFecha = new javax.swing.JTable();
         textDesde_RegistroSismos_C = new javax.swing.JLabel();
         inputDia1Formated_RegistroSismos_C = getFormatedTextDia();
         textHasta_RegistroSismos_C = new javax.swing.JLabel();
@@ -397,6 +449,8 @@ public class Interfaz extends javax.swing.JFrame {
         botonRegresar_RegistroSismos_E = new javax.swing.JButton();
         botonSalir_RegistroSismos_E = new javax.swing.JButton();
         panel_RegistroSismos_E = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTabporMag = new javax.swing.JTable();
         jPanel6 = new javax.swing.JPanel();
 
         ConfirmarSalida.setTitle("Confirmación de Salida");
@@ -1798,15 +1852,34 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
+        jTableSismoporFecha.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2"
+            }
+        ));
+        jTableSismoporFecha.setInheritsPopupMenu(true);
+        jScrollPane2.setViewportView(jTableSismoporFecha);
+
         javax.swing.GroupLayout panel_RegistroSismos_CLayout = new javax.swing.GroupLayout(panel_RegistroSismos_C);
         panel_RegistroSismos_C.setLayout(panel_RegistroSismos_CLayout);
         panel_RegistroSismos_CLayout.setHorizontalGroup(
             panel_RegistroSismos_CLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panel_RegistroSismos_CLayout.createSequentialGroup()
+                .addGap(124, 124, 124)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panel_RegistroSismos_CLayout.setVerticalGroup(
             panel_RegistroSismos_CLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 291, Short.MAX_VALUE)
+            .addGroup(panel_RegistroSismos_CLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(81, Short.MAX_VALUE))
         );
 
         textDesde_RegistroSismos_C.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -1864,7 +1937,7 @@ public class Interfaz extends javax.swing.JFrame {
                 .addComponent(textTitulo_RegistroSismos_C, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_RegistroSismos_C, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(RegistroSismos_CLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonRegresar_RegistroSismos_C)
                     .addComponent(botonSalir_RegistroSismos_C)
@@ -1998,15 +2071,45 @@ public class Interfaz extends javax.swing.JFrame {
             }
         });
 
+        jTabporMag.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3"
+            }
+        ));
+        jScrollPane1.setViewportView(jTabporMag);
+
         javax.swing.GroupLayout panel_RegistroSismos_ELayout = new javax.swing.GroupLayout(panel_RegistroSismos_E);
         panel_RegistroSismos_E.setLayout(panel_RegistroSismos_ELayout);
         panel_RegistroSismos_ELayout.setHorizontalGroup(
             panel_RegistroSismos_ELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panel_RegistroSismos_ELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panel_RegistroSismos_ELayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         panel_RegistroSismos_ELayout.setVerticalGroup(
             panel_RegistroSismos_ELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 291, Short.MAX_VALUE)
+            .addGroup(panel_RegistroSismos_ELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(panel_RegistroSismos_ELayout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout RegistroSismos_ELayout = new javax.swing.GroupLayout(RegistroSismos_E);
@@ -2066,7 +2169,6 @@ public class Interfaz extends javax.swing.JFrame {
     private void botonNuevoSismo_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoSismo_InicioActionPerformed
         ocultarPanelesExceptoEste(VentanaIntermedia,true);
         cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
-        
     }//GEN-LAST:event_botonNuevoSismo_InicioActionPerformed
 
     private void botonRegistroSismos_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegistroSismos_InicioActionPerformed
@@ -2164,6 +2266,7 @@ public class Interfaz extends javax.swing.JFrame {
         elSistema.nuevoSismo(momentoExacto, profundidad, origenFalla, detalleFalla, magnitud, latitud, longitud, descripcionDetallada, lugar, provincia);
         ocultarPanelesExceptoEste(VentanaIntermedia);
         cargarValoresATablaSismos(elSistema.getcSismos().getSismosOrdenadosFecha(true));
+    
     }//GEN-LAST:event_botonAceptar_NuevoSismoActionPerformed
 
     private void inputProfundidad_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputProfundidad_NuevoSismoActionPerformed
@@ -2180,7 +2283,8 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void botonRegresar_NuevoSismoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar_NuevoSismoActionPerformed
         ocultarPanelesExceptoEste(VentanaIntermedia);
-        cargarValoresATablaSismos(elSistema.getcSismos().getSismosOrdenadosFecha(true));
+        //cargarValoresATablaSismos(elSistema.getcSismos().getSismosOrdenadosFecha(true));
+        cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
     }//GEN-LAST:event_botonRegresar_NuevoSismoActionPerformed
 
     private void botonAceptar_ConfirmarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar_ConfirmarSalidaActionPerformed
@@ -2347,12 +2451,61 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void botonClasificacionSismosPorMagnitud_RegistroSismosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonClasificacionSismosPorMagnitud_RegistroSismosActionPerformed
         ocultarPanelesExceptoEste(RegistroSismos_E, true);
-       
         
-        panel_RegistroSismos_E.repaint(2);
-   
+            int int_Micro = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Micro");
+            int int_Menor1 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Menor1");
+            int int_Menor2 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Menor2");
+            int int_Ligero = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Ligero");
+            int int_Moderado = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Moderado");
+            int int_Fuerte = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Fuerte");
+            int int_Mayor = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Mayor");
+            int int_Gran1 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Gran1");
+            int int_Gran2 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Gran2");
+            int int_Epico = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Epico");
             
+            ArrayList lista = new ArrayList<>();
             
+            lista.add("Menos de 2.0");
+            lista.add("Micro");
+            lista.add(int_Micro);
+            
+            lista.add("2.0 - 2.9");
+            lista.add("Menor");
+            lista.add(int_Menor1);
+            
+            lista.add("3.0 - 3.9");
+            lista.add("Menor");
+            lista.add(int_Menor2);
+           
+            lista.add("4.0 - 4.9");
+            lista.add("Ligero");
+            lista.add(int_Ligero);
+           
+            lista.add("5.0 - 5.9");
+            lista.add("Moderado");
+            lista.add(int_Moderado);
+                    
+            lista.add("6.0 - 6.9");
+            lista.add("Fuerte");
+            lista.add(int_Fuerte);
+            
+            lista.add("7.0 - 7.9");
+            lista.add("Mayor");
+            lista.add(int_Mayor);
+           
+            lista.add("8.0 - 8.9");
+            lista.add("Gran");
+            lista.add(int_Gran1);
+           
+            lista.add("9.0 - 9.9");
+            lista.add("Gran");
+            lista.add(int_Gran2);
+           
+            lista.add("+ de 10");
+            lista.add("épico");
+            lista.add(int_Epico);
+            
+            cargarValoresATablaGrafTabMAg(lista);
     }//GEN-LAST:event_botonClasificacionSismosPorMagnitud_RegistroSismosActionPerformed
 
     private void inputAñoFormated_RegistroSismos_DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputAñoFormated_RegistroSismos_DActionPerformed
@@ -2381,11 +2534,14 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void botonNuevoSismo_VentanaIntermediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoSismo_VentanaIntermediaActionPerformed
         ocultarPanelesExceptoEste(NuevoSismo, true);
+        cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
     }//GEN-LAST:event_botonNuevoSismo_VentanaIntermediaActionPerformed
 
     private void botonNuevoSismo_VentanaIntermedia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoSismo_VentanaIntermedia1ActionPerformed
         ocultarPanelesExceptoEste(VentanaIntermedia_DetalleSismo,true);
-        escribirDatos_DetalleSismo(elSistema.getcSismos().getSismosOrdenadosFecha().get(TablaTodosSismos.getSelectedRow()));
+        //escribirDatos_DetalleSismo(elSistema.getcSismos().getSismosOrdenadosFecha().get(TablaTodosSismos.getSelectedRow()));
+        
+        cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
     }//GEN-LAST:event_botonNuevoSismo_VentanaIntermedia1ActionPerformed
 
     private void DetalleSismo_origenFallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DetalleSismo_origenFallaActionPerformed
@@ -2402,6 +2558,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void botonRegresar_NuevoSismo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar_NuevoSismo1ActionPerformed
         ocultarPanelesExceptoEste(VentanaIntermedia);
+        cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
     }//GEN-LAST:event_botonRegresar_NuevoSismo1ActionPerformed
 
     private void botonSalir_NuevoSismo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir_NuevoSismo1ActionPerformed
@@ -2493,59 +2650,29 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_botonMostrar_RegistroSismos_DActionPerformed
 
     private void botonMostrar_RegistroSismos_CActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrar_RegistroSismos_CActionPerformed
-        Grafico grafTabFecha = new Grafico();
-        SimpleDateFormat formato =new SimpleDateFormat("dd/MM/yyyy");
-        Date fecha;
-        Date fecha2;
         try {
+            SimpleDateFormat formato =new SimpleDateFormat("dd/MM/yyyy");
+            Date fecha;
+            Date fecha2;
+            
             fecha = formato.parse(inputDia1Formated_RegistroSismos_C.getText());
             fecha2 = formato.parse(inputDia2Formated_RegistroSismos_C.getText());
             int int_sisFecha = ControladorGraficos.rangoFecha(ControladorArchivo.listaSismos(), fecha, fecha2);
             System.out.println(int_sisFecha);
             
+            ArrayList lista =  new ArrayList();
+            lista.add(fecha);
+            lista.add(int_sisFecha);
+            lista.add(fecha2);
+            lista.add("");
+            
+            
+            cargarValoresARangoFechas(lista);
             //grafTabFecha.graficoTabFecha(fecha, fecha2, panel_RegistroSismos_C);
-            
-            Graphics g = null;
-            //Se crea la tabla
-            g.setColor(Color.BLACK);
-            g.drawRect(200,100, 300, 30);
-            g.setColor(new Color(0,0,0));
-            g.drawString("Clasificación de sismos por rango de fecha ", 240, 120);
-
-            g.setColor(Color.BLACK);
-            g.drawRect(200,130, 200, 30);
-            g.setColor(new Color(0,0,0));
-            g.drawString("Fecha ", 285, 150);
-
-            g.setColor(Color.BLACK);
-            g.drawRect(400,130, 100, 30);
-            g.setColor(new Color(0,0,0));
-            g.drawString("Cantidad", 430, 150);
-
-
-
-
-            g.setColor(Color.BLACK);
-            g.drawRect(200,160, 200, 30);
-            g.setColor(new Color(0,0,0));
-            g.drawString(String.valueOf(fecha), 215, 180);
-
-            g.setColor(Color.BLACK);
-            g.drawRect(200,190, 200, 30);
-            g.setColor(new Color(0,0,0));
-            g.drawString(String.valueOf(fecha2), 215, 210);
-
-            g.setColor(Color.BLACK);
-            g.drawRect(400,160, 100, 60);
-            g.setColor(new Color(0,0,0));
-            g.drawString(String.valueOf(int_sisFecha), 445, 195);
-
-            panel_RegistroSismos_C.repaint();
-            
         } catch (ParseException ex) {
             Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+            
     }//GEN-LAST:event_botonMostrar_RegistroSismos_CActionPerformed
     
 
@@ -2670,6 +2797,10 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JTextField inputProfundidad_NuevoSismo;
     private javax.swing.JComboBox<String> inputProvinciaLista_NuevoSismo;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableSismoporFecha;
+    private javax.swing.JTable jTabporMag;
     private javax.swing.JPanel mapa_NuevoSismo_Ubicacion;
     private javax.swing.JScrollPane panelScroll_VentanaInetermediaria;
     private javax.swing.JPanel panel_RegistroSismos_A;
@@ -2738,214 +2869,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JLabel validacionMagnitud_NuevoSismo;
     private javax.swing.JLabel validacionProfundidad_NuevoSismo;
     // End of variables declaration//GEN-END:variables
-public void paint(int i){
-    if(i == 2){
-        Graphics g = null;
-    
-             //Gráfico Tabular Magnitud
-         
-        //Variables que determinan la cantidad de sismos por tipo de magnitud
-        int int_Micro = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Micro");
-        int int_Menor1 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Menor1");
-        int int_Menor2 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Menor2");
-        int int_Ligero = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Ligero");
-        int int_Moderado = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Moderado");
-        int int_Fuerte = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Fuerte");
-        int int_Mayor = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Mayor");
-        int int_Gran1 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Gran1");
-        int int_Gran2 = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Gran2");
-        int int_Epico = ControladorGraficos.graficoMagnitud(ControladorArchivo.listaSismos(), "Epico");
-        
-        
-        //Se crean la tabla y se les da un nombre y un número
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(200,100, 300, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Clasificación de sismos por magnitud ", 240, 120);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(200,130, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Magnitud ", 225, 150);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(300,130, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Descripción", 320, 150);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(400,130, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Cantidad", 425, 150);
-        
-        
-        //INFO
-        g.setColor(Color.BLACK);
-        g.drawRect(200,160, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Menos de 2.0", 210, 180);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(300,160, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Micro", 335, 180);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(400,160, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString(String.valueOf(int_Micro), 440, 180);
-        
-        
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(200,190, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("2.0 - 2.9", 230, 210);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(300,190, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Menor", 335, 210);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(400,190, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString(String.valueOf(int_Menor1), 440, 210);
-        
-        
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(200,220, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("3.0 - 3.9", 230, 240);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(300,220, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Menor", 335, 240);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(400,220, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString(String.valueOf(int_Menor2), 440, 240);
-        
-        
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(200,250, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("4.0 - 4.9", 230, 270);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(300,250, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Ligero", 335, 270);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(400,250, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString(String.valueOf(int_Ligero), 440, 270);
-        
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(200,280, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("5.0 -5.9", 230, 300);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(300,280, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Moderado", 325, 300);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(400,280, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString(String.valueOf(int_Moderado), 440, 300);
-        
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(200,310, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("6.0 - 6.9", 230, 330);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(300,310, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Fuerte", 335, 330);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(400,310, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString(String.valueOf(int_Fuerte), 440, 330);
-        
-        
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(200,340, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("7.0 - 7.9", 230, 360);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(300,340, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Mayor", 335, 360);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(400,340, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString(String.valueOf(int_Mayor), 440, 360);
-        
-        
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(200,370, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("8.0 - 8.9", 230, 390);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(300,370, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Gran", 335, 390);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(400,370, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString(String.valueOf(int_Gran1), 440, 390);
-        
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(200,400, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("9.0 - 9.9", 230, 420);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(300,400, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Gran", 335, 420);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(400,400, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString(String.valueOf(int_Gran2), 440, 420);
-        
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(200,430, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("10.0 +", 240, 450);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(300,430, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString("Épico", 335, 450);
-        
-        g.setColor(Color.BLACK);
-        g.drawRect(400,430, 100, 30);
-        g.setColor(new Color(0,0,0));
-        g.drawString(String.valueOf(int_Epico), 440, 450);
-    }
-}
+
 
 }
 

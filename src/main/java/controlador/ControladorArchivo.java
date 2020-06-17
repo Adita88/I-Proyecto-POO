@@ -9,11 +9,6 @@ package controlador;
 
 import modelo.*;
 import modelo.TFalla;
-import java.awt.event.ActionEvent;
-import java.awt.event.AWTEventListener;
-import java.awt.event.ActionListener;
-
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -23,32 +18,23 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import visual.Interfaz2;
 
 /**
- *
+ * Clase Controlador Archivo
  * @author Usuario
  */
-public class ControladorArchivo/**implements ActionListener**/{
+public class ControladorArchivo{
     
     private String nombreArchivo = "tablaSismos.xlsx";
     private String rutaArchivo = "C:\\Users\\Usuario\\Desktop\\primerProyectoPOO\\" + nombreArchivo;
     private String hoja = "Hoja1";
-    modelo.Archivo ModeloEx = new modelo.Archivo();
-    Interfaz2 VistaEx = new Interfaz2();
-    JFileChooser seleccionaArchivo = new JFileChooser();
     File archivo;
     int contador = 0;
     
@@ -273,83 +259,6 @@ public class ControladorArchivo/**implements ActionListener**/{
         }
         return listaSismos;
     }
-    
-    
-//    /**
-//     * 
-//     * @param VistaEx
-//     * @param ModeloEx 
-//     */
-//    public ControladorArchivo(Interfaz2 VistaEx, modelo.Archivo ModeloEx){
-//        this.VistaEx = VistaEx;
-//        this.ModeloEx = ModeloEx;
-//        this.VistaEx.btnImportar.addActionListener(this);
-//        //this.VistaEx.btnExportar.addActionListener(this);
-//        VistaEx.setVisible(true);
-//        VistaEx.setLocationRelativeTo(null);
-//    }
-//    
-//    /**
-//     * 
-//     */
-//    public void AgregarFiltro(){
-//        seleccionaArchivo.setFileFilter(new FileNameExtensionFilter("Excel ('.xls)", "xls"));
-//        seleccionaArchivo.setFileFilter(new FileNameExtensionFilter("Excel ('.xlsx)", "xlsx"));
-//    }
-//    
-//    @Override
-//    public void actionPerformed(ActionEvent e){
-//        contador ++;
-//        if(contador == 1 )AgregarFiltro();
-//        
-//        if(e.getSource()==VistaEx.btnImportar){
-//            archivo = new File("C:\\Users\\Usuario\\Desktop\\primerProyectoPOO\\tablaSismos.xlsx");
-//                
-//                if(seleccionaArchivo.getName(archivo).endsWith("xls")){
-//                    
-//                    ModeloEx.Importar(archivo, VistaEx.datosExcel);
-//                } else if(archivo.getName().endsWith("xlsx")){
-//                    ModeloEx.Importar(archivo, VistaEx.datosExcel);
-//                } else {
-//                    
-//                    JOptionPane.showMessageDialog(null, "Seleccionar formato valido");
-//                }
-//         }
-//            
-//            
-//    }
-    
-    
-//    public void llenarTabla(){
-//        String titulos [] = {"Fecha y hora", "Profundidad", "Origen", "Detalle Falla", "Magnitud", "Latitud", "Longitud", "Localización", "Lugar", "Provincia"};
-//        String información[][] = obtieneMatriz;
-//        
-//        TablaTodosSismos.setEnable(false);
-//        TablaTodosSismos.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-//        TablaTodosSismos.setViewportView(TablaTodosSismos);
-//    }
-//    
-//    private String[][] obtieneMAtriz() {
-//        Sismo unSismo = new Sismo();
-//        
-//        Arraylist<Sismo> listaSismo = unSismo.buscarUsuariosconMatriz();
-//        String informacion[][] = new String [listaSismo.size()][10];
-//        
-//        for(int x = 0; x < informacion.length; x++){
-//            informacion[x][0] = listaSismo.get(x).getMomentoExcato() + "";
-//            informacion[x][1] = listaSismo.get(x).profundidad() + "";
-//            informacion[x][2] = listaSismo.get(x).getMomentoExcato() + "";
-//            informacion[x][3] = listaSismo.get(x).getMomentoExcato() + "";
-//            informacion[x][4] = listaSismo.get(x).getMomentoExcato() + "";
-//            informacion[x][5] = listaSismo.get(x).getMomentoExcato() + "";
-//            informacion[x][6] = listaSismo.get(x).getMomentoExcato() + "";
-//            informacion[x][7] = listaSismo.get(x).getMomentoExcato() + "";
-//            informacion[x][8] = listaSismo.get(x).getMomentoExcato() + "";
-//            informacion[x][9] = listaSismo.get(x).getMomentoExcato() + "";
-//            
-//        }
-//        return informacion;
-//    }
   
  }
     
