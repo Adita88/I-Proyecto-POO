@@ -105,6 +105,10 @@ public class Interfaz extends javax.swing.JFrame {
                 JComboBox comp = (JComboBox) componente;
                 comp.setSelectedIndex(0);
             }
+            else if(componente instanceof JFormattedTextField){
+                JFormattedTextField comp = (JFormattedTextField) componente;
+                comp.setText("");
+            }
         }
     }
     
@@ -689,9 +693,17 @@ public class Interfaz extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10"
+                "#", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8", "Title 9", "Title 10"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         panelScroll_VentanaInetermediaria.setViewportView(TablaTodosSismos);
 
         botonNuevoSismo_VentanaIntermedia1.setBackground(new java.awt.Color(29, 53, 87));
@@ -2616,6 +2628,8 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_inputLatitudFormated_NuevoSismo_UbicacionActionPerformed
 
     private void botonNuevoSismo_VentanaIntermediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoSismo_VentanaIntermediaActionPerformed
+        ocultarPanelesExceptoEste(NuevoSismo_Fecha, true);
+        ocultarPanelesExceptoEste(NuevoSismo_UbicacionMapa, true);
         ocultarPanelesExceptoEste(NuevoSismo, true);
         cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
     }//GEN-LAST:event_botonNuevoSismo_VentanaIntermediaActionPerformed
