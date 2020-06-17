@@ -45,6 +45,38 @@ public class Grafico {
 
     public Grafico() {
     }
+
+    public Grafico(BufferedImage _image, JFreeChart grafico, Dimension d) {
+        this._image = _image;
+        this.grafico = grafico;
+        this.d = d;
+    }
+
+    public void setImage(BufferedImage _image) {
+        this._image = _image;
+    }
+
+    public void setGrafico(JFreeChart grafico) {
+        this.grafico = grafico;
+    }
+
+    public void setD(Dimension d) {
+        this.d = d;
+    }
+
+    public BufferedImage getImage() {
+        return _image;
+    }
+
+    public JFreeChart getGrafico() {
+        return grafico;
+    }
+
+    public Dimension getD() {
+        return d;
+    }
+    
+    
     
     /**
      * Crea el grafico de barras

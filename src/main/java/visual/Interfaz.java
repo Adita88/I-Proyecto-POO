@@ -1392,7 +1392,7 @@ public class Interfaz extends javax.swing.JFrame {
                 .addGroup(NuevoSismo_FechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(inputDiaFormated_NuevoSismo_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inputHoraFormated_NuevoSismo_Fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 238, Short.MAX_VALUE)
                 .addGroup(NuevoSismo_FechaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonAceptar_NuevoSismo_Fecha)
                     .addComponent(botonSalir_NuevoSismo_Fecha))
@@ -1904,7 +1904,7 @@ public class Interfaz extends javax.swing.JFrame {
                 .addComponent(textTitulo_RegistroSismos_B, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_RegistroSismos_B, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addGroup(RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textProvincia_RegistroSismos_B, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, RegistroSismos_BLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -2186,19 +2186,19 @@ public class Interfaz extends javax.swing.JFrame {
             panel_RegistroSismos_ELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
             .addGroup(panel_RegistroSismos_ELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panel_RegistroSismos_ELayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_RegistroSismos_ELayout.createSequentialGroup()
+                    .addContainerGap(139, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addContainerGap(139, Short.MAX_VALUE)))
         );
         panel_RegistroSismos_ELayout.setVerticalGroup(
             panel_RegistroSismos_ELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 291, Short.MAX_VALUE)
             .addGroup(panel_RegistroSismos_ELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(panel_RegistroSismos_ELayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel_RegistroSismos_ELayout.createSequentialGroup()
+                    .addContainerGap(12, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(75, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout RegistroSismos_ELayout = new javax.swing.GroupLayout(RegistroSismos_E);
@@ -2225,7 +2225,7 @@ public class Interfaz extends javax.swing.JFrame {
                 .addComponent(textTitulo_RegistroSismos_E, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(panel_RegistroSismos_E, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 139, Short.MAX_VALUE)
                 .addGroup(RegistroSismos_ELayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonRegresar_RegistroSismos_E)
                     .addComponent(botonSalir_RegistroSismos_E))
@@ -2257,6 +2257,8 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void botonNuevoSismo_InicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoSismo_InicioActionPerformed
         ocultarPanelesExceptoEste(VentanaIntermedia,true);
+        TablaTodosSismos.clearSelection();
+        TablaTodosSismos.removeAll();
         cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
     }//GEN-LAST:event_botonNuevoSismo_InicioActionPerformed
 
@@ -2360,9 +2362,8 @@ public class Interfaz extends javax.swing.JFrame {
             
         elSistema.nuevoSismo(momentoExacto, profundidad, origenFalla, detalleFalla, magnitud, latitud, longitud, descripcionDetallada, lugar, provincia);
 //        System.out.println("Lat: "+ latitud+"\nLog: "+longitud);
-        
+        cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
         ocultarPanelesExceptoEste(VentanaIntermedia);
-        //cargarValoresATablaSismos(elSistema.getcSismos().getSismosOrdenadosFecha(true));
         }
     }//GEN-LAST:event_botonAceptar_NuevoSismoActionPerformed
 
@@ -2382,7 +2383,7 @@ public class Interfaz extends javax.swing.JFrame {
         ocultarPanelesExceptoEste(VentanaIntermedia);
         //cargarValoresATablaSismos(elSistema.getcSismos().getSismosOrdenadosFecha(true));
         TablaTodosSismos.removeAll();
-        cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
+        //cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
     }//GEN-LAST:event_botonRegresar_NuevoSismoActionPerformed
 
     private void botonAceptar_ConfirmarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar_ConfirmarSalidaActionPerformed
@@ -2616,6 +2617,8 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void botonRegresar_VentanaIntermediaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonRegresar_VentanaIntermediaActionPerformed
         ocultarPanelesExceptoEste(Inicio);
+        TablaTodosSismos.clearSelection();
+        TablaTodosSismos.removeAll();
     }//GEN-LAST:event_botonRegresar_VentanaIntermediaActionPerformed
 
     private void botonSalir_NuevoSismo_Ubicacion1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir_NuevoSismo_Ubicacion1ActionPerformed
@@ -2634,7 +2637,6 @@ public class Interfaz extends javax.swing.JFrame {
         ocultarPanelesExceptoEste(NuevoSismo_Fecha, true);
         ocultarPanelesExceptoEste(NuevoSismo_UbicacionMapa, true);
         ocultarPanelesExceptoEste(NuevoSismo, true);
-       //cargarValoresATablaSismos(controlador.ControladorArchivo.listaSismos());
     }//GEN-LAST:event_botonNuevoSismo_VentanaIntermediaActionPerformed
 
     private void botonNuevoSismo_VentanaIntermedia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoSismo_VentanaIntermedia1ActionPerformed
@@ -2757,7 +2759,7 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void botonMostrar_RegistroSismos_CActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMostrar_RegistroSismos_CActionPerformed
         try {
-            SimpleDateFormat formato =new SimpleDateFormat("dd/MM/yyyy");
+            SimpleDateFormat formato =new SimpleDateFormat("dd/MM/yy");
             Date fecha;
             Date fecha2;
             

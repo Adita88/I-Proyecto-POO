@@ -6,6 +6,7 @@
 
 package controlador;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import modelo.*;
@@ -198,7 +199,7 @@ public class ControladorGraficos {
             if (fecha.before(fecha2)){
                 
                 if (lista.get(i).getMomentoExacto().after(fecha) && lista.get(i).getMomentoExacto().before(fecha2)){
-                    System.out.println("paso por aqui");
+                    
                     contador += 1;
                 }
             } else {
