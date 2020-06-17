@@ -291,6 +291,28 @@ public class Interfaz extends javax.swing.JFrame {
         jTableSismoporFecha.setModel(tabla3);
     }
     
+    private boolean comprobarLatLong_NuevoSismo(){
+        boolean banderaError=false;        
+        try{
+            String stringLong= inputLongitudFormated_NuevoSismo_Ubicacion.getText();
+            double longitud= Double.parseDouble(stringLong);
+            if(longitud< -180||longitud> 180) throw new NumberFormatException();
+        } catch (NumberFormatException error){
+            JOptionPane.showMessageDialog(MensajeError_NuevoSismo, "Longitud no valida.");
+            banderaError=true;
+        }
+        
+        try{
+            String stringLat= inputLatitudFormated_NuevoSismo_Ubicacion.getText();
+            double latitud= Double.parseDouble(stringLat);
+            if(latitud< -90||latitud> 90) throw new NumberFormatException();
+        } catch (NumberFormatException error){
+            JOptionPane.showMessageDialog(MensajeError_NuevoSismo, "Latitud no valida.");
+            banderaError=true;
+        }
+        return !banderaError;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1383,9 +1405,12 @@ public class Interfaz extends javax.swing.JFrame {
         textLatitud_NuevoSismo_Ubicacion.setText("Latitud:");
 
         try {
-            inputLatitudFormated_NuevoSismo_Ubicacion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.######")));
+            MaskFormatter formatter = new MaskFormatter("*##.######");
+            formatter.setValidCharacters("0123456789-+");
+            inputLatitudFormated_NuevoSismo_Ubicacion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(formatter));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(MensajeError_NuevoSismo, "Latitud no valida.");
         }
         inputLatitudFormated_NuevoSismo_Ubicacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1398,7 +1423,7 @@ public class Interfaz extends javax.swing.JFrame {
         textLongitud_NuevoSismo_Ubicacion.setText("Longitud:");
 
         try {
-            inputLongitudFormated_NuevoSismo_Ubicacion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.######")));
+            inputLongitudFormated_NuevoSismo_Ubicacion.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("*###.######")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
@@ -2385,25 +2410,9 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_inputHoraFormated_NuevoSismo_FechaActionPerformed
 
     private void botonAceptar_NuevoSismo_UbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptar_NuevoSismo_UbicacionActionPerformed
-        boolean banderaError=false;        
-        try{
-            String stringLong= inputLongitudFormated_NuevoSismo_Ubicacion.getText();
-            double longitud= Double.parseDouble(stringLong);
-        } catch (NumberFormatException error){
-            JOptionPane.showMessageDialog(MensajeError_NuevoSismo, "Longitud no valida.");
-            banderaError=true;
-        }
-        
-        try{
-            String stringLat= inputLatitudFormated_NuevoSismo_Ubicacion.getText();
-            double latitud= Double.parseDouble(stringLat);
-        } catch (NumberFormatException error){
-            JOptionPane.showMessageDialog(MensajeError_NuevoSismo, "Latitud no valida.");
-            banderaError=true;
-        }
-        ocultarPanelesExceptoEste(NuevoSismo);
+        if(comprobarLatLong_NuevoSismo()) ocultarPanelesExceptoEste(NuevoSismo);
     }//GEN-LAST:event_botonAceptar_NuevoSismo_UbicacionActionPerformed
-
+    
     private void botonSalir_NuevoSismo_UbicacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonSalir_NuevoSismo_UbicacionActionPerformed
         cerrarPrograma();
     }//GEN-LAST:event_botonSalir_NuevoSismo_UbicacionActionPerformed
@@ -2756,23 +2765,7 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_botonMostrar_RegistroSismos_CActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        boolean banderaError=false;        
-        try{
-            String stringLong= inputLongitudFormated_NuevoSismo_Ubicacion.getText();
-            double longitud= Double.parseDouble(stringLong);
-        } catch (NumberFormatException error){
-            JOptionPane.showMessageDialog(MensajeError_NuevoSismo, "Longitud no valida.");
-            banderaError=true;
-        }
-        
-        try{
-            String stringLat= inputLatitudFormated_NuevoSismo_Ubicacion.getText();
-            double latitud= Double.parseDouble(stringLat);
-        } catch (NumberFormatException error){
-            JOptionPane.showMessageDialog(MensajeError_NuevoSismo, "Latitud no valida.");
-            banderaError=true;
-        }
-        
+        comprobarLatLong_NuevoSismo();
     }//GEN-LAST:event_jButton1ActionPerformed
     
 

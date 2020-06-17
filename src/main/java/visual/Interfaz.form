@@ -1820,8 +1820,8 @@
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="inputLatitudFormated_NuevoSismo_Ubicacion">
               <Properties>
-                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                  <Format format="###.######" subtype="-1" type="5"/>
+                <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.RADConnectionPropertyEditor" preCode="try {&#xa;MaskFormatter formatter = new MaskFormatter(&quot;*##.######&quot;);&#xa;formatter.setValidCharacters(&quot;0123456789-+&quot;);" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;JOptionPane.showMessageDialog(MensajeError_NuevoSismo, &quot;Latitud no valida.&quot;);&#xa;}">
+                  <Connection code="new javax.swing.text.DefaultFormatterFactory(formatter)" type="code"/>
                 </Property>
               </Properties>
               <Events>
@@ -1842,7 +1842,7 @@
             <Component class="javax.swing.JFormattedTextField" name="inputLongitudFormated_NuevoSismo_Ubicacion">
               <Properties>
                 <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
-                  <Format format="###.######" subtype="-1" type="5"/>
+                  <Format format="*###.######" subtype="-1" type="5"/>
                 </Property>
               </Properties>
               <Events>
